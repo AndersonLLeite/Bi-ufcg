@@ -1,0 +1,16 @@
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/bi_ufcg
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.smcbin
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/version.json
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/ufcgLogo.png
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/dashboard.jpg
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/profile.png
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/flutterLogo.png
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/anderson/Documentos/BI UFCG/bi_ufcg/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json

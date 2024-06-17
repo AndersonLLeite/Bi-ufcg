@@ -1,0 +1,28 @@
+# ninja log v5
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/libflutter_linux_gtk.so	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_basic_message_channel.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_binary_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_binary_messenger.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_dart_project.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_engine.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_json_message_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_json_method_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_message_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_method_call.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_method_channel.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_method_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_method_response.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_plugin_registrar.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_plugin_registry.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_standard_message_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_standard_method_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_string_codec.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_value.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/fl_view.h	e76eecafe344868b
+0	70296	0	/home/anderson/Documentos/BI UFCG/bi_ufcg/linux/flutter/ephemeral/flutter_linux/flutter_linux.h	e76eecafe344868b
+0	70296	0	flutter/_phony_	e76eecafe344868b
+70322	76465	1718650102567843909	CMakeFiles/bi_ufcg.dir/flutter/generated_plugin_registrant.cc.o	c580c0e64174fe90
+70321	76807	1718650102915849500	CMakeFiles/bi_ufcg.dir/main.cc.o	858b76d657733290
+70322	77065	1718650103167853548	CMakeFiles/bi_ufcg.dir/my_application.cc.o	4aad6a62d23da361
+77065	79513	1718650105623893007	intermediates_do_not_run/bi_ufcg	46e4277d974ffa09
+79513	80427	0	CMakeFiles/install.util	8c582f0edd375364
