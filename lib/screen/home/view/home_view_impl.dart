@@ -1,6 +1,8 @@
 import 'package:bi_ufcg/core/ui/helpers/loader.dart';
 import 'package:bi_ufcg/core/ui/helpers/messages.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/course.dart';
 import '../../../models/student.dart';
@@ -15,11 +17,6 @@ abstract class HomeViewImpl extends State<HomePage>
   List<Course> selecteCourses = [];
   List<String> terms = [];
   List<String> selectedTerms = [];
-  Map<String, int> enrollmentEvolution = {};
-  Map<String, Map<String, int>> genderDistribution = {};
-  Map<String, Map<String, int>> ageDistribution = {};
-  Map<String, Map<String, int>> affirmativePolicyDistribution = {};
-  Map<String, Map<String, int>> activeInactiveDistribution = {};
 
   @override
   void initState() {
@@ -109,46 +106,36 @@ abstract class HomeViewImpl extends State<HomePage>
 
   @override
   void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
-    setState(() {
-      this.enrollmentEvolution = enrollmentEvolution;
-    });
-    print('updateEnrollmentEvolution: ${this.enrollmentEvolution}');
+    context.read<Data>().updateEnrollmentEvolution(enrollmentEvolution);
   }
 
   @override
   void updateGenderDistribution(
       Map<String, Map<String, int>> genderDistribution) {
-    setState(() {
-      this.genderDistribution = genderDistribution;
-    });
-    print('updateGenderDistribution: ${this.genderDistribution}');
+    context.read<Data>().updateGenderDistribution(genderDistribution);
   }
 
   @override
   void updateAgeDistribution(Map<String, Map<String, int>> ageDistribution) {
-    setState(() {
-      this.ageDistribution = ageDistribution;
-    });
-    print('updateAgeDistribution: ${this.ageDistribution}');
+    context.read<Data>().updateAgeDistribution(ageDistribution);
+    print('updateAgeDistribution: $ageDistribution');
   }
 
   @override
   void updateAffirmativePolicyDistribution(
       Map<String, Map<String, int>> affirmativePolicyDistribution) {
-    setState(() {
-      this.affirmativePolicyDistribution = affirmativePolicyDistribution;
-    });
+    context
+        .read<Data>()
+        .updateAffirmativePolicyDistribution(affirmativePolicyDistribution);
     print(
-        'updateAffirmativePolicyDistribution: ${this.affirmativePolicyDistribution}');
+        'updateAffirmativePolicyDistribution: $affirmativePolicyDistribution');
   }
 
   @override
   void updateActiveInactiveDistribution(
       Map<String, Map<String, int>> activeInactiveDistribution) {
-    setState(() {
-      this.activeInactiveDistribution = activeInactiveDistribution;
-    });
-    print(
-        'updateActiveInactiveDistribution: ${this.activeInactiveDistribution}');
+    context
+        .read<Data>()
+        .updateActiveInactiveDistribution(activeInactiveDistribution);
   }
 }

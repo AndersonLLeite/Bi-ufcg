@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../resource/app_colors.dart';
 import '../custom_app_bar.dart';
-import '../../widget/responsive_layout.dart';
+import '../../charts/responsive_layout.dart';
 import '../drawer_screen.dart';
 import '../panel_center_screen.dart';
 import '../panel_left_screen.dart';
@@ -44,17 +44,17 @@ class _HomePageState extends HomeViewImpl {
       body: ResponsiveLayout(
         tiny: Container(),
         phone: currentIndex == 0
-            ? const PanelLeftScreen()
+            ? PanelLeftScreen()
             : currentIndex == 1
                 ? const PanelCenterScreen()
                 : const PanelRightScreen(),
-        tablet: const Row(
+        tablet: Row(
           children: [
             Expanded(child: PanelLeftScreen()),
-            Expanded(child: PanelRightScreen())
+            const Expanded(child: PanelRightScreen())
           ],
         ),
-        largeTablet: const Row(
+        largeTablet: Row(
           children: [
             Expanded(child: PanelLeftScreen()),
             Expanded(child: PanelCenterScreen()),
@@ -64,14 +64,15 @@ class _HomePageState extends HomeViewImpl {
         computer: Row(
           children: [
             Expanded(
+                flex: 3,
                 child: DrawerScreen(
                     courses: listCourses,
                     homePresenter: widget.presenter,
                     indexSelected: menuIndexSelected,
                     terms: terms)),
-            Expanded(child: PanelLeftScreen()),
-            Expanded(child: PanelCenterScreen()),
-            Expanded(child: PanelRightScreen())
+            Expanded(flex: 5, child: PanelLeftScreen()),
+            Expanded(flex: 5, child: PanelCenterScreen()),
+            Expanded(flex: 5, child: PanelRightScreen())
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
 import 'package:bi_ufcg/service/course_data_service/course_data_service.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 
 import '../view/home_view.dart';
 import 'home_presenter.dart';
@@ -10,8 +11,10 @@ class HomePresenterImpl implements HomePresenter {
   CourseDataService courseDataService;
   late HomeView _view;
 
-  HomePresenterImpl(
-      {required this.dataRepository, required this.courseDataService});
+  HomePresenterImpl({
+    required this.dataRepository,
+    required this.courseDataService,
+  });
 
   @override
   set view(HomeView view) {
@@ -49,13 +52,6 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   void attDataBase(List<Course> courses, List<String> terms) {
-    if (terms.isEmpty) {
-      _view.message('Selecione um periodo');
-      return;
-    } else if (courses.isEmpty) {
-      _view.message('Selecione um curso');
-      return;
-    }
     _view.updateEnrollmentEvolution(
         courseDataService.getEnrollmentEvolution(courses, terms));
     _view.updateGenderDistribution(

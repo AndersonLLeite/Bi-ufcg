@@ -1,9 +1,9 @@
-import 'package:bi_ufcg/widget/bar_chart_evasion.dart';
+import 'package:bi_ufcg/charts/bar_chart_evasion.dart';
 import 'package:flutter/material.dart';
 
 import '../resource/app_colors.dart';
 import '../resource/app_padding.dart';
-import '../widget/charts.dart';
+import '../charts/charts.dart';
 
 class Product {
   String name;

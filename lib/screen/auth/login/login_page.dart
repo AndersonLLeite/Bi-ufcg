@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 
-import '../../../widget/button.dart';
+import '../../../charts/button.dart';
 
 class LoginPage extends StatefulWidget {
   final LoginPresenter presenter;

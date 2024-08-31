@@ -8,7 +8,7 @@ class CustomDio {
 
   CustomDio()
       : dio = Dio(BaseOptions(
-          baseUrl: Env.i['backend_base_url'] ?? '',
+          baseUrl: 'https://pre.ufcg.edu.br:8443/',
           connectTimeout: const Duration(milliseconds: 5000),
           receiveTimeout: const Duration(milliseconds: 60000),
         )) {

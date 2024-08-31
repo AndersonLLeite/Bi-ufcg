@@ -3,7 +3,7 @@ import 'package:bi_ufcg/resource/app_padding.dart';
 import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
 import 'package:flutter/material.dart';
 
-import '../widget/responsive_layout.dart';
+import '../charts/responsive_layout.dart';
 
 List<String> _buttonNames = ["Cursos", "Periodos"];
 int _currentSelectedButton = 0;
@@ -64,33 +64,87 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           ]),
                     )))
           else
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.P10 * 2),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    _buttonNames[_currentSelectedButton],
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(AppPadding.P10 / 2),
-                    width: 60,
-                    height: 2,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.red,
-                          AppColors.orange,
-                        ],
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(AppPadding.P10 * 2),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _currentSelectedButton = 0;
+                            widget.presenter.changeIndexMenu(0);
+                          });
+                        },
+                        child: Text(
+                          _buttonNames[0],
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _currentSelectedButton == 0
+                                ? Colors.white
+                                : Colors.white70,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    Container(
+                      margin: const EdgeInsets.all(AppPadding.P10 / 2),
+                      width: 60,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        gradient: _currentSelectedButton == 0
+                            ? const LinearGradient(
+                                colors: [
+                                  AppColors.red,
+                                  AppColors.orange,
+                                ],
+                              )
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(AppPadding.P10 * 2),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _currentSelectedButton = 1;
+                            widget.presenter.changeIndexMenu(1);
+                          });
+                        },
+                        child: Text(
+                          _buttonNames[1],
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _currentSelectedButton == 1
+                                ? Colors.white
+                                : Colors.white70,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(AppPadding.P10 / 2),
+                      width: 60,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        gradient: _currentSelectedButton == 1
+                            ? const LinearGradient(
+                                colors: [
+                                  AppColors.red,
+                                  AppColors.orange,
+                                ],
+                              )
+                            : null,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           if (ResponsiveLayout.isComputer(context))
             Container(

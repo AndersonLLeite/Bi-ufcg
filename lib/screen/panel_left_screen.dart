@@ -2,9 +2,9 @@ import 'package:bi_ufcg/resource/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../resource/app_padding.dart';
-import '../widget/charts.dart';
-import '../widget/pie_chart.dart';
-import '../widget/responsive_layout.dart';
+import '../charts/charts.dart';
+import '../charts/pie_chart.dart';
+import '../charts/responsive_layout.dart';
 
 class Todo {
   String name;
@@ -13,7 +13,7 @@ class Todo {
 }
 
 class PanelLeftScreen extends StatefulWidget {
-  const PanelLeftScreen({super.key});
+  PanelLeftScreen({super.key});
 
   @override
   State<PanelLeftScreen> createState() => _PanelLeftScreenState();

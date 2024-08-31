@@ -3,7 +3,7 @@ import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
 import 'package:flutter/material.dart';
 import '../resource/app_colors.dart';
 import '../resource/app_padding.dart';
-import '../widget/responsive_layout.dart';
+import '../charts/responsive_layout.dart';
 
 class DrawerScreen extends StatefulWidget {
   List<Course> courses = [];
@@ -100,21 +100,28 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 style: const TextStyle(color: Colors.white),
                               ),
                               onTap: () {
-                                setState(() {
-                                  if (termSelectedIndexes.length >= 4) {
-                                    widget.homePresenter.showError(
-                                        'Você só pode selecionar até 4 períodos');
-                                  } else if (termSelectedIndexes
-                                      .contains(index)) {
+                                if (termSelectedIndexes.length >= 4) {
+                                  if (termSelectedIndexes.contains(index)) {
                                     termSelectedIndexes.remove(index);
                                     widget.homePresenter
                                         .removeTerm(widget.terms[index]);
                                   } else {
-                                    termSelectedIndexes.add(index);
-                                    widget.homePresenter
-                                        .attDataByTerm(widget.terms[index]);
+                                    widget.homePresenter.showError(
+                                        'Você só pode selecionar até 4 períodos');
                                   }
-                                });
+                                } else {
+                                  setState(() {
+                                    if (termSelectedIndexes.contains(index)) {
+                                      termSelectedIndexes.remove(index);
+                                      widget.homePresenter
+                                          .removeTerm(widget.terms[index]);
+                                    } else {
+                                      termSelectedIndexes.add(index);
+                                      widget.homePresenter
+                                          .attDataByTerm(widget.terms[index]);
+                                    }
+                                  });
+                                }
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/ui/styles/colors_app.dart';
 import '../../core/ui/styles/text_styles.dart';
-import '../../widget/button.dart';
+import '../../charts/button.dart';
 
 class SplashPage extends StatefulWidget {
   final SplashPresenter presenter;

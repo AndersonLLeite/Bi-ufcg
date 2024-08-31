@@ -1,16 +1,16 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class Env {
-  static Env? _instance;
+// class Env {
+//   static Env? _instance;
 
-  Env._();
+//   Env._();
 
-  static Env get i {
-    _instance ??= Env._();
-    return _instance!;
-  }
+//   static Env get i {
+//     _instance ??= Env._();
+//     return _instance!;
+//   }
 
-  Future<void> load() => dotenv.load(fileName: '.env');
+//   Future<void> load() => dotenv.load(fileName: 'assets/.env');
 
-  String? operator [](String key) => dotenv.env[key];
-}
+//   String? operator [](String key) => dotenv.env[key];
+// }
