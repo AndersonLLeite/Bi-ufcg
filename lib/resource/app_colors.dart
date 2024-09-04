@@ -29,4 +29,9 @@ class AppColors {
 
   static const Color maleColor = Color(0xFF2196F3);
   static const Color femaleColor = Color.fromARGB(255, 255, 0, 170);
+
+  static const Color chartIconSelectedColor = Color(0xFF2196F3);
+  static const Color chartIconUnselectedColor = Colors.white;
+  static const Color chartTitleColor = Colors.white;
+  static const Color chartSubtitleColor = Colors.white70;
 }

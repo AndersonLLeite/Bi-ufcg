@@ -1,11 +1,9 @@
-import 'package:bi_ufcg/core/ui/styles/button_styles.dart';
 import 'package:bi_ufcg/screen/splash/presenter/splash_presenter.dart';
 import 'package:bi_ufcg/screen/splash/view/splash_view_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/styles/colors_app.dart';
 import '../../core/ui/styles/text_styles.dart';
-import '../../charts/button.dart';
 
 class SplashPage extends StatefulWidget {
   final SplashPresenter presenter;
@@ -50,10 +48,11 @@ class _SplashPageState extends SplashViewImpl {
                   ),
                 ),
                 SizedBox(height: 20),
-                Button(
-                  style: ButtonStyles.instance.primaryButton,
-                  labelStyle: TextStyles.instance.textPrimaryFontExtraBold,
-                  label: 'Entrar',
+                ElevatedButton(
+                  child: Text(
+                    'Entrar',
+                    style: TextStyles.instance.buttonTitle,
+                  ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
                   },

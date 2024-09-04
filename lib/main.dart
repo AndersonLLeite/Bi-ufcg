@@ -5,7 +5,6 @@ import 'package:bi_ufcg/screen/auth/login/login_route.dart';
 import 'package:bi_ufcg/screen/home/home_page.dart';
 import 'package:bi_ufcg/screen/home/home_route.dart';
 import 'package:bi_ufcg/screen/splash/view/splash_route.dart';
-import 'package:bi_ufcg/widget_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:provider/provider.dart';

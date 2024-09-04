@@ -1,13 +1,17 @@
-import 'package:bi_ufcg/charts/social_parameters_charts/bar_chart_affirmativePolicyDistribuition.dart';
-import 'package:bi_ufcg/charts/social_parameters_charts/line_chart_affirmative_policy_distribuition.dart';
-import 'package:bi_ufcg/charts/social_parameters_charts/pie_chart_affirmative_policy_distribution.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/distribuition/age_distribuition_charts.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/chart/bar_chart_affirmative_policy_distribuition.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/distribuition/gender_distribuition_charts.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/chart/line_chart_affirmative_policy_distribuition.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/chart/line_chart_age_distribuition.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/chart/pie_chart_affirmative_policy_distribution.dart';
+import 'package:bi_ufcg/charts/social_parameters_charts/distribuition/policy_distribuition_charts.dart';
 import 'package:flutter/material.dart';
 
 import '../resource/app_colors.dart';
 import '../resource/app_padding.dart';
-import '../charts/social_parameters_charts/bar_chart_grouped_gender.dart';
+import '../charts/social_parameters_charts/chart/bar_chart_grouped_gender.dart';
 import '../charts/pie_chart.dart';
-import '../charts/pie_chart_age.dart';
+import '../charts/social_parameters_charts/chart/pie_chart_age.dart';
 
 class Person {
   String name;
@@ -67,13 +71,15 @@ class _PanelCenterScreenState extends State<PanelCenterScreen> {
                     ),
                   )),
             ),
-
-            const PieChartAffirmativePolicyDistribution(),
-            const BarChartAffirmativePolicyDistribution(),
-            const BarChartGroupedGender(),
-            const LineChartAffirmativePolicyEvolution(),
-
-            const PieChartAge(),
+            const AgeDistributionCharts(),
+            // const PieChartAge(),
+            // const LineChartAgeDistribution(),
+            const GenderDistribuitionCharts(),
+            const PolicyDistribuitionCharts()
+            //const BarChartGroupedGender(),
+            // const LineChartAffirmativePolicyEvolution(),
+            // const PieChartAffirmativePolicyDistribution(),
+            // const BarChartAffirmativePolicyDistribution(),
 
             // Padding(
             //   padding: const EdgeInsets.only(

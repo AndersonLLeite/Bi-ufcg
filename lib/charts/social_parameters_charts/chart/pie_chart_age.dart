@@ -1,19 +1,18 @@
 import 'package:bi_ufcg/resource/app_colors.dart';
 import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PieChartAffirmativePolicyDistribution extends StatefulWidget {
-  const PieChartAffirmativePolicyDistribution({super.key});
+class PieChartAge extends StatefulWidget {
+  const PieChartAge({super.key});
 
   @override
-  State<StatefulWidget> createState() =>
-      _PieChartAffirmativePolicyDistributionState();
+  State<StatefulWidget> createState() => PieChartAgeState();
 }
 
-class _PieChartAffirmativePolicyDistributionState
-    extends State<PieChartAffirmativePolicyDistribution> {
+class PieChartAgeState extends State<PieChartAge> {
   int touchedIndex = -1;
   bool showPercentage = true;
 
@@ -27,53 +26,10 @@ class _PieChartAffirmativePolicyDistributionState
         duration: const Duration(milliseconds: 700),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,
-        child: data.affirmativePolicyDistribution.isEmpty
-            ? Container(
-                key: const ValueKey('no_data'),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.data_usage_outlined,
-                      size: 100,
-                      color: Colors.grey.shade300,
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Nenhum dado disponível',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Por favor, adicione pelo menos 1 curso e 1 período para visualizar os dados.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+        child: data.ageDistribution.isEmpty
+            ? const WidgetNoData()
             : Card(
-                key: const ValueKey('chart'),
+                key: const ValueKey('chart'), // Chave para o gráfico
                 color: AppColors.purpleLight,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -84,13 +40,11 @@ class _PieChartAffirmativePolicyDistributionState
                   child: Column(
                     children: [
                       ListTile(
-                        title: const Text(
-                          "Distribuição por Política Afirmativa",
-                          style: TextStyle(color: Colors.white),
-                        ),
                         trailing: IconButton(
                           icon: Icon(
-                            showPercentage ? Icons.show_chart : Icons.pie_chart,
+                            showPercentage
+                                ? Icons.percent
+                                : Icons.format_list_numbered,
                             color: Colors.white,
                           ),
                           onPressed: () {
@@ -141,7 +95,40 @@ class _PieChartAffirmativePolicyDistributionState
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: _buildIndicators(data),
+                            children: const <Widget>[
+                              Indicator(
+                                color: Color(0xff0293ee),
+                                text: '16-20',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color(0xFFFFC300),
+                                text: '21-25',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color(0xffff5182),
+                                text: '26-30',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color(0xff13d38e),
+                                text: '30+',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             width: 28,
@@ -156,34 +143,34 @@ class _PieChartAffirmativePolicyDistributionState
     );
   }
 
-  // Cria as seções do gráfico de pizza
   List<PieChartSectionData> showingSections(Data data) {
-    final combinedPolicyData = <String, int>{};
+    // Combina todas as idades de todos os períodos
+    final combinedAgeData = <String, int>{
+      '16-20': 0,
+      '21-25': 0,
+      '26-30': 0,
+      '30+': 0,
+    };
 
-    // Combina todas as políticas afirmativas de todos os períodos
-    data.affirmativePolicyDistribution.forEach((_, policyMap) {
-      policyMap.forEach((policy, count) {
-        if (combinedPolicyData.containsKey(policy)) {
-          combinedPolicyData[policy] = combinedPolicyData[policy]! + count;
-        } else {
-          combinedPolicyData[policy] = count;
-        }
+    data.ageDistribution.forEach((_, ageMap) {
+      ageMap.forEach((ageRange, count) {
+        combinedAgeData[ageRange] = combinedAgeData[ageRange]! + count;
       });
     });
 
-    final total = combinedPolicyData.values.reduce((a, b) => a + b).toDouble();
+    final total = combinedAgeData.values.reduce((a, b) => a + b).toDouble();
 
-    return List.generate(combinedPolicyData.length, (i) {
+    return List.generate(combinedAgeData.length, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 40.0 : 14.0;
-      final radius = isTouched ? 80.0 : 50.0;
+      final fontSize = isTouched ? 25.0 : 14.0;
+      final radius = isTouched ? 60.0 : 50.0;
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
 
-      final entry = combinedPolicyData.entries.elementAt(i);
+      final entry = combinedAgeData.entries.elementAt(i);
       final percentage = (entry.value / total) * 100;
 
       return PieChartSectionData(
-        color: _getColorForPolicy(entry.key), // Utiliza a mesma lógica de cores
+        color: _getSectionColor(i),
         value: entry.value.toDouble(),
         title: showPercentage
             ? '${percentage.toStringAsFixed(1)}%'
@@ -199,36 +186,19 @@ class _PieChartAffirmativePolicyDistributionState
     });
   }
 
-  // Utiliza a mesma função para obter cores
-  Color _getColorForPolicy(String policy) {
-    return Colors.primaries[(policy.hashCode + 100) % Colors.primaries.length];
-  }
-
-  // Constrói os indicadores dinamicamente
-  List<Widget> _buildIndicators(Data data) {
-    final combinedPolicyData = <String, int>{};
-
-    // Combina todas as políticas afirmativas de todos os períodos
-    data.affirmativePolicyDistribution.forEach((_, policyMap) {
-      policyMap.forEach((policy, count) {
-        if (combinedPolicyData.containsKey(policy)) {
-          combinedPolicyData[policy] = combinedPolicyData[policy]! + count;
-        } else {
-          combinedPolicyData[policy] = count;
-        }
-      });
-    });
-
-    return combinedPolicyData.keys.map((policy) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Indicator(
-          color: _getColorForPolicy(policy), // Utiliza a mesma lógica de cores
-          text: policy,
-          isSquare: true,
-        ),
-      );
-    }).toList();
+  Color _getSectionColor(int index) {
+    switch (index) {
+      case 0:
+        return const Color(0xff0293ee); // Cor para 16-20
+      case 1:
+        return const Color(0xFFFFC300); // Cor para 21-25
+      case 2:
+        return const Color(0xffff5182); // Cor para 26-30
+      case 3:
+        return const Color(0xff13d38e); // Cor para 30+
+      default:
+        return Colors.grey;
+    }
   }
 }
 
@@ -238,7 +208,7 @@ class Indicator extends StatelessWidget {
     required this.color,
     required this.text,
     required this.isSquare,
-    this.size = 20,
+    this.size = 16,
     this.textColor = Colors.white70,
   });
   final Color color;

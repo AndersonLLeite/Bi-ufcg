@@ -107,6 +107,7 @@ abstract class HomeViewImpl extends State<HomePage>
   @override
   void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
     context.read<Data>().updateEnrollmentEvolution(enrollmentEvolution);
+    print('updateEnrollmentEvolution: $enrollmentEvolution');
   }
 
   @override

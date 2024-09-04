@@ -120,6 +120,7 @@ class CourseDataServiceImpl implements CourseDataService {
   }
 
   // 5. Distribuição por período de aluno ativo e inativo.
+  @override
   Map<String, Map<String, int>> getActiveInactiveDistribution(
       List<Course> courses, List<String> terms) {
     Map<String, Map<String, int>> activeInactiveDistribution = {};

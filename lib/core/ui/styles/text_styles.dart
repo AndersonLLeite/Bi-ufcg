@@ -1,3 +1,4 @@
+import 'package:bi_ufcg/resource/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'colors_app.dart';
@@ -18,80 +19,20 @@ class TextStyles {
   TextStyle get textPrimaryFontRegular =>
       TextStyle(fontWeight: FontWeight.normal, fontFamily: primaryFont);
 
-  TextStyle get numberPodium => TextStyle(
-      fontWeight: FontWeight.bold,
-      fontFamily: primaryFont,
-      fontSize: 70,
-      color: Colors.white);
-
-  TextStyle get textPrimaryFontMedium =>
-      TextStyle(fontWeight: FontWeight.w500, fontFamily: primaryFont);
-
-  TextStyle get numberListTileClassification => TextStyle(
-        fontWeight: FontWeight.w500,
-        fontFamily: primaryFont,
-      );
-
-  TextStyle get textPointsClassification => TextStyle(
-        fontWeight: FontWeight.bold,
-        fontFamily: primaryFont,
-      );
-
-  TextStyle get textPrimaryFontSemiBold =>
-      TextStyle(fontWeight: FontWeight.w600, fontFamily: primaryFont);
-
-  TextStyle get textPrimaryFontBold =>
+  TextStyle get buttonTitle =>
       TextStyle(fontWeight: FontWeight.bold, fontFamily: primaryFont);
 
-  TextStyle get textTitleSplashPage => TextStyle(
-      fontWeight: FontWeight.bold, fontFamily: primaryFont, fontSize: 35);
-
-  TextStyle get textCardInfo => TextStyle(
+  TextStyle get textTitleChart => TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: primaryFont,
-      color: Colors.black,
-      fontSize: 22);
+      color: AppColors.chartTitleColor,
+      fontSize: 18);
 
-  TextStyle get textSubtitleSplashPage => TextStyle(
-        fontFamily: primaryFont,
-        fontSize: 15,
-      );
-
-  TextStyle get textPrimaryFontExtraBold =>
-      TextStyle(fontWeight: FontWeight.w800, fontFamily: primaryFont);
-
-  //secondary font
-
-  TextStyle get textSecondaryFontRegular =>
-      TextStyle(fontWeight: FontWeight.normal, fontFamily: secondaryFont);
-
-  TextStyle get textSecondaryFontMedium =>
-      TextStyle(fontWeight: FontWeight.w600, fontFamily: secondaryFont);
-
-  TextStyle get textSecondaryFontBold =>
-      TextStyle(fontWeight: FontWeight.bold, fontFamily: secondaryFont);
-
-  TextStyle get textSecondaryFontExtraBold =>
-      TextStyle(fontWeight: FontWeight.w800, fontFamily: secondaryFont);
-
-  TextStyle get labelTextField => textSecondaryFontRegular.copyWith(
-        color: ColorsApp.instance.greyDart,
-      );
-
-  TextStyle get textSecondaryFontExtraBoldPrimaryColor =>
-      textSecondaryFontExtraBold.copyWith(color: ColorsApp.instance.primary);
-
-  TextStyle get titleWhite =>
-      textPrimaryFontBold.copyWith(color: Colors.white, fontSize: 22);
-
-  TextStyle get titleBlack =>
-      textPrimaryFontBold.copyWith(color: Colors.black, fontSize: 22);
-  TextStyle get profilePrimary =>
-      textPrimaryFontBold.copyWith(color: Colors.white, fontSize: 15);
-  TextStyle get profileSecondary => textPrimaryFontBold.copyWith(
-      color: ColorsApp.instance.greyProfile, fontSize: 15);
-  TextStyle get profileName => textPrimaryFontBold.copyWith(
-      color: ColorsApp.instance.greyProfile, fontSize: 15);
+  TextStyle get textSubtitleChart => TextStyle(
+      fontWeight: FontWeight.normal,
+      fontFamily: primaryFont,
+      color: AppColors.chartSubtitleColor,
+      fontSize: 16);
 }
 
 extension TextStylesExtensions on BuildContext {

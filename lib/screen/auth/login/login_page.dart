@@ -1,4 +1,3 @@
-import 'package:bi_ufcg/core/ui/styles/button_styles.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/screen/auth/login/presenter/login_presenter.dart';
@@ -6,8 +5,6 @@ import 'package:bi_ufcg/screen/auth/login/view/login_view_impl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
-
-import '../../../charts/button.dart';
 
 class LoginPage extends StatefulWidget {
   final LoginPresenter presenter;

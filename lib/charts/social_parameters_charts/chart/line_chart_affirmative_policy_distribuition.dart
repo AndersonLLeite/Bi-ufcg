@@ -1,5 +1,6 @@
 import 'package:bi_ufcg/resource/app_colors.dart';
 import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,119 +15,123 @@ class LineChartAffirmativePolicyEvolution extends StatefulWidget {
 
 class _LineChartAffirmativePolicyEvolutionState
     extends State<LineChartAffirmativePolicyEvolution> {
-  bool isCurved = true; // Estado para determinar se o gráfico é curvado
+  bool isCurved = true;
 
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<Data>(context);
 
     if (data.affirmativePolicyDistribution.isEmpty) {
-      return _buildNoDataWidget();
+      return const WidgetNoData();
     }
 
     final periods = data.affirmativePolicyDistribution.keys.toList()
       ..sort((a, b) => double.parse(a).compareTo(double.parse(b)));
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Card(
-        color: AppColors.purpleLight,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 3,
-        child: AspectRatio(
-          aspectRatio: 0.8,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                // Texto acima do gráfico
-                Text(
-                  'Evolução das Políticas Afirmativas',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 10), // Espaço entre o texto e o gráfico
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Espaço para o ícone no canto superior direito
-                    const SizedBox(),
-                    IconButton(
-                      icon: Icon(
-                        isCurved
-                            ? Icons.show_chart // Gráfico curvado
-                            : Icons.straighten, // Gráfico reto
-                        color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Card(
+                      color: AppColors.purpleLight,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isCurved = !isCurved; // Alternar estado
-                        });
-                      },
+                      elevation: 3,
+                      child: AspectRatio(
+                        aspectRatio: 1.1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Expanded(
+                                child: LineChart(
+                                  _buildLineChartData(data, periods),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                Expanded(
-                  child: LineChart(
-                    _buildLineChartData(data, periods),
                   ),
-                ),
-              ],
-            ),
+                  Column(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.show_chart,
+                          color: isCurved ? Colors.blue : Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isCurved = true;
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.straighten,
+                          color: isCurved ? Colors.white : Colors.blue,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isCurved = false;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),
+          _buildLegend(data),
+        ],
       ),
     );
   }
 
-  Widget _buildNoDataWidget() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.data_usage_outlined,
-            size: 100,
-            color: Colors.grey.shade300,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Nenhum dado disponível',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700,
+  Widget _buildLegend(Data data) {
+    final policies = data.affirmativePolicyDistribution.values
+        .expand((map) => map.keys)
+        .toSet()
+        .toList();
+
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 10,
+      runSpacing: 10,
+      children: policies.map((policy) {
+        final color = _getColorForPolicy(policy);
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Por favor, adicione pelo menos 1 curso e 1 período para visualizar os dados.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey.shade500,
+            const SizedBox(width: 5),
+            Text(
+              policy,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }).toList(),
     );
   }
 
@@ -146,9 +151,19 @@ class _LineChartAffirmativePolicyEvolutionState
         ),
       ),
       titlesData: FlTitlesData(
+        topTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: false, // Remover título superior
+          ),
+        ),
+        rightTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: false, // Remover título direito
+          ),
+        ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: true,
+            showTitles: true, // Manter título inferior
             reservedSize: 38,
             getTitlesWidget: (value, meta) {
               final index = value.toInt();
@@ -160,6 +175,7 @@ class _LineChartAffirmativePolicyEvolutionState
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontSize: 11,
                     ),
                   ),
                 );
@@ -170,7 +186,7 @@ class _LineChartAffirmativePolicyEvolutionState
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: true,
+            showTitles: true, // Manter título esquerdo
             reservedSize: 40,
             getTitlesWidget: (value, meta) {
               return Text(
@@ -183,8 +199,6 @@ class _LineChartAffirmativePolicyEvolutionState
             },
           ),
         ),
-        topTitles: AxisTitles(),
-        rightTitles: AxisTitles(),
       ),
       borderData: FlBorderData(
         show: true,
@@ -246,7 +260,7 @@ class _LineChartAffirmativePolicyEvolutionState
     return policyData.entries.map((entry) {
       return LineChartBarData(
         spots: entry.value,
-        isCurved: isCurved, // Utiliza a propriedade isCurved
+        isCurved: isCurved,
         color: _getColorForPolicy(entry.key),
         barWidth: 4,
         isStrokeCapRound: true,
