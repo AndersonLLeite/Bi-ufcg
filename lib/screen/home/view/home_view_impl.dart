@@ -1,3 +1,6 @@
+import 'package:bi_ufcg/components/panel_center_screen.dart';
+import 'package:bi_ufcg/components/panel_left_screen.dart';
+import 'package:bi_ufcg/components/panel_right_screen.dart';
 import 'package:bi_ufcg/core/ui/helpers/loader.dart';
 import 'package:bi_ufcg/core/ui/helpers/messages.dart';
 import 'package:bi_ufcg/service/data/data.dart';
@@ -17,6 +20,8 @@ abstract class HomeViewImpl extends State<HomePage>
   List<Course> selecteCourses = [];
   List<String> terms = [];
   List<String> selectedTerms = [];
+  List<int> courseSelectedIndexes = [];
+  List<int> termSelectedIndexes = [];
 
   @override
   void initState() {
@@ -46,6 +51,44 @@ abstract class HomeViewImpl extends State<HomePage>
   void changeIndexMenu(int index) {
     setState(() {
       menuIndexSelected = index;
+    });
+  }
+
+  @override
+  List<int> getCourseSelectedIndexes() {
+    return courseSelectedIndexes;
+  }
+
+  @override
+  List<int> getTermSelectedIndexes() {
+    return termSelectedIndexes;
+  }
+
+  @override
+  void addCourseSelectIndex(int index) {
+    setState(() {
+      courseSelectedIndexes.add(index);
+    });
+  }
+
+  @override
+  void removeCourseSelectIndex(int index) {
+    setState(() {
+      courseSelectedIndexes.remove(index);
+    });
+  }
+
+  @override
+  void addTermSelectIndex(int index) {
+    setState(() {
+      termSelectedIndexes.add(index);
+    });
+  }
+
+  @override
+  void removeTermSelectIndex(int index) {
+    setState(() {
+      termSelectedIndexes.remove(index);
     });
   }
 
@@ -107,7 +150,6 @@ abstract class HomeViewImpl extends State<HomePage>
   @override
   void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
     context.read<Data>().updateEnrollmentEvolution(enrollmentEvolution);
-    print('updateEnrollmentEvolution: $enrollmentEvolution');
   }
 
   @override
@@ -119,7 +161,7 @@ abstract class HomeViewImpl extends State<HomePage>
   @override
   void updateAgeDistribution(Map<String, Map<String, int>> ageDistribution) {
     context.read<Data>().updateAgeDistribution(ageDistribution);
-    print('updateAgeDistribution: $ageDistribution');
+    print('ageDistribution:  $ageDistribution');
   }
 
   @override
@@ -128,8 +170,6 @@ abstract class HomeViewImpl extends State<HomePage>
     context
         .read<Data>()
         .updateAffirmativePolicyDistribution(affirmativePolicyDistribution);
-    print(
-        'updateAffirmativePolicyDistribution: $affirmativePolicyDistribution');
   }
 
   @override
@@ -138,5 +178,40 @@ abstract class HomeViewImpl extends State<HomePage>
     context
         .read<Data>()
         .updateActiveInactiveDistribution(activeInactiveDistribution);
+    print('activeInactiveDistribution:  $activeInactiveDistribution');
+  }
+
+  @override
+  void updateStatusDistribution(
+      Map<String, Map<String, int>> statusDistribution) {
+    context.read<Data>().updateStatusDistribution(statusDistribution);
+    print('statusDistribuition:  $statusDistribution');
+  }
+
+  @override
+  void updateInactivityReasonDistribution(
+      Map<String, Map<String, int>> inactivityReasonDistribution) {
+    context
+        .read<Data>()
+        .updateInactivityReasonDistribution(inactivityReasonDistribution);
+    print('inactivityReasonDistribution:  $inactivityReasonDistribution');
+  }
+
+  @override
+  void updateAdmissionTypeDistribution(
+      Map<String, Map<String, int>> admissionTypeDistribution) {
+    context
+        .read<Data>()
+        .updateAdmissionTypeDistribution(admissionTypeDistribution);
+    print('admissionTypeDistribution:  $admissionTypeDistribution');
+  }
+
+  @override
+  void updateSecondarySchoolTypeDistribution(
+      Map<String, Map<String, int>> secondarySchoolTypeDistribution) {
+    context
+        .read<Data>()
+        .updateSecondarySchoolTypeDistribution(secondarySchoolTypeDistribution);
+    print('secondarySchoolTypeDistribution:  $secondarySchoolTypeDistribution');
   }
 }

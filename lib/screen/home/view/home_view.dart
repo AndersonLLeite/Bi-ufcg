@@ -24,6 +24,18 @@ abstract class HomeView {
   void updateActiveInactiveDistribution(
       Map<String, Map<String, int>> activeInactiveDistribution);
 
+  void updateStatusDistribution(
+      Map<String, Map<String, int>> statusDistribution);
+
+  void updateInactivityReasonDistribution(
+      Map<String, Map<String, int>> inactivityReasonDistribution);
+
+  void updateAdmissionTypeDistribution(
+      Map<String, Map<String, int>> admissionTypeDistribution);
+
+  void updateSecondarySchoolTypeDistribution(
+      Map<String, Map<String, int>> secondarySchoolTypeDistribution);
+
   void setTerms(List<String> terms);
 
   void changeIndexMenu(int index);
@@ -37,4 +49,11 @@ abstract class HomeView {
   void showLoading();
 
   void hideLoading();
+
+  List<int> getCourseSelectedIndexes();
+  List<int> getTermSelectedIndexes();
+  void addCourseSelectIndex(int index);
+  void removeCourseSelectIndex(int index);
+  void addTermSelectIndex(int index);
+  void removeTermSelectIndex(int index);
 }

@@ -1,3 +1,4 @@
+import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/service/data/data.dart';
 import 'package:bi_ufcg/repositories/auth/auth_repository.dart';
 import 'package:bi_ufcg/repositories/auth/auth_repository_impl.dart';
@@ -11,7 +12,6 @@ import 'package:provider/provider.dart';
 
 import 'core/config/env/env.dart';
 import 'core/rest/dio_custom.dart';
-import 'resource/app_colors.dart';
 
 void main() async {
   //await Env.i.load();
@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Admin Panel',
+          title: 'BI UFCG',
           theme: ThemeData(
-              scaffoldBackgroundColor: AppColors.purpleDark,
+              scaffoldBackgroundColor: context.colors.secondary,
               primarySwatch: Colors.blue,
-              canvasColor: AppColors.purpleLight),
+              canvasColor: context.colors.primary),
           routes: {
             '/': (_) => const SplashRoute(),
             '/login': (context) => const LoginRoute(),
@@ -47,88 +47,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-
-// // Classe Data que extende ChangeNotifier para gerenciar o estado
-// class Data extends ChangeNotifier {
-//   int _value = 0;
-
-//   int get value => _value;
-
-//   void updateValue() {
-//     _value++;
-//     notifyListeners(); // Notifica os listeners sobre mudanças no estado
-//   }
-// }
-
-// void main() {
-//   runApp(
-//     // Provedor de estado que disponibiliza a classe Data para todo o app
-//     ChangeNotifierProvider(
-//       create: (context) => Data(),
-//       child: const MyApp(),
-//     ),
-//   );
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Provider Example',
-//       home: Home(),
-//     );
-//   }
-// }
-
-// // Classe Home que exibe o botão e a classe Filho
-// class Home extends StatelessWidget {
-//   Home({
-//     super.key,
-//   });
-
-//   Data data = Data();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Provider Example')),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           const Filho(), // Classe Filho que exibe o valor atual
-//           ElevatedButton(
-//             onPressed: () {
-//               // Atualiza o valor na classe Data
-//               //  context.read<Data>().updateValue();
-//               data.updateValue();
-//             },
-//             child: const Text('Atualizar Valor'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// // Classe Filho que exibe o valor armazenado em Data
-// class Filho extends StatelessWidget {
-//   const Filho({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final data = Provider.of<Data>(context); // Escuta mudanças automaticamente
-
-//     return data.value == 0
-//         ? Text(
-//             'Valor: ${data.value}',
-//             style: const TextStyle(fontSize: 24),
-//           )
-//         : Text(
-//             'Valor: ${data.value}',
-//             style: const TextStyle(fontSize: 24, color: Colors.red),
-//           );
-//   }
-// }

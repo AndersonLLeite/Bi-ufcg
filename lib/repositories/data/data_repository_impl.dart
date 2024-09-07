@@ -43,13 +43,11 @@ class DataRepositoryImpl implements DataRepository {
       if (data != null && data['students'] != null) {
         final studentsList = data['students'] as List;
         final students = studentsList.map((e) => Student.fromMap(e)).toList();
-        print(students);
         return students;
       } else {
         throw Exception('Resposta da API não contém a chave "students"');
       }
     } catch (e) {
-      print(e);
       throw Exception('Erro ao buscar estudantes: $e');
     }
   }

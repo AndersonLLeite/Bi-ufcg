@@ -6,7 +6,7 @@ class WidgetNoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(8),
       child: Container(
         key: const ValueKey('no_data'),
         padding: const EdgeInsets.all(20),
@@ -27,24 +27,22 @@ class WidgetNoData extends StatelessWidget {
           children: [
             Icon(
               Icons.data_usage_outlined,
-              size: 100,
+              size: MediaQuery.of(context).size.width * 0.1,
               color: Colors.grey.shade300,
             ),
-            const SizedBox(height: 20),
             Text(
               'Nenhum dado disponível',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey.shade700,
               ),
             ),
-            const SizedBox(height: 10),
             Text(
               'Por favor, adicione pelo menos 1 curso e 1 período para visualizar os dados.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.grey.shade500,
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
-import 'package:bi_ufcg/service/course_data_service/course_data_service.dart';
+import 'package:bi_ufcg/service/data_service/data_service.dart';
 import 'package:bi_ufcg/service/data/data.dart';
 
 import '../view/home_view.dart';
@@ -8,12 +8,12 @@ import 'home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
   DataRepository dataRepository;
-  CourseDataService courseDataService;
+  DataService dataService;
   late HomeView _view;
 
   HomePresenterImpl({
     required this.dataRepository,
-    required this.courseDataService,
+    required this.dataService,
   });
 
   @override
@@ -53,15 +53,22 @@ class HomePresenterImpl implements HomePresenter {
   @override
   void attDataBase(List<Course> courses, List<String> terms) {
     _view.updateEnrollmentEvolution(
-        courseDataService.getEnrollmentEvolution(courses, terms));
+        dataService.getEnrollmentEvolution(courses, terms));
     _view.updateGenderDistribution(
-        courseDataService.getGenderDistribution(courses, terms));
-    _view.updateAgeDistribution(
-        courseDataService.getAgeDistribution(courses, terms));
+        dataService.getGenderDistribution(courses, terms));
+    _view.updateAgeDistribution(dataService.getAgeDistribution(courses, terms));
     _view.updateAffirmativePolicyDistribution(
-        courseDataService.getAffirmativePolicyDistribution(courses, terms));
+        dataService.getAffirmativePolicyDistribution(courses, terms));
     _view.updateActiveInactiveDistribution(
-        courseDataService.getActiveInactiveDistribution(courses, terms));
+        dataService.getActiveInactiveDistribution(courses, terms));
+    _view.updateStatusDistribution(
+        dataService.getStatusDistribution(courses, terms));
+    _view.updateInactivityReasonDistribution(
+        dataService.getInactivityReasonDistribution(courses, terms));
+    _view.updateAdmissionTypeDistribution(
+        dataService.getAdmissionTypeDistribution(courses, terms));
+    _view.updateSecondarySchoolTypeDistribution(
+        dataService.getSecondarySchoolTypeDistribution(courses, terms));
   }
 
   @override
@@ -104,5 +111,35 @@ class HomePresenterImpl implements HomePresenter {
   @override
   void removeTerm(String term) {
     _view.removeTermToData(term);
+  }
+
+  @override
+  void addCourseSelectIndex(int index) {
+    _view.addCourseSelectIndex(index);
+  }
+
+  @override
+  void addTermSelectIndex(int index) {
+    _view.addTermSelectIndex(index);
+  }
+
+  @override
+  List<int> getCourseSelectedIndexes() {
+    return _view.getCourseSelectedIndexes();
+  }
+
+  @override
+  List<int> getTermSelectedIndexes() {
+    return _view.getTermSelectedIndexes();
+  }
+
+  @override
+  void removeCourseSelectIndex(int index) {
+    _view.removeCourseSelectIndex(index);
+  }
+
+  @override
+  void removeTermSelectIndex(int index) {
+    _view.removeTermSelectIndex(index);
   }
 }

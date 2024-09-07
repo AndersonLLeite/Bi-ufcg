@@ -7,6 +7,10 @@ class Data with ChangeNotifier {
   Map<String, Map<String, int>> _ageDistribution = {};
   Map<String, Map<String, int>> _affirmativePolicyDistribution = {};
   Map<String, Map<String, int>> _activeInactiveDistribution = {};
+  Map<String, Map<String, int>> _statusDistribution = {};
+  Map<String, Map<String, int>> _inactivityReasonsDistribution = {};
+  Map<String, Map<String, int>> _admissionTypeDistribution = {};
+  Map<String, Map<String, int>> _secondarySchoolTypeDistribution = {};
 
   // Getters
   Map<String, int> get enrollmentEvolution => _enrollmentEvolution;
@@ -16,6 +20,13 @@ class Data with ChangeNotifier {
       _affirmativePolicyDistribution;
   Map<String, Map<String, int>> get activeInactiveDistribution =>
       _activeInactiveDistribution;
+  Map<String, Map<String, int>> get statusDistribution => _statusDistribution;
+  Map<String, Map<String, int>> get inactivityReasonsDistribution =>
+      _inactivityReasonsDistribution;
+  Map<String, Map<String, int>> get admissionTypeDistribution =>
+      _admissionTypeDistribution;
+  Map<String, Map<String, int>> get secondarySchoolTypeDistribution =>
+      _secondarySchoolTypeDistribution;
 
   // Setters com notificações
   void setEnrollmentEvolution(Map<String, int> data) {
@@ -70,6 +81,30 @@ class Data with ChangeNotifier {
   void updateActiveInactiveDistribution(
       Map<String, Map<String, int>> activeInactiveDistribution) {
     _activeInactiveDistribution = activeInactiveDistribution;
+    notifyListeners();
+  }
+
+  void updateStatusDistribution(
+      Map<String, Map<String, int>> statusDistribution) {
+    _statusDistribution = statusDistribution;
+    notifyListeners();
+  }
+
+  void updateInactivityReasonDistribution(
+      Map<String, Map<String, int>> inactivityReasonDistribution) {
+    _inactivityReasonsDistribution = inactivityReasonDistribution;
+    notifyListeners();
+  }
+
+  void updateAdmissionTypeDistribution(
+      Map<String, Map<String, int>> admissionTypeDistribution) {
+    _admissionTypeDistribution = admissionTypeDistribution;
+    notifyListeners();
+  }
+
+  void updateSecondarySchoolTypeDistribution(
+      Map<String, Map<String, int>> secondarySchoolTypeDistribution) {
+    _secondarySchoolTypeDistribution = secondarySchoolTypeDistribution;
     notifyListeners();
   }
 }

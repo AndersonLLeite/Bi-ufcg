@@ -19,4 +19,11 @@ abstract class HomePresenter extends BiUfcgPresenter<HomeView> {
   void removeTerm(String term);
 
   void attDataByTerm(String term);
+
+  List<int> getCourseSelectedIndexes();
+  List<int> getTermSelectedIndexes();
+  void addCourseSelectIndex(int index);
+  void removeCourseSelectIndex(int index);
+  void addTermSelectIndex(int index);
+  void removeTermSelectIndex(int index);
 }

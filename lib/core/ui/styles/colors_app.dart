@@ -9,39 +9,59 @@ class ColorsApp {
     return _instance!;
   }
 
-  Color get primary => const Color(0xFF252E76);
-  Color get secondary => const Color(0xFF6662FC);
+  // Definição de cores já existente
+  //Color get purpleLight => Color(0XFF1e224c);
+  Color get primary => Color(0XFF0d193e);
+  Color get secondary => Color(0XFF1e224c);
 
-  Color get greyProfile => const Color(0xFFC3AECA);
-  Color get gold => const Color(0xFFffd700);
-  Color get marromgold => const Color(0xFF8b7500);
-  Color get silver => const Color(0xFFc0c0c0);
-  Color get silverGray => const Color(0xFF808080);
-  Color get bronze => const Color(0xFFcd7f32);
-  Color get saddleBrown => const Color(0xFF8b4513);
-  Color get yelow => const Color(0xFFFDCE50);
-  Color get grey => const Color(0xFFCCCCCC);
-  Color get greyDart => const Color(0xFF999999);
+  Color get appBarColor => Color(0XFF0d193e);
+  Color get panelColor => Color(0XFF0d193e);
+  Color get titleSectioColor => Color(0xFF1e224c);
+  Color get chartCardColor => Color(0xFF1e224c);
+  Color get distribuitionCardColor => Color(0XFF0d193e);
 
-  Color get primaryColorFromCalendar => const Color(0xFF252E76);
-  Color get secondaryColorFromCalendar => const Color(0xFFB61409);
-  Color get tertiaryColorFromCalendar => const Color(0xFF39C01F);
-  Color get quaternaryColorFromCalendar => const Color(0xFFDFDB17);
-  Color get quinaryColorFromCalendar => const Color(0xFFDB1578);
-  Color get senaryColorFromCalendar => const Color(0xFF1578DB);
-  Color get septenaryColorFromCalendar => const Color(0xFFD415DB);
-  Color get octonaryColorFromCalendar => const Color(0xFFDB8F15);
-  Color get nonaryColorFromCalendar => const Color(0xFF15DBD4);
-  Color get denaryColorFromCalendar => const Color(0xFF2F5F3C);
-  //assistant colors
-  Color get mainFontColor => const Color.fromRGBO(19, 61, 95, 1);
-  Color get firstSuggestionBoxColor => const Color.fromRGBO(165, 231, 244, 1);
-  Color get secondSuggestionBoxColor => const Color.fromRGBO(157, 202, 235, 1);
-  Color get thirdSuggestionBoxColor => const Color.fromRGBO(162, 238, 239, 1);
-  Color get assistantCircleColor => const Color.fromRGBO(209, 243, 249, 1);
-  Color get borderColor => const Color.fromRGBO(200, 200, 200, 1);
-  Color get blackColor => Colors.black;
-  Color get whiteColor => Colors.white;
+  Color get orange => Color(0XFFec8d2f);
+  Color get red => Color(0XFFf44336);
+
+  Color get maleColor => Color(0xFF2196F3);
+  Color get femaleColor => Color.fromARGB(255, 255, 0, 170);
+
+  Color get activeColor => Color(0xFF4CAF50);
+  Color get inactiveColor => Color(0xFFf44336);
+  Color get graduatedColor => Color(0xFFff9800);
+
+  Color get chartIconSelectedColor => Color(0xFF2196F3);
+  Color get menuIconSelectedColor => Color(0xFF2196F3);
+  Color get chartIconUnselectedColor => Colors.white;
+  Color get chartTitleColor => Colors.white;
+  Color get chartSubtitleColor => Colors.white70;
+  Color get titleColor => Colors.white;
+  Color get subtitleColor => Colors.white70;
+  Color get drawerItemColor => Colors.white;
+
+  // Lista de cores para os elementos do gráfico
+  static const List<Color> chartColors = [
+    Color(0xFF2196F3),
+    Color.fromARGB(255, 255, 0, 170),
+    Color(0xFF3BFF49),
+    Color(0xFFFFA500),
+
+    Color(0xFF6E1BFF),
+    Color.fromARGB(179, 5, 5, 5),
+    Color(0xFF8B4513),
+
+    Color(0xFFE80054),
+    Color(0xFF50E4FF),
+    // Brown
+    Color(0xFF00FF7F), // Spring Green
+    // Orange
+    Color(0xFFFF00FF), // Magenta
+  ];
+
+  // Método para acessar as cores dinamicamente
+  static Color getColorForIndex(int index) {
+    return chartColors[index % chartColors.length];
+  }
 }
 
 extension ColorAppExtensions on BuildContext {

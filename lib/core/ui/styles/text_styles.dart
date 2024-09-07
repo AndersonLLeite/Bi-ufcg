@@ -1,4 +1,3 @@
-import 'package:bi_ufcg/resource/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'colors_app.dart';
@@ -22,16 +21,40 @@ class TextStyles {
   TextStyle get buttonTitle =>
       TextStyle(fontWeight: FontWeight.bold, fontFamily: primaryFont);
 
+  TextStyle get title => TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: primaryFont,
+      color: ColorsApp.instance.titleColor,
+      fontSize: 16);
+
+  TextStyle get subtitle => TextStyle(
+      fontWeight: FontWeight.normal,
+      fontFamily: primaryFont,
+      color: ColorsApp.instance.subtitleColor,
+      fontSize: 14);
+
   TextStyle get textTitleChart => TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: primaryFont,
-      color: AppColors.chartTitleColor,
-      fontSize: 18);
+      color: ColorsApp.instance.chartTitleColor,
+      fontSize: 16);
 
   TextStyle get textSubtitleChart => TextStyle(
       fontWeight: FontWeight.normal,
       fontFamily: primaryFont,
-      color: AppColors.chartSubtitleColor,
+      color: ColorsApp.instance.chartSubtitleColor,
+      fontSize: 14);
+
+  TextStyle get textDrawerCourseItems => TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: primaryFont,
+      color: ColorsApp.instance.drawerItemColor,
+      fontSize: 11);
+
+  TextStyle get textDrawerTermsItems => TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: primaryFont,
+      color: ColorsApp.instance.drawerItemColor,
       fontSize: 16);
 }
 
