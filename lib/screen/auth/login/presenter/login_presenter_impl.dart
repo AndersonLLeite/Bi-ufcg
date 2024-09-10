@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:bi_ufcg/repositories/auth/auth_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/exceptions/unauthorized_exception.dart';
 import '../../../../../service/login/login_service.dart';

@@ -9,8 +9,7 @@ abstract class DataService {
       List<Course> courses, List<String> terms);
   Map<String, Map<String, int>> getAffirmativePolicyDistribution(
       List<Course> courses, List<String> terms);
-  Map<String, Map<String, int>> getActiveInactiveDistribution(
-      List<Course> courses, List<String> terms);
+
   Map<String, Map<String, int>> getStatusDistribution(
       List<Course> courses, List<String> terms);
   Map<String, Map<String, int>> getInactivityReasonDistribution(

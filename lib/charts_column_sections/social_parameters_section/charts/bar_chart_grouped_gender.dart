@@ -1,6 +1,6 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/service/data/data.dart';
-import 'package:bi_ufcg/widgets/widget_no_data.dart';
+import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,13 +48,13 @@ class BarChartGroupedGenderState extends State<BarChartGroupedGender> {
       ..sort((a, b) => double.parse(a).compareTo(double.parse(b)));
 
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 700), // Duração da transição
+      duration: const Duration(milliseconds: 700), // Duração da transição
       switchInCurve: Curves.easeInOut,
       switchOutCurve: Curves.easeInOut,
       child: data.genderDistribution.isEmpty
           ? const WidgetNoData()
           : Card(
-              key: ValueKey('chart'), // Chave única para o gráfico
+              key: const ValueKey('chart'), // Chave única para o gráfico
               color: context.colors.chartCardColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
@@ -91,7 +91,7 @@ class BarChartGroupedGenderState extends State<BarChartGroupedGender> {
                                       return Text(
                                         value.toInt().toString(),
                                         textAlign: TextAlign.left,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -162,8 +162,9 @@ class BarChartGroupedGenderState extends State<BarChartGroupedGender> {
                                     BarChartRodData rod,
                                     int rodIndex,
                                   ) {
-                                    if (rodIndex != 0)
+                                    if (rodIndex != 0) {
                                       return null; // Retorna nulo para evitar duplicação
+                                    }
                                     final maleValue = group.barRods[0].toY;
                                     final femaleValue = group.barRods[1].toY;
                                     return BarTooltipItem(

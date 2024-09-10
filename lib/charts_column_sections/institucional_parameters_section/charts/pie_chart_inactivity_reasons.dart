@@ -1,13 +1,11 @@
-import 'package:bi_ufcg/core/ui/styles/app_colors.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/service/data/data.dart';
-import 'package:bi_ufcg/widgets/widget_no_data.dart';
+import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../widgets/indicator.dart';
-import '../../social_parameters_section/charts/pie_chart_age.dart';
+import '../../../core/widgets/indicator.dart';
 
 class PieChartInactivityReasons extends StatefulWidget {
   const PieChartInactivityReasons({super.key});
@@ -65,7 +63,7 @@ class PieChartInactivityReasonsState extends State<PieChartInactivityReasons> {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value,
-                              style: TextStyle(color: Colors.white)),
+                              style: const TextStyle(color: Colors.white)),
                         );
                       }).toList(),
                     ),
@@ -240,7 +238,7 @@ class TotalInactivityReasons extends StatelessWidget {
 
     return Text(
       'Total Inativos: $total',
-      style: TextStyle(color: Colors.white, fontSize: 16),
+      style: const TextStyle(color: Colors.white, fontSize: 16),
     );
   }
 }

@@ -7,8 +7,6 @@ import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../core/ui/styles/app_padding.dart';
-import '../charts_column_sections/charts.dart';
-import '../charts_column_sections/pie_chart.dart';
 import '../core/ui/styles/responsive_layout.dart';
 
 class Todo {
@@ -37,7 +35,7 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   color: context.colors.titleSectioColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(50),
                   ),
                 ),

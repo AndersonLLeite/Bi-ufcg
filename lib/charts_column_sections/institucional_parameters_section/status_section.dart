@@ -3,7 +3,6 @@ import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/
 import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/pie_chart_status.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class StatusSection extends StatefulWidget {

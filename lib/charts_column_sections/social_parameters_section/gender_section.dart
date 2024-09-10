@@ -2,10 +2,7 @@ import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/
 import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/line_chart_gender_distribuition.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:bi_ufcg/service/data/data.dart';
-import 'package:bi_ufcg/widgets/widget_no_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class GenderSection extends StatefulWidget {
   const GenderSection({super.key});
@@ -48,7 +45,7 @@ class _GenderSectionState extends State<GenderSection> {
                                 fontSize: 16,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: ' E ',
                               style: TextStyle(
                                 color: Color(0xff77839a),
@@ -103,8 +100,8 @@ class _GenderSectionState extends State<GenderSection> {
               ),
               Expanded(
                 child: showLineChart
-                    ? BarChartGroupedGender()
-                    : LineChartGenderDistribution(),
+                    ? const BarChartGroupedGender()
+                    : const LineChartGenderDistribution(),
               ),
             ],
           ),

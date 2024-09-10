@@ -1,7 +1,7 @@
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
 import '../../core/rest/dio_custom.dart';
-import '../../models/student.dart';
+import '../../models/studentv1.dart';
 
 class DataRepositoryImpl implements DataRepository {
   final CustomDio dio;
@@ -42,7 +42,38 @@ class DataRepositoryImpl implements DataRepository {
       final data = response.data;
       if (data != null && data['students'] != null) {
         final studentsList = data['students'] as List;
-        final students = studentsList.map((e) => Student.fromMap(e)).toList();
+        final students = studentsList.map((e) => Studentv1.fromMap(e)).toList();
+        return students;
+      } else {
+        throw Exception('Resposta da API não contém a chave "students"');
+      }
+    } catch (e) {
+      throw Exception('Erro ao buscar estudantes: $e');
+    }
+  }
+
+  @override
+  getStudentsDropouts(String courseCode) async {
+    bool anonymize = true;
+    String curriculumCode = 'All';
+    String from = '0000.0';
+    String to = '9999.9';
+    try {
+      final response = await dio.auth().dio.get(
+        '/das-scao/das/students/getDropouts',
+        queryParameters: {
+          'courseCode': courseCode,
+          'curriculumCode': curriculumCode,
+          'from': from,
+          'to': to,
+          'anonymize': anonymize.toString(),
+        },
+      );
+
+      final data = response.data;
+      if (data != null && data['students'] != null) {
+        final studentsList = data['students'] as List;
+        final students = studentsList.map((e) => Studentv1.fromMap(e)).toList();
         return students;
       } else {
         throw Exception('Resposta da API não contém a chave "students"');

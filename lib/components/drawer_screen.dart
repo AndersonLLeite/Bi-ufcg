@@ -4,14 +4,13 @@ import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
 import 'package:flutter/material.dart';
 import '../core/ui/styles/app_padding.dart';
-import '../core/ui/styles/responsive_layout.dart';
 
 class DrawerScreen extends StatefulWidget {
-  List<Course> courses = [];
-  List<String> terms = [];
-  HomePresenter homePresenter;
-  int indexSelected;
-  DrawerScreen(
+  final List<Course> courses;
+  final List<String> terms;
+  final HomePresenter homePresenter;
+  final int indexSelected;
+  const DrawerScreen(
       {super.key,
       required this.courses,
       required this.homePresenter,
@@ -44,8 +43,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 ? BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     gradient: LinearGradient(colors: [
-                                      context.colors.red.withOpacity(0.9),
-                                      context.colors.orange.withOpacity(0.9),
+                                      // context.colors.red.withOpacity(0.9),
+                                      // context.colors.orange.withOpacity(0.9),
+                                      context.colors.senary,
+                                      context.colors.tertiary,
                                     ]))
                                 : null,
                             child: ListTile(
@@ -92,8 +93,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 ? BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     gradient: LinearGradient(colors: [
-                                      context.colors.red.withOpacity(0.9),
-                                      context.colors.orange.withOpacity(0.9),
+                                      context.colors.senary,
+                                      context.colors.tertiary,
                                     ]))
                                 : null,
                             child: ListTile(

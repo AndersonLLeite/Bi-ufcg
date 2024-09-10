@@ -11,33 +11,45 @@ class ColorsApp {
 
   // Definição de cores já existente
   //Color get purpleLight => Color(0XFF1e224c);
-  Color get primary => Color(0XFF0d193e);
-  Color get secondary => Color(0XFF1e224c);
+  // Color get primary => const Color(0XFF0d193e);
+  // Color get secondary => const Color(0XFF1e224c);
+//#00205B
+  Color get primary => const Color(0XFF00205B);
+  //#1A4E8A
+  Color get secondary => const Color(0XFF1A4E8A);
+  //#3D87CB
+  Color get tertiary => const Color(0XFF3D87CB);
+  //HEX #00BCE1
+  Color get quaternary => const Color(0XFF00BCE1);
+  // #F6FAFC
+  Color get quinary => const Color(0XFFF6FAFC);
+  //#4B4F54
+  Color get senary => const Color(0XFF4B4F54);
 
-  Color get appBarColor => Color(0XFF0d193e);
-  Color get panelColor => Color(0XFF0d193e);
-  Color get titleSectioColor => Color(0xFF1e224c);
-  Color get chartCardColor => Color(0xFF1e224c);
-  Color get distribuitionCardColor => Color(0XFF0d193e);
+  Color get appBarColor => primary;
+  Color get panelColor => primary;
+  Color get titleSectioColor => secondary;
+  Color get chartCardColor => secondary;
+  Color get distribuitionCardColor => primary;
 
-  Color get orange => Color(0XFFec8d2f);
-  Color get red => Color(0XFFf44336);
+  Color get orange => const Color(0XFFec8d2f);
+  Color get red => const Color(0XFFf44336);
 
-  Color get maleColor => Color(0xFF2196F3);
-  Color get femaleColor => Color.fromARGB(255, 255, 0, 170);
+  Color get maleColor => quaternary;
+  Color get femaleColor => const Color.fromARGB(255, 255, 0, 170);
 
-  Color get activeColor => Color(0xFF4CAF50);
-  Color get inactiveColor => Color(0xFFf44336);
-  Color get graduatedColor => Color(0xFFff9800);
+  Color get activeColor => const Color(0xFF4CAF50);
+  Color get inactiveColor => const Color(0xFFf44336);
+  Color get graduatedColor => const Color(0xFFff9800);
 
-  Color get chartIconSelectedColor => Color(0xFF2196F3);
-  Color get menuIconSelectedColor => Color(0xFF2196F3);
-  Color get chartIconUnselectedColor => Colors.white;
-  Color get chartTitleColor => Colors.white;
+  Color get chartIconSelectedColor => quaternary;
+  Color get menuIconSelectedColor => quaternary;
+  Color get chartIconUnselectedColor => quinary;
+  Color get chartTitleColor => quinary;
   Color get chartSubtitleColor => Colors.white70;
-  Color get titleColor => Colors.white;
+  Color get titleColor => quinary;
   Color get subtitleColor => Colors.white70;
-  Color get drawerItemColor => Colors.white;
+  Color get drawerItemColor => quinary;
 
   // Lista de cores para os elementos do gráfico
   static const List<Color> chartColors = [

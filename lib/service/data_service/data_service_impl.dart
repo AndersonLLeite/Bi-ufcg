@@ -119,41 +119,6 @@ class DataServiceImpl implements DataService {
     return affirmativePolicyDistribution;
   }
 
-  // 5. Distribuição por período de aluno ativo e inativo.
-  @override
-  Map<String, Map<String, int>> getActiveInactiveDistribution(
-      List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> activeInactiveDistribution = {};
-
-    for (var term in terms) {
-      activeInactiveDistribution[term] = {
-        'total': 0,
-        'active': 0,
-        'inactive': 0
-      };
-    }
-
-    for (var course in courses) {
-      for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
-          continue;
-        }
-
-        var termData = activeInactiveDistribution[student.admissionTerm]!;
-        termData['total'] = termData['total']! + 1;
-
-        if (student.active) {
-          termData['active'] = termData['active']! + 1;
-        } else {
-          termData['inactive'] = termData['inactive']! + 1;
-        }
-      }
-    }
-
-    return activeInactiveDistribution;
-  }
-
   @override
   Map<String, Map<String, int>> getStatusDistribution(
       List<Course> courses, List<String> terms) {

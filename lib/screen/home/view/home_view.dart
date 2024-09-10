@@ -1,13 +1,13 @@
 import 'package:bi_ufcg/models/course.dart';
 
-import '../../../models/student.dart';
+import '../../../models/studentv1.dart';
 
 abstract class HomeView {
   void onCoursesReceived(List<Course> courses);
 
   void onError(String string);
 
-  void onStudentsReceived(List<Student> student, String code);
+  void onStudentsReceived(List<Studentv1> student, String code);
 
   void removeCode(String code);
 
@@ -20,9 +20,6 @@ abstract class HomeView {
 
   void updateAffirmativePolicyDistribution(
       Map<String, Map<String, int>> affirmativePolicyDistribution);
-
-  void updateActiveInactiveDistribution(
-      Map<String, Map<String, int>> activeInactiveDistribution);
 
   void updateStatusDistribution(
       Map<String, Map<String, int>> statusDistribution);

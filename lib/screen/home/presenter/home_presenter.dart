@@ -5,7 +5,7 @@ import '../view/home_view.dart';
 
 abstract class HomePresenter extends BiUfcgPresenter<HomeView> {
   void getCourses();
-  void getStudentsByCourse(String code);
+  void getStudentsByCourse(String courseCode);
 
   void removeCourse(String code);
   void attDataBase(List<Course> courses, List<String> terms);

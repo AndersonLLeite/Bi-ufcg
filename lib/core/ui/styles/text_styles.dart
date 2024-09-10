@@ -11,8 +11,8 @@ class TextStyles {
     return _instance!;
   }
 
-  String get primaryFont => 'Poppins';
-  String get secondaryFont => 'MPlus1P';
+  String get primaryFont => 'MerryweatherSans';
+  String get secondaryFont => 'BeVietnamPro';
 
   //primary font
   TextStyle get textPrimaryFontRegular =>
@@ -29,7 +29,7 @@ class TextStyles {
 
   TextStyle get subtitle => TextStyle(
       fontWeight: FontWeight.normal,
-      fontFamily: primaryFont,
+      fontFamily: secondaryFont,
       color: ColorsApp.instance.subtitleColor,
       fontSize: 14);
 
@@ -41,7 +41,7 @@ class TextStyles {
 
   TextStyle get textSubtitleChart => TextStyle(
       fontWeight: FontWeight.normal,
-      fontFamily: primaryFont,
+      fontFamily: secondaryFont,
       color: ColorsApp.instance.chartSubtitleColor,
       fontSize: 14);
 

@@ -3,10 +3,7 @@ import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/
 import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/pie_chart_affirmative_policy_distribution.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:bi_ufcg/service/data/data.dart';
-import 'package:bi_ufcg/widgets/widget_no_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PolicySection extends StatefulWidget {
   const PolicySection({super.key});
@@ -93,10 +90,10 @@ class _PolicySectionState extends State<PolicySection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? BarChartAffirmativePolicyDistribution()
+                    ? const BarChartAffirmativePolicyDistribution()
                     : selectedChartIndex == 1
-                        ? PieChartAffirmativePolicyDistribution()
-                        : LineChartAffirmativePolicyEvolution(), // Substitua com seu novo widget
+                        ? const PieChartAffirmativePolicyDistribution()
+                        : const LineChartAffirmativePolicyEvolution(), // Substitua com seu novo widget
               ),
             ],
           ),

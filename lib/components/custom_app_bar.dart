@@ -9,8 +9,8 @@ List<String> _buttonNames = ["Cursos", "Periodos"];
 int _currentSelectedButton = 0;
 
 class CustomAppBar extends StatefulWidget {
-  HomePresenter presenter;
-  CustomAppBar({super.key, required this.presenter});
+  final HomePresenter presenter;
+  const CustomAppBar({super.key, required this.presenter});
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -56,8 +56,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                 gradient: _currentSelectedButton == index
                                     ? LinearGradient(
                                         colors: [
-                                          context.colors.red,
-                                          context.colors.orange,
+                                          context.colors.tertiary,
+                                          context.colors.quaternary,
                                         ],
                                       )
                                     : null,
@@ -137,8 +137,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         gradient: _currentSelectedButton == 1
                             ? LinearGradient(
                                 colors: [
-                                  context.colors.red,
-                                  context.colors.orange,
+                                  context.colors.primary,
+                                  context.colors.secondary,
                                 ],
                               )
                             : null,
@@ -149,27 +149,76 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ],
             ),
           if (ResponsiveLayout.isComputer(context))
-            Container(
-              margin: const EdgeInsets.all(AppPadding.P10),
-              height: double.infinity,
-              decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.black45,
-                  offset: Offset(0, 0),
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                )
-              ], shape: BoxShape.circle),
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                radius: 50,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.asset(
-                    "assets/images/ufcgLogo.png",
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(AppPadding.P10),
+                  height: double.infinity,
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                    )
+                  ], shape: BoxShape.circle),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        "assets/images/ufcgLogo.png",
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(width: AppPadding.P10),
+                Container(
+                  margin: const EdgeInsets.all(AppPadding.P10),
+                  height: double.infinity,
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                    )
+                  ], shape: BoxShape.circle),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        "assets/images/logo1-eureca.png",
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(AppPadding.P10),
+                  height: double.infinity,
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                    )
+                  ], shape: BoxShape.rectangle),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        "assets/images/logo2-eureca.png",
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           else
             IconButton(
@@ -180,8 +229,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               },
               icon: const Icon(Icons.menu),
             ),
-          // Adição dos três ícones no lado direito
-
           const SizedBox(width: AppPadding.P10),
         ]));
   }

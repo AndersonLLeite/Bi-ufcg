@@ -1,6 +1,3 @@
-import 'package:bi_ufcg/components/panel_center_screen.dart';
-import 'package:bi_ufcg/components/panel_left_screen.dart';
-import 'package:bi_ufcg/components/panel_right_screen.dart';
 import 'package:bi_ufcg/core/ui/helpers/loader.dart';
 import 'package:bi_ufcg/core/ui/helpers/messages.dart';
 import 'package:bi_ufcg/service/data/data.dart';
@@ -8,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/course.dart';
-import '../../../models/student.dart';
+import '../../../models/studentv1.dart';
 import '../home_page.dart';
 import 'home_view.dart';
 
@@ -93,10 +90,10 @@ abstract class HomeViewImpl extends State<HomePage>
   }
 
   @override
-  void onStudentsReceived(List<Student> students, String code) {
+  void onStudentsReceived(List<Studentv1> students, String courseCode) {
     setState(() {
       selecteCourses.add(
-          listCourses.firstWhere((element) => element.code == code)
+          listCourses.firstWhere((element) => element.code == courseCode)
             ..students = students);
     });
     widget.presenter.attDataBase(selecteCourses, selectedTerms);
@@ -149,18 +146,18 @@ abstract class HomeViewImpl extends State<HomePage>
 
   @override
   void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
-    context.read<Data>().updateEnrollmentEvolution(enrollmentEvolution);
+    context.read<Data>().setEnrollmentEvolution(enrollmentEvolution);
   }
 
   @override
   void updateGenderDistribution(
       Map<String, Map<String, int>> genderDistribution) {
-    context.read<Data>().updateGenderDistribution(genderDistribution);
+    context.read<Data>().setGenderDistribution(genderDistribution);
   }
 
   @override
   void updateAgeDistribution(Map<String, Map<String, int>> ageDistribution) {
-    context.read<Data>().updateAgeDistribution(ageDistribution);
+    context.read<Data>().setAgeDistribution(ageDistribution);
     print('ageDistribution:  $ageDistribution');
   }
 
@@ -169,22 +166,13 @@ abstract class HomeViewImpl extends State<HomePage>
       Map<String, Map<String, int>> affirmativePolicyDistribution) {
     context
         .read<Data>()
-        .updateAffirmativePolicyDistribution(affirmativePolicyDistribution);
-  }
-
-  @override
-  void updateActiveInactiveDistribution(
-      Map<String, Map<String, int>> activeInactiveDistribution) {
-    context
-        .read<Data>()
-        .updateActiveInactiveDistribution(activeInactiveDistribution);
-    print('activeInactiveDistribution:  $activeInactiveDistribution');
+        .setAffirmativePolicyDistribution(affirmativePolicyDistribution);
   }
 
   @override
   void updateStatusDistribution(
       Map<String, Map<String, int>> statusDistribution) {
-    context.read<Data>().updateStatusDistribution(statusDistribution);
+    context.read<Data>().setStatusDistribution(statusDistribution);
     print('statusDistribuition:  $statusDistribution');
   }
 
@@ -193,7 +181,7 @@ abstract class HomeViewImpl extends State<HomePage>
       Map<String, Map<String, int>> inactivityReasonDistribution) {
     context
         .read<Data>()
-        .updateInactivityReasonDistribution(inactivityReasonDistribution);
+        .setInactivityReasonDistribution(inactivityReasonDistribution);
     print('inactivityReasonDistribution:  $inactivityReasonDistribution');
   }
 
@@ -202,7 +190,7 @@ abstract class HomeViewImpl extends State<HomePage>
       Map<String, Map<String, int>> admissionTypeDistribution) {
     context
         .read<Data>()
-        .updateAdmissionTypeDistribution(admissionTypeDistribution);
+        .setAdmissionTypeDistribution(admissionTypeDistribution);
     print('admissionTypeDistribution:  $admissionTypeDistribution');
   }
 
@@ -211,7 +199,7 @@ abstract class HomeViewImpl extends State<HomePage>
       Map<String, Map<String, int>> secondarySchoolTypeDistribution) {
     context
         .read<Data>()
-        .updateSecondarySchoolTypeDistribution(secondarySchoolTypeDistribution);
+        .setSecondarySchoolTypeDistribution(secondarySchoolTypeDistribution);
     print('secondarySchoolTypeDistribution:  $secondarySchoolTypeDistribution');
   }
 }

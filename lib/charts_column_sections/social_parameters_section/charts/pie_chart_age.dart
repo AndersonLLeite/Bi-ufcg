@@ -1,11 +1,11 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/service/data/data.dart';
-import 'package:bi_ufcg/widgets/widget_no_data.dart';
+import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../widgets/indicator.dart';
+import '../../../core/widgets/indicator.dart';
 
 class PieChartAge extends StatefulWidget {
   const PieChartAge({super.key});
@@ -63,7 +63,8 @@ class PieChartAgeState extends State<PieChartAge> {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value,
-                                      style: TextStyle(color: Colors.white)),
+                                      style:
+                                          const TextStyle(color: Colors.white)),
                                 );
                               }).toList(),
                             ),
@@ -119,7 +120,7 @@ class PieChartAgeState extends State<PieChartAge> {
                                 ),
                               ),
                             ),
-                            Column(
+                            const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

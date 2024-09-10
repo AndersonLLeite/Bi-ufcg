@@ -32,7 +32,7 @@ class _PanelCenterScreenState extends State<PanelCenterScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: ListTile(
                       title: Text("Perfil do Discente",

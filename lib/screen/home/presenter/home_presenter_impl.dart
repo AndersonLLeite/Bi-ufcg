@@ -1,7 +1,6 @@
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
 import 'package:bi_ufcg/service/data_service/data_service.dart';
-import 'package:bi_ufcg/service/data/data.dart';
 
 import '../view/home_view.dart';
 import 'home_presenter.dart';
@@ -35,13 +34,10 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   void getStudentsByCourse(String code) {
-    _view.showLoading();
     dataRepository.getStudentsByCourse(code).then((students) {
       _view.onStudentsReceived(students, code);
-      _view.hideLoading();
     }).catchError((e) {
       _view.onError(e.toString());
-      _view.hideLoading();
     });
   }
 
@@ -59,8 +55,6 @@ class HomePresenterImpl implements HomePresenter {
     _view.updateAgeDistribution(dataService.getAgeDistribution(courses, terms));
     _view.updateAffirmativePolicyDistribution(
         dataService.getAffirmativePolicyDistribution(courses, terms));
-    _view.updateActiveInactiveDistribution(
-        dataService.getActiveInactiveDistribution(courses, terms));
     _view.updateStatusDistribution(
         dataService.getStatusDistribution(courses, terms));
     _view.updateInactivityReasonDistribution(

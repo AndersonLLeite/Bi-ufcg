@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import '../config/env/env.dart';
 import 'interceptor/auth_interceptor.dart';
 
 class CustomDio {

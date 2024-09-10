@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:bi_ufcg/models/student.dart';
+import 'package:bi_ufcg/models/studentv1.dart';
 import 'package:flutter/foundation.dart';
 
 class Course {
   String code;
   String name;
   String status;
-  List<Student>? students;
+  List<Studentv1>? students;
 
   Course({
     required this.code,
@@ -22,7 +22,8 @@ class Course {
       name: map['name'],
       status: map['status'],
       students: map['students'] != null
-          ? List<Student>.from(map['students'].map((x) => Student.fromJson(x)))
+          ? List<Studentv1>.from(
+              map['students'].map((x) => Studentv1.fromJson(x)))
           : null,
     );
   }
