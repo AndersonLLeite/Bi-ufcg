@@ -38,7 +38,10 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               canvasColor: context.colors.primary),
           routes: {
-            '/': (_) => const SplashRoute(),
+            // '/': (_) => const SplashRoute(),
+            // '/login': (context) => const LoginRoute(),
+            // '/home': (context) => const HomeRoute(),
+            '/': (_) => const HomeRoute(),
             '/login': (context) => const LoginRoute(),
             '/home': (context) => const HomeRoute(),
           }),

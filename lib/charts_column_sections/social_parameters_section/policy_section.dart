@@ -1,9 +1,11 @@
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/bar_chart_affirmative_policy_distribuition.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/line_chart_affirmative_policy_distribuition.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/pie_chart_affirmative_policy_distribution.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PolicySection extends StatefulWidget {
   const PolicySection({super.key});
@@ -17,6 +19,8 @@ class _PolicySectionState extends State<PolicySection> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -90,10 +94,14 @@ class _PolicySectionState extends State<PolicySection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? const BarChartAffirmativePolicyDistribution()
+                    ? GenericBarChart(
+                        dataMap: data.affirmativePolicyDistribution)
                     : selectedChartIndex == 1
-                        ? const PieChartAffirmativePolicyDistribution()
-                        : const LineChartAffirmativePolicyEvolution(), // Substitua com seu novo widget
+                        ? GenericPieChart(
+                            dataMap: data.affirmativePolicyDistribution)
+                        : GenericLineChart(
+                            dataMap: data
+                                .affirmativePolicyDistribution), // Substitua com seu novo widget
               ),
             ],
           ),

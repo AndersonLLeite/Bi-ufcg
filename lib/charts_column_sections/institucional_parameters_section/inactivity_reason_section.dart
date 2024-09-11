@@ -1,9 +1,11 @@
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/bar_chart_inactivity_reasons.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/line_chart_inactivity_reasons.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/pie_chart_inactivity_reasons.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InactivityReasonSection extends StatefulWidget {
   const InactivityReasonSection({super.key});
@@ -18,6 +20,8 @@ class _InactivityReasonSectionState extends State<InactivityReasonSection> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -91,10 +95,15 @@ class _InactivityReasonSectionState extends State<InactivityReasonSection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? const BarChartInactivityReasons()
+                    ? GenericBarChart(
+                        dataMap: data.inactivityReasonsDistribution)
                     : selectedChartIndex == 1
-                        ? const PieChartInactivityReasons()
-                        : const LineChartInactivityReasonsDistribution(), // Substitua com seu novo widget
+                        ? GenericPieChart(
+                            dataMap: data.inactivityReasonsDistribution,
+                          )
+                        : GenericLineChart(
+                            dataMap: data
+                                .inactivityReasonsDistribution), // Substitua com seu novo widget
               ),
             ],
           ),

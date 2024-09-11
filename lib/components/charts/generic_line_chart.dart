@@ -1,31 +1,43 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/service/data/data.dart';
 import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class LineChartInactivityReasonsDistribution extends StatefulWidget {
-  const LineChartInactivityReasonsDistribution({super.key});
+class GenericLineChart extends StatefulWidget {
+  final Map<String, Map<String, int>> dataMap; // Dados no formato genérico
+
+  const GenericLineChart({
+    Key? key,
+    required this.dataMap,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _LineChartInactivityReasonsDistributionState();
+  State<StatefulWidget> createState() => _GenericLineChartState();
 }
 
-class _LineChartInactivityReasonsDistributionState
-    extends State<LineChartInactivityReasonsDistribution> {
+class _GenericLineChartState extends State<GenericLineChart> {
   bool isCurved = true;
+  late Map<String, bool>
+      selectedCategories; // Mapa para armazenar a seleção dos itens da legenda
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicialmente, todos os itens da legenda estarão selecionados
+    selectedCategories = {
+      for (var category
+          in widget.dataMap.values.expand((map) => map.keys).toSet())
+        category: true
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<Data>(context);
-
-    if (data.inactivityReasonsDistribution.isEmpty) {
+    if (widget.dataMap.isEmpty) {
       return const WidgetNoData();
     }
 
-    final periods = data.inactivityReasonsDistribution.keys.toList()
+    final periods = widget.dataMap.keys.toList()
       ..sort((a, b) => double.parse(a).compareTo(double.parse(b)));
 
     return Padding(
@@ -54,7 +66,7 @@ class _LineChartInactivityReasonsDistributionState
                                 const SizedBox(height: 10),
                                 Expanded(
                                   child: LineChart(
-                                    _buildLineChartData(data, periods),
+                                    _buildLineChartData(periods),
                                   ),
                                 ),
                               ],
@@ -78,52 +90,69 @@ class _LineChartInactivityReasonsDistributionState
                 ),
               ],
             ),
-            _buildLegend(data),
+            _buildLegend(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildLegend(Data data) {
-    final reasons = data.inactivityReasonsDistribution.values
-        .expand((map) => map.keys)
-        .toSet()
-        .toList();
+  Widget _buildLegend() {
+    final categories =
+        widget.dataMap.values.expand((map) => map.keys).toSet().toList();
 
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 10,
       runSpacing: 10,
-      children: List.generate(reasons.length, (index) {
-        final reason = reasons[index];
+      children: List.generate(categories.length, (index) {
+        final category = categories[index];
         final color = ColorsApp.getColorForIndex(index);
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
+        final isSelected = selectedCategories[category] ??
+            true; // Verifica se o item está selecionado
+
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              // Alterna o estado de seleção do item ao clicar
+              selectedCategories[category] =
+                  !(selectedCategories[category] ?? true);
+            });
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? color
+                      : color.withOpacity(0.3), // Cor opaca se desmarcado
+                  shape: BoxShape.circle,
+                  border: isSelected
+                      ? Border.all(
+                          color: Colors.white,
+                          width: 2) // Marca selecionada com borda
+                      : null,
+                ),
               ),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              reason,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.white,
+              const SizedBox(width: 5),
+              Text(
+                category,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
     );
   }
 
-  LineChartData _buildLineChartData(Data data, List<String> periods) {
+  LineChartData _buildLineChartData(List<String> periods) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -140,14 +169,18 @@ class _LineChartInactivityReasonsDistributionState
       ),
       titlesData: FlTitlesData(
         topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+          sideTitles: SideTitles(
+            showTitles: false, // Remover título superior
+          ),
         ),
         rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+          sideTitles: SideTitles(
+            showTitles: false, // Remover título direito
+          ),
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: true,
+            showTitles: true, // Título inferior
             reservedSize: 38,
             getTitlesWidget: (value, meta) {
               final index = value.toInt();
@@ -170,7 +203,7 @@ class _LineChartInactivityReasonsDistributionState
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
-            showTitles: true,
+            showTitles: true, // Título esquerdo
             reservedSize: 40,
             getTitlesWidget: (value, meta) {
               return Text(
@@ -191,14 +224,14 @@ class _LineChartInactivityReasonsDistributionState
           width: 1,
         ),
       ),
-      lineBarsData: _generateLineBars(data, periods, isCurved),
+      lineBarsData: _generateLineBars(periods),
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           tooltipBgColor: Colors.white,
           tooltipPadding: const EdgeInsets.all(8),
           tooltipRoundedRadius: 8,
-          showOnTopOfTheChartBoxArea: true,
-          fitInsideHorizontally: true,
+          showOnTopOfTheChartBoxArea: true, // Exibe sobre a área do gráfico
+          fitInsideHorizontally: true, // Ajusta horizontalmente
           fitInsideVertically: true,
           getTooltipItems: (touchedBarSpots) {
             bool periodShown = false;
@@ -206,19 +239,15 @@ class _LineChartInactivityReasonsDistributionState
             return touchedBarSpots.map((spot) {
               final periodIndex = spot.x.toInt();
               final period = periods[periodIndex];
-              final reason = data.inactivityReasonsDistribution[period]!.entries
+              final category = widget.dataMap[period]!.entries
                   .firstWhere(
-                    (entry) =>
-                        entry.value.toDouble() == spot.y &&
-                        ColorsApp.getColorForIndex(
-                                _getReasonIndex(entry.key, data)) ==
-                            spot.bar.color,
+                    (entry) => entry.value.toDouble() == spot.y,
                     orElse: () => const MapEntry('Unknown', 0),
                   )
                   .key;
 
-              final color =
-                  ColorsApp.getColorForIndex(_getReasonIndex(reason, data));
+              final color = ColorsApp.getColorForIndex(
+                  _getCategoryIndex(category, widget.dataMap));
 
               List<TextSpan> children = [];
               if (!periodShown) {
@@ -236,7 +265,7 @@ class _LineChartInactivityReasonsDistributionState
 
               children.add(
                 TextSpan(
-                  text: '$reason:\n${spot.y.toInt()}',
+                  text: '$category:\n ${spot.y.toInt()}',
                   style: TextStyle(
                     color: color,
                     fontWeight: FontWeight.bold,
@@ -245,7 +274,7 @@ class _LineChartInactivityReasonsDistributionState
               );
 
               return LineTooltipItem(
-                '',
+                '', // Deixa o texto principal vazio
                 const TextStyle(),
                 children: children,
               );
@@ -256,25 +285,27 @@ class _LineChartInactivityReasonsDistributionState
     );
   }
 
-  List<LineChartBarData> _generateLineBars(
-      Data data, List<String> periods, bool isCurved) {
-    final reasonData = <String, List<FlSpot>>{};
+  List<LineChartBarData> _generateLineBars(List<String> periods) {
+    final categoryData = <String, List<FlSpot>>{};
 
+    // Adiciona pontos para as categorias selecionadas
     for (var i = 0; i < periods.length; i++) {
       final period = periods[i];
-      final reasonMap = data.inactivityReasonsDistribution[period]!;
+      final categoryMap = widget.dataMap[period]!;
 
-      reasonMap.forEach((reason, count) {
-        final existingSpots = reasonData.putIfAbsent(reason, () => []);
-        if (!existingSpots.any(
-            (spot) => spot.x == i.toDouble() && spot.y == count.toDouble())) {
-          existingSpots.add(FlSpot(i.toDouble(), count.toDouble()));
+      categoryMap.forEach((category, count) {
+        if (selectedCategories[category] ?? true) {
+          final existingSpots = categoryData.putIfAbsent(category, () => []);
+          if (!existingSpots.any(
+              (spot) => spot.x == i.toDouble() && spot.y == count.toDouble())) {
+            existingSpots.add(FlSpot(i.toDouble(), count.toDouble()));
+          }
         }
       });
     }
 
-    return reasonData.entries.map((entry) {
-      final index = _getReasonIndex(entry.key, data);
+    return categoryData.entries.map((entry) {
+      final index = _getCategoryIndex(entry.key, widget.dataMap);
       return LineChartBarData(
         spots: entry.value,
         isCurved: isCurved,
@@ -286,11 +317,10 @@ class _LineChartInactivityReasonsDistributionState
     }).toList();
   }
 
-  int _getReasonIndex(String reason, Data data) {
-    final reasons = data.inactivityReasonsDistribution.values
-        .expand((map) => map.keys)
-        .toSet()
-        .toList();
-    return reasons.indexOf(reason);
+  int _getCategoryIndex(
+      String category, Map<String, Map<String, int>> dataMap) {
+    final categories =
+        dataMap.values.expand((map) => map.keys).toSet().toList();
+    return categories.indexOf(category);
   }
 }

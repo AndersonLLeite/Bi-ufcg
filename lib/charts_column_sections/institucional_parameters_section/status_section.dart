@@ -1,9 +1,11 @@
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/bar_chart_grouped_status.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/line_chart_status_distribution.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/pie_chart_status.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart_grouped.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StatusSection extends StatefulWidget {
   const StatusSection({super.key});
@@ -17,6 +19,8 @@ class _StatusSectionState extends State<StatusSection> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -90,10 +94,14 @@ class _StatusSectionState extends State<StatusSection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? const BarChartGroupedStatus()
+                    ? GenericBarChartGrouped(dataMap: data.statusDistribution)
                     : selectedChartIndex == 1
-                        ? const PieChartStatus()
-                        : const LineChartStatusDistribution(), // Substitua com seu novo widget
+                        ? GenericPieChart(
+                            dataMap: data.statusDistribution,
+                          )
+                        : GenericLineChart(
+                            dataMap: data
+                                .statusDistribution), // Substitua com seu novo widget
               ),
             ],
           ),

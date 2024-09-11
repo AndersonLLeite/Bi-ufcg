@@ -1,8 +1,10 @@
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/line_chart_age_distribuition.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
-import 'charts/pie_chart_age.dart';
+import 'package:provider/provider.dart';
 
 class AgeSection extends StatefulWidget {
   const AgeSection({super.key});
@@ -16,6 +18,7 @@ class _AgeSectionState extends State<AgeSection> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -73,8 +76,11 @@ class _AgeSectionState extends State<AgeSection> {
                 ),
               ),
               Expanded(
-                child:
-                    !showLineChart ? const PieChartAge() : const LineChartAgeDistribution(),
+                child: !showLineChart
+                    ? GenericPieChart(
+                        dataMap: data.ageDistribution,
+                      )
+                    : GenericLineChart(dataMap: data.ageDistribution),
               ),
             ],
           ),

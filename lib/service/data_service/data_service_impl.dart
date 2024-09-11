@@ -1,4 +1,4 @@
-import '../../models/course.dart';
+import 'package:bi_ufcg/models/course.dart';
 import 'data_service.dart';
 
 class DataServiceImpl implements DataService {
@@ -11,15 +11,15 @@ class DataServiceImpl implements DataService {
     Map<String, int> enrollmentEvolution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!enrollmentEvolution.containsKey(student.admissionTerm)) {
-          enrollmentEvolution[student.admissionTerm] = 0;
+        if (!enrollmentEvolution.containsKey(student.periodoDeIngresso)) {
+          enrollmentEvolution[student.periodoDeIngresso] = 0;
         }
-        enrollmentEvolution[student.admissionTerm] =
-            enrollmentEvolution[student.admissionTerm]! + 1;
+        enrollmentEvolution[student.periodoDeIngresso] =
+            enrollmentEvolution[student.periodoDeIngresso]! + 1;
       }
     }
     return enrollmentEvolution;
@@ -32,23 +32,20 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> genderDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!genderDistribution.containsKey(student.admissionTerm)) {
-          genderDistribution[student.admissionTerm] = {
-            'MASCULINO': 0,
-            'FEMININO': 0,
-            'other': 0
-          };
+        if (!genderDistribution.containsKey(student.periodoDeIngresso)) {
+          genderDistribution[student.periodoDeIngresso] = {};
         }
-        if (!genderDistribution[student.admissionTerm]!
-            .containsKey(student.gender)) {
-          genderDistribution[student.admissionTerm]![student.gender] = 0;
+        // Adiciona o gênero dinamicamente
+        if (!genderDistribution[student.periodoDeIngresso]!
+            .containsKey(student.genero)) {
+          genderDistribution[student.periodoDeIngresso]![student.genero] = 0;
         }
-        genderDistribution[student.admissionTerm]![student.gender] =
-            genderDistribution[student.admissionTerm]![student.gender]! + 1;
+        genderDistribution[student.periodoDeIngresso]![student.genero] =
+            genderDistribution[student.periodoDeIngresso]![student.genero]! + 1;
       }
     }
     return genderDistribution;
@@ -61,30 +58,32 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> ageDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        String ageRange = _getAgeRange(student.age);
-        if (!ageDistribution.containsKey(student.admissionTerm)) {
-          ageDistribution[student.admissionTerm] = {};
+        String ageRange = _getAgeRange(student.idade);
+        if (!ageDistribution.containsKey(student.periodoDeIngresso)) {
+          ageDistribution[student.periodoDeIngresso] = {};
         }
-        if (!ageDistribution[student.admissionTerm]!.containsKey(ageRange)) {
-          ageDistribution[student.admissionTerm]![ageRange] = 0;
+        if (!ageDistribution[student.periodoDeIngresso]!
+            .containsKey(ageRange)) {
+          ageDistribution[student.periodoDeIngresso]![ageRange] = 0;
         }
-        ageDistribution[student.admissionTerm]![ageRange] =
-            ageDistribution[student.admissionTerm]![ageRange]! + 1;
+        ageDistribution[student.periodoDeIngresso]![ageRange] =
+            ageDistribution[student.periodoDeIngresso]![ageRange]! + 1;
       }
     }
     return ageDistribution;
   }
 
-  String _getAgeRange(int age) {
-    if (age >= 16 && age <= 20) {
+  String _getAgeRange(String age) {
+    int idade = int.parse(age);
+    if (idade >= 16 && idade <= 20) {
       return '16-20';
-    } else if (age >= 21 && age <= 25) {
+    } else if (idade >= 21 && idade <= 25) {
       return '21-25';
-    } else if (age >= 26 && age <= 30) {
+    } else if (idade >= 26 && idade <= 30) {
       return '26-30';
     } else {
       return '30+';
@@ -98,21 +97,22 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> affirmativePolicyDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!affirmativePolicyDistribution.containsKey(student.admissionTerm)) {
-          affirmativePolicyDistribution[student.admissionTerm] = {};
+        if (!affirmativePolicyDistribution
+            .containsKey(student.periodoDeIngresso)) {
+          affirmativePolicyDistribution[student.periodoDeIngresso] = {};
         }
-        if (!affirmativePolicyDistribution[student.admissionTerm]!
-            .containsKey(student.affirmativePolicy)) {
-          affirmativePolicyDistribution[student.admissionTerm]![
-              student.affirmativePolicy] = 0;
+        if (!affirmativePolicyDistribution[student.periodoDeIngresso]!
+            .containsKey(student.politicaAfirmativa)) {
+          affirmativePolicyDistribution[student.periodoDeIngresso]![
+              student.politicaAfirmativa] = 0;
         }
-        affirmativePolicyDistribution[student.admissionTerm]![
-            student.affirmativePolicy] = affirmativePolicyDistribution[
-                student.admissionTerm]![student.affirmativePolicy]! +
+        affirmativePolicyDistribution[student.periodoDeIngresso]![
+            student.politicaAfirmativa] = affirmativePolicyDistribution[
+                student.periodoDeIngresso]![student.politicaAfirmativa]! +
             1;
       }
     }
@@ -125,19 +125,20 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> statusDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!statusDistribution.containsKey(student.admissionTerm)) {
-          statusDistribution[student.admissionTerm] = {};
+        if (!statusDistribution.containsKey(student.periodoDeIngresso)) {
+          statusDistribution[student.periodoDeIngresso] = {};
         }
-        if (!statusDistribution[student.admissionTerm]!
-            .containsKey(student.status)) {
-          statusDistribution[student.admissionTerm]![student.status] = 0;
+        if (!statusDistribution[student.periodoDeIngresso]!
+            .containsKey(student.situacao)) {
+          statusDistribution[student.periodoDeIngresso]![student.situacao] = 0;
         }
-        statusDistribution[student.admissionTerm]![student.status] =
-            statusDistribution[student.admissionTerm]![student.status]! + 1;
+        statusDistribution[student.periodoDeIngresso]![student.situacao] =
+            statusDistribution[student.periodoDeIngresso]![student.situacao]! +
+                1;
       }
     }
     return statusDistribution;
@@ -150,21 +151,22 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> inactivityReasonDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!inactivityReasonDistribution.containsKey(student.admissionTerm)) {
-          inactivityReasonDistribution[student.admissionTerm] = {};
+        if (!inactivityReasonDistribution
+            .containsKey(student.periodoDeIngresso)) {
+          inactivityReasonDistribution[student.periodoDeIngresso] = {};
         }
-        if (!inactivityReasonDistribution[student.admissionTerm]!
-            .containsKey(student.inactivityReason)) {
-          inactivityReasonDistribution[student.admissionTerm]![
-              student.inactivityReason] = 0;
+        if (!inactivityReasonDistribution[student.periodoDeIngresso]!
+            .containsKey(student.motivoDeEvasao)) {
+          inactivityReasonDistribution[student.periodoDeIngresso]![
+              student.motivoDeEvasao] = 0;
         }
-        inactivityReasonDistribution[student.admissionTerm]![
-            student.inactivityReason] = inactivityReasonDistribution[
-                student.admissionTerm]![student.inactivityReason]! +
+        inactivityReasonDistribution[student.periodoDeIngresso]![
+            student.motivoDeEvasao] = inactivityReasonDistribution[
+                student.periodoDeIngresso]![student.motivoDeEvasao]! +
             1;
       }
     }
@@ -178,21 +180,21 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> admissionTypeDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
-        if (!admissionTypeDistribution.containsKey(student.admissionTerm)) {
-          admissionTypeDistribution[student.admissionTerm] = {};
+        if (!admissionTypeDistribution.containsKey(student.periodoDeIngresso)) {
+          admissionTypeDistribution[student.periodoDeIngresso] = {};
         }
-        if (!admissionTypeDistribution[student.admissionTerm]!
-            .containsKey(student.admissionType)) {
-          admissionTypeDistribution[student.admissionTerm]![
-              student.admissionType] = 0;
+        if (!admissionTypeDistribution[student.periodoDeIngresso]!
+            .containsKey(student.formaDeIngresso)) {
+          admissionTypeDistribution[student.periodoDeIngresso]![
+              student.formaDeIngresso] = 0;
         }
-        admissionTypeDistribution[student.admissionTerm]![
-            student.admissionType] = admissionTypeDistribution[
-                student.admissionTerm]![student.admissionType]! +
+        admissionTypeDistribution[student.periodoDeIngresso]![
+            student.formaDeIngresso] = admissionTypeDistribution[
+                student.periodoDeIngresso]![student.formaDeIngresso]! +
             1;
       }
     }
@@ -206,22 +208,22 @@ class DataServiceImpl implements DataService {
     Map<String, Map<String, int>> secondarySchoolTypeDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
-        if (student.admissionTerm == null ||
-            !terms.contains(student.admissionTerm)) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
           continue;
         }
         if (!secondarySchoolTypeDistribution
-            .containsKey(student.admissionTerm)) {
-          secondarySchoolTypeDistribution[student.admissionTerm] = {};
+            .containsKey(student.periodoDeIngresso)) {
+          secondarySchoolTypeDistribution[student.periodoDeIngresso] = {};
         }
-        if (!secondarySchoolTypeDistribution[student.admissionTerm]!
-            .containsKey(student.secondarySchoolType)) {
-          secondarySchoolTypeDistribution[student.admissionTerm]![
-              student.secondarySchoolType] = 0;
+        if (!secondarySchoolTypeDistribution[student.periodoDeIngresso]!
+            .containsKey(student.tipoDeEnsinoMedio)) {
+          secondarySchoolTypeDistribution[student.periodoDeIngresso]![
+              student.tipoDeEnsinoMedio] = 0;
         }
-        secondarySchoolTypeDistribution[student.admissionTerm]![
-            student.secondarySchoolType] = secondarySchoolTypeDistribution[
-                student.admissionTerm]![student.secondarySchoolType]! +
+        secondarySchoolTypeDistribution[student.periodoDeIngresso]![
+            student.tipoDeEnsinoMedio] = secondarySchoolTypeDistribution[
+                student.periodoDeIngresso]![student.tipoDeEnsinoMedio]! +
             1;
       }
     }

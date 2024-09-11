@@ -63,15 +63,16 @@ class _HomePageState extends HomeViewImpl {
         computer: Row(
           children: [
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: DrawerScreen(
                     courses: listCourses,
                     homePresenter: widget.presenter,
                     indexSelected: menuIndexSelected,
+                    isRequestingStudentByCourse: isRequestingStudentsByCourse,
                     terms: terms)),
             const Expanded(flex: 5, child: PanelLeftScreen()),
             const Expanded(flex: 5, child: PanelCenterScreen()),
-            const Expanded(flex: 5, child: PanelRightScreen())
+            //  const Expanded(flex: 5, child: PanelRightScreen())
           ],
         ),
       ),
@@ -79,6 +80,7 @@ class _HomePageState extends HomeViewImpl {
           courses: listCourses,
           homePresenter: widget.presenter,
           indexSelected: menuIndexSelected,
+          isRequestingStudentByCourse: isRequestingStudentsByCourse,
           terms: terms),
       bottomNavigationBar: ResponsiveLayout.isPhoneLimit(context)
           ? CurvedNavigationBar(

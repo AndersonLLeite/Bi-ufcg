@@ -53,8 +53,9 @@ class ColorsApp {
 
   // Lista de cores para os elementos do gráfico
   static const List<Color> chartColors = [
-    Color(0xFF2196F3),
     Color.fromARGB(255, 255, 0, 170),
+    Color(0xFF2196F3),
+
     Color(0xFF3BFF49),
     Color(0xFFFFA500),
 

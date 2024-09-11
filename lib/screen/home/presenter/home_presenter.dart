@@ -1,16 +1,16 @@
 import 'package:bi_ufcg/core/mvp/biufcg_presenter.dart';
+import 'package:bi_ufcg/models/course.dart';
 
-import '../../../models/course.dart';
 import '../view/home_view.dart';
 
 abstract class HomePresenter extends BiUfcgPresenter<HomeView> {
   void getCourses();
-  void getStudentsByCourse(String courseCode);
+  void getStudentsByCourse(int courseCode);
 
-  void removeCourse(String code);
+  void removeCourse(int code);
   void attDataBase(List<Course> courses, List<String> terms);
 
-  void getTerms(String courseCode);
+  void getTerms(int courseCode);
 
   void changeIndexMenu(int index);
 

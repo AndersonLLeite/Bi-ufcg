@@ -1,64 +1,58 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/service/data/data.dart';
 import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/widgets/indicator.dart';
+import '../../../../core/widgets/indicator.dart';
 
-class PieChartAdmissionTypeDistribution extends StatefulWidget {
-  const PieChartAdmissionTypeDistribution({super.key});
+class GenericPieChart extends StatefulWidget {
+  final Map<String, Map<String, int>> dataMap; // Dados gerais
+
+  const GenericPieChart({
+    Key? key,
+    required this.dataMap,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _PieChartAdmissionTypeDistributionState();
+  State<StatefulWidget> createState() => _GenericPieChartState();
 }
 
-class _PieChartAdmissionTypeDistributionState
-    extends State<PieChartAdmissionTypeDistribution> {
+class _GenericPieChartState extends State<GenericPieChart> {
   int touchedIndex = -1;
   bool showPercentage = true;
   String selectedPeriod = 'Todos os Períodos';
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<Data>(context);
-
     List<String> periods = [
       'Todos os Períodos',
-      ...data.admissionTypeDistribution.keys
+      ...widget.dataMap.keys,
     ];
 
     // Dados filtrados ou combinados conforme o período selecionado
-    final Map<String, int> filteredAdmissionData = <String, int>{};
+    final Map<String, int> filteredData = <String, int>{};
     if (selectedPeriod == 'Todos os Períodos') {
-      // Combina todos os tipos de admissão de todos os períodos
-      data.admissionTypeDistribution.forEach((_, admissionMap) {
-        admissionMap.forEach((admissionType, count) {
-          if (filteredAdmissionData.containsKey(admissionType)) {
-            filteredAdmissionData[admissionType] =
-                filteredAdmissionData[admissionType]! + count;
+      widget.dataMap.forEach((_, data) {
+        data.forEach((key, value) {
+          if (filteredData.containsKey(key)) {
+            filteredData[key] = filteredData[key]! + value;
           } else {
-            filteredAdmissionData[admissionType] = count;
+            filteredData[key] = value;
           }
         });
       });
     } else {
-      // Filtra os dados pelo período selecionado
-      data.admissionTypeDistribution[selectedPeriod]!
-          .forEach((admissionType, count) {
-        filteredAdmissionData[admissionType] = count;
-      });
+      filteredData.addAll(widget.dataMap[selectedPeriod]!);
     }
 
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 700),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,
-        child: filteredAdmissionData.isEmpty
+        child: filteredData.isEmpty
             ? const WidgetNoData()
             : Card(
                 key: const ValueKey('chart'),
@@ -78,7 +72,6 @@ class _PieChartAdmissionTypeDistributionState
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: DropdownButton<String>(
-                              dropdownColor: context.colors.primary,
                               value: selectedPeriod,
                               onChanged: (String? newValue) {
                                 setState(() {
@@ -120,7 +113,7 @@ class _PieChartAdmissionTypeDistributionState
                                 aspectRatio: 1,
                                 child: Tooltip(
                                   message: touchedIndex != -1
-                                      ? filteredAdmissionData.entries
+                                      ? filteredData.entries
                                           .elementAt(touchedIndex)
                                           .key
                                       : '',
@@ -150,17 +143,18 @@ class _PieChartAdmissionTypeDistributionState
                                       ),
                                       sectionsSpace: 0,
                                       centerSpaceRadius: 40,
-                                      sections: showingSections(
-                                          filteredAdmissionData),
+                                      sections: showingSections(filteredData),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: _buildIndicators(filteredAdmissionData),
+                            SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: _buildIndicators(filteredData),
+                              ),
                             ),
                             const SizedBox(
                               width: 28,
@@ -177,22 +171,20 @@ class _PieChartAdmissionTypeDistributionState
   }
 
   // Cria as seções do gráfico de pizza
-  List<PieChartSectionData> showingSections(
-      Map<String, int> filteredAdmissionData) {
-    final total =
-        filteredAdmissionData.values.reduce((a, b) => a + b).toDouble();
+  List<PieChartSectionData> showingSections(Map<String, int> filteredData) {
+    final total = filteredData.values.reduce((a, b) => a + b).toDouble();
 
-    return List.generate(filteredAdmissionData.length, (i) {
+    return List.generate(filteredData.length, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 40.0 : 14.0;
       final radius = isTouched ? 80.0 : 50.0;
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
 
-      final entry = filteredAdmissionData.entries.elementAt(i);
+      final entry = filteredData.entries.elementAt(i);
       final percentage = (entry.value / total) * 100;
 
       return PieChartSectionData(
-        color: ColorsApp.getColorForIndex(i),
+        color: ColorsApp.getColorForIndex(i), // Cor dinâmica para cada política
         value: entry.value.toDouble(),
         title: showPercentage
             ? '${percentage.toStringAsFixed(1)}%'
@@ -209,15 +201,15 @@ class _PieChartAdmissionTypeDistributionState
   }
 
   // Constrói os indicadores dinamicamente
-  List<Widget> _buildIndicators(Map<String, int> filteredAdmissionData) {
-    return List.generate(filteredAdmissionData.length, (index) {
-      final admissionType = filteredAdmissionData.keys.elementAt(index);
+  List<Widget> _buildIndicators(Map<String, int> filteredData) {
+    return List.generate(filteredData.length, (index) {
+      final key = filteredData.keys.elementAt(index);
       final color = ColorsApp.getColorForIndex(index);
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Indicator(
           color: color,
-          text: admissionType,
+          text: key,
           isSquare: true,
         ),
       );

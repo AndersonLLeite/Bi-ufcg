@@ -7,8 +7,9 @@ class CustomDio {
 
   CustomDio()
       : dio = Dio(BaseOptions(
-          baseUrl: 'https://pre.ufcg.edu.br:8443/',
-          connectTimeout: const Duration(milliseconds: 5000),
+          // baseUrl: 'https://pre.ufcg.edu.br:8443/',
+          baseUrl: 'https://eureca.sti.ufcg.edu.br/das/v2',
+          connectTimeout: const Duration(milliseconds: 55000),
           receiveTimeout: const Duration(milliseconds: 60000),
         )) {
     dio.interceptors.add(LogInterceptor(

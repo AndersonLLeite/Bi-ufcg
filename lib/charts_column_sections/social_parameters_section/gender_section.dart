@@ -1,8 +1,11 @@
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/bar_chart_grouped_gender.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/charts/line_chart_gender_distribuition.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart_grouped.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GenderSection extends StatefulWidget {
   const GenderSection({super.key});
@@ -12,10 +15,11 @@ class GenderSection extends StatefulWidget {
 }
 
 class _GenderSectionState extends State<GenderSection> {
-  bool showLineChart = true; // Controla a exibição entre LineChart e PieChart
+  int selectedChartIndex = 0; // 0: BarChart, 1: PieChart, 2: LineChart
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -34,64 +38,53 @@ class _GenderSectionState extends State<GenderSection> {
                     Text('Gênero', style: TextStyles.instance.textTitleChart),
               ),
               ListTile(
-                title: showLineChart
-                    ? Text.rich(
-                        TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Masculino',
-                              style: TextStyle(
-                                color: context.colors.maleColor,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: ' E ',
-                              style: TextStyle(
-                                color: Color(0xff77839a),
-                                fontSize: 16,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Feminino',
-                              style: TextStyle(
-                                color: context.colors.femaleColor,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Text(
-                        'Evolução',
-                        style: TextStyles.instance.textSubtitleChart,
-                      ),
+                title: Text(
+                  selectedChartIndex == 0
+                      ? 'Distribuição Agrupada'
+                      : selectedChartIndex == 1
+                          ? 'Distribuição por Gênero'
+                          : 'Evolução de Gênero',
+                  style: TextStyles.instance.textSubtitleChart,
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
                       icon: Icon(
                         Icons.bar_chart,
-                        color: showLineChart
+                        color: selectedChartIndex == 0
                             ? context.colors.chartIconSelectedColor
                             : context.colors.chartIconUnselectedColor,
                       ),
                       onPressed: () {
                         setState(() {
-                          showLineChart = true; // Alterna para LineChart
+                          selectedChartIndex = 0; // Alterna para BarChart
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.pie_chart,
+                        color: selectedChartIndex == 1
+                            ? context.colors.chartIconSelectedColor
+                            : context.colors.chartIconUnselectedColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          selectedChartIndex = 1; // Alterna para PieChart
                         });
                       },
                     ),
                     IconButton(
                       icon: Icon(
                         Icons.show_chart,
-                        color: !showLineChart
+                        color: selectedChartIndex == 2
                             ? context.colors.chartIconSelectedColor
                             : context.colors.chartIconUnselectedColor,
                       ),
                       onPressed: () {
                         setState(() {
-                          showLineChart = false; // Alterna para PieChart
+                          selectedChartIndex = 2; // Alterna para LineChart
                         });
                       },
                     ),
@@ -99,9 +92,11 @@ class _GenderSectionState extends State<GenderSection> {
                 ),
               ),
               Expanded(
-                child: showLineChart
-                    ? const BarChartGroupedGender()
-                    : const LineChartGenderDistribution(),
+                child: selectedChartIndex == 0
+                    ? GenericBarChartGrouped(dataMap: data.genderDistribution)
+                    : selectedChartIndex == 1
+                        ? GenericPieChart(dataMap: data.genderDistribution)
+                        : GenericLineChart(dataMap: data.genderDistribution),
               ),
             ],
           ),

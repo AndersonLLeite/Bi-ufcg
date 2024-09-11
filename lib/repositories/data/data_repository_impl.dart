@@ -1,7 +1,8 @@
 import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/models/student.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
+import 'package:dio/dio.dart';
 import '../../core/rest/dio_custom.dart';
-import '../../models/studentv1.dart';
 
 class DataRepositoryImpl implements DataRepository {
   final CustomDio dio;
@@ -11,75 +12,77 @@ class DataRepositoryImpl implements DataRepository {
   @override
   Future<List<Course>> getCourses() async {
     try {
-      final response =
-          await dio.auth().dio.get('/das-scao/das/courses/getActives');
+      // Fazendo a requisição GET para a URL com o parâmetro de status
+      final response = await dio.dio.get(
+        '/cursos',
+        queryParameters: {'status-enum': 'ATIVOS'},
+      );
+
+      // Convertendo a resposta em uma lista de objetos Course
       final courses =
           (response.data as List).map((e) => Course.fromMap(e)).toList();
+
       return courses;
     } catch (e) {
+      print(e);
       throw Exception('Erro ao buscar cursos');
     }
   }
 
   @override
-  getStudentsByCourse(String courseCode) async {
-    bool anonymize = true;
-    String curriculumCode = 'All';
-    String from = '0000.0';
-    String to = '9999.9';
+  Future<List<Student>> getStudentsByCourse(int courseCode) async {
     try {
-      final response = await dio.auth().dio.get(
-        '/das-scao/das/students/',
+      // Faz a requisição GET com o código do curso como parâmetro de consulta
+      final response = await dio.dio.get(
+        '/estudantes',
         queryParameters: {
-          'courseCode': courseCode,
-          'curriculumCode': curriculumCode,
-          'from': from,
-          'to': to,
-          'anonymize': anonymize.toString(),
+          'curso': courseCode,
         },
       );
 
+      // Verifica se os dados foram retornados corretamente
       final data = response.data;
-      if (data != null && data['students'] != null) {
-        final studentsList = data['students'] as List;
-        final students = studentsList.map((e) => Studentv1.fromMap(e)).toList();
+      if (data != null && data is List) {
+        // Converte a lista de estudantes
+        final students = data.map((e) => Student.fromMap(e)).toList();
         return students;
       } else {
-        throw Exception('Resposta da API não contém a chave "students"');
+        throw Exception('Resposta da API não contém dados esperados');
       }
     } catch (e) {
+      print(e);
       throw Exception('Erro ao buscar estudantes: $e');
     }
   }
 
-  @override
-  getStudentsDropouts(String courseCode) async {
-    bool anonymize = true;
-    String curriculumCode = 'All';
-    String from = '0000.0';
-    String to = '9999.9';
-    try {
-      final response = await dio.auth().dio.get(
-        '/das-scao/das/students/getDropouts',
-        queryParameters: {
-          'courseCode': courseCode,
-          'curriculumCode': curriculumCode,
-          'from': from,
-          'to': to,
-          'anonymize': anonymize.toString(),
-        },
-      );
+  // @override
+  // getStudentsDropouts(String courseCode) async {
+  //   bool anonymize = true;
+  //   String curriculumCode = 'All';
+  //   String from = '0000.0';
+  //   String to = '9999.9';
+  //   try {
+  //     final response = await dio.auth().dio.get(
+  //       '/das-scao/das/students/getDropouts',
+  //       queryParameters: {
+  //         'courseCode': courseCode,
+  //         'curriculumCode': curriculumCode,
+  //         'from': from,
+  //         'to': to,
+  //         'anonymize': anonymize.toString(),
+  //       },
+  //     );
 
-      final data = response.data;
-      if (data != null && data['students'] != null) {
-        final studentsList = data['students'] as List;
-        final students = studentsList.map((e) => Studentv1.fromMap(e)).toList();
-        return students;
-      } else {
-        throw Exception('Resposta da API não contém a chave "students"');
-      }
-    } catch (e) {
-      throw Exception('Erro ao buscar estudantes: $e');
-    }
-  }
+  //     final data = response.data;
+  //     if (data != null && data['students'] != null) {
+  //       final studentsList = data['students'] as List;
+  //       final students = studentsList.map((e) => Student.fromMap(e)).toList();
+  //       return students;
+  //     } else {
+  //       throw Exception('Resposta da API não contém a chave "students"');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Erro ao buscar estudantes: $e');
+  //   }
+  // }
 }

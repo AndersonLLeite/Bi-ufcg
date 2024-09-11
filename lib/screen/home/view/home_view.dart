@@ -1,17 +1,20 @@
 import 'package:bi_ufcg/models/course.dart';
-
-import '../../../models/studentv1.dart';
+import 'package:bi_ufcg/models/student.dart';
 
 abstract class HomeView {
-  void onCoursesReceived(List<Course> courses);
+  void setCourse(List<Course> courses);
 
   void onError(String string);
 
-  void onStudentsReceived(List<Studentv1> student, String code);
+  void onStudentsReceived(List<Student> student, int code);
 
-  void removeCode(String code);
+  void removeCode(int code);
 
-  void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution);
+  void setFalseisRequestingStudentsByCourse();
+
+  void setTrueisRequestingStudentsByCourse();
+
+  //void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution);
 
   void updateGenderDistribution(
       Map<String, Map<String, int>> genderDistribution);

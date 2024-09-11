@@ -1,4 +1,5 @@
 import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/models/student.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
 import 'package:bi_ufcg/service/data_service/data_service.dart';
 
@@ -22,18 +23,17 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   void getCourses() {
-    _view.showLoading();
     dataRepository.getCourses().then((courses) {
-      _view.onCoursesReceived(courses);
-      _view.hideLoading();
+      courses.sort((a, b) => a.descricao.compareTo(b.descricao));
+      _view.setCourse(courses);
     }).catchError((e) {
       _view.onError(e.toString());
-      _view.hideLoading();
     });
   }
 
   @override
-  void getStudentsByCourse(String code) {
+  void getStudentsByCourse(int code) {
+    _view.setTrueisRequestingStudentsByCourse();
     dataRepository.getStudentsByCourse(code).then((students) {
       _view.onStudentsReceived(students, code);
     }).catchError((e) {
@@ -42,14 +42,14 @@ class HomePresenterImpl implements HomePresenter {
   }
 
   @override
-  void removeCourse(String code) {
+  void removeCourse(int code) {
     _view.removeCode(code);
   }
 
   @override
   void attDataBase(List<Course> courses, List<String> terms) {
-    _view.updateEnrollmentEvolution(
-        dataService.getEnrollmentEvolution(courses, terms));
+    // _view.updateEnrollmentEvolution(
+    //     dataService.getEnrollmentEvolution(courses, terms));
     _view.updateGenderDistribution(
         dataService.getGenderDistribution(courses, terms));
     _view.updateAgeDistribution(dataService.getAgeDistribution(courses, terms));
@@ -66,7 +66,7 @@ class HomePresenterImpl implements HomePresenter {
   }
 
   @override
-  void getTerms(String courseCode) {
+  void getTerms(int courseCode) {
     dataRepository.getStudentsByCourse(courseCode).then((students) {
       List<String> terms = findTerms(students);
       _view.setTerms(terms);
@@ -75,11 +75,11 @@ class HomePresenterImpl implements HomePresenter {
     });
   }
 
-  List<String> findTerms(students) {
+  List<String> findTerms(List<Student> students) {
     List<String> terms = [];
     for (var student in students) {
-      if (!terms.contains(student.admissionTerm)) {
-        terms.add(student.admissionTerm);
+      if (!terms.contains(student.periodoDeIngresso)) {
+        terms.add(student.periodoDeIngresso ?? '');
       }
     }
     // tranformar as strings em double e ordenar e depois transformar em string novamente

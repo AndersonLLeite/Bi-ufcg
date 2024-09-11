@@ -1,9 +1,8 @@
-import 'package:bi_ufcg/models/student.dart';
 import 'package:flutter/material.dart';
 
 class Data with ChangeNotifier {
   // Dados armazenados
-  Map<String, int> _enrollmentEvolution = {};
+  // Map<String, int> _enrollmentEvolution = {};
   Map<String, Map<String, int>> _genderDistribution = {};
   Map<String, Map<String, int>> _ageDistribution = {};
   Map<String, Map<String, int>> _affirmativePolicyDistribution = {};
@@ -13,7 +12,7 @@ class Data with ChangeNotifier {
   Map<String, Map<String, int>> _secondarySchoolTypeDistribution = {};
 
   // Getters
-  Map<String, int> get enrollmentEvolution => _enrollmentEvolution;
+  //Map<String, int> get enrollmentEvolution => _enrollmentEvolution;
   Map<String, Map<String, int>> get genderDistribution => _genderDistribution;
   Map<String, Map<String, int>> get ageDistribution => _ageDistribution;
   Map<String, Map<String, int>> get affirmativePolicyDistribution =>
@@ -28,10 +27,10 @@ class Data with ChangeNotifier {
 
   // Setters com notificações
 
-  void setEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
-    _enrollmentEvolution = enrollmentEvolution;
-    notifyListeners();
-  }
+  // void setEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
+  //   _enrollmentEvolution = enrollmentEvolution;
+  //   notifyListeners();
+  // }
 
   void setGenderDistribution(Map<String, Map<String, int>> genderDistribution) {
     _genderDistribution = genderDistribution;

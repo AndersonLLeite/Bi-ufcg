@@ -10,11 +10,14 @@ class DrawerScreen extends StatefulWidget {
   final List<String> terms;
   final HomePresenter homePresenter;
   final int indexSelected;
+  final bool isRequestingStudentByCourse;
+
   const DrawerScreen(
       {super.key,
       required this.courses,
       required this.homePresenter,
       required this.indexSelected,
+      required this.isRequestingStudentByCourse,
       required this.terms});
 
   @override
@@ -24,134 +27,164 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      elevation: 0,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.P10),
-          child: Column(
-            children: [
-              ...(widget.indexSelected == 0
-                  ? List.generate(
-                      widget.courses.length,
-                      (index) => Column(
-                        children: [
-                          Container(
-                            decoration: widget.homePresenter
-                                    .getCourseSelectedIndexes()
-                                    .contains(index)
-                                ? BoxDecoration(
+    return Stack(
+      children: [
+        Drawer(
+          elevation: 0,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(AppPadding.P10),
+              child: Column(
+                children: [
+                  ...(widget.indexSelected == 0
+                      ? List.generate(
+                          widget.courses.length,
+                          (index) => Column(
+                            children: [
+                              Container(
+                                decoration: widget.homePresenter
+                                        .getCourseSelectedIndexes()
+                                        .contains(index)
+                                    ? BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: LinearGradient(colors: [
+                                          context.colors.senary,
+                                          context.colors.tertiary,
+                                        ]))
+                                    : null,
+                                child: ListTile(
+                                  title: Text(widget.courses[index].descricao,
+                                      style: context
+                                          .textStyles.textDrawerCourseItems),
+                                  onTap: () {
+                                    setState(() {
+                                      if (widget.homePresenter
+                                          .getCourseSelectedIndexes()
+                                          .contains(index)) {
+                                        widget.homePresenter
+                                            .removeCourseSelectIndex(index);
+                                        widget.homePresenter.removeCourse(widget
+                                            .courses[index].codigoDoCurso);
+                                      } else {
+                                        widget.homePresenter
+                                            .addCourseSelectIndex(index);
+                                        widget.homePresenter
+                                            .getStudentsByCourse(widget
+                                                .courses[index].codigoDoCurso);
+                                      }
+                                    });
+                                  },
+                                  shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    gradient: LinearGradient(colors: [
-                                      // context.colors.red.withOpacity(0.9),
-                                      // context.colors.orange.withOpacity(0.9),
-                                      context.colors.senary,
-                                      context.colors.tertiary,
-                                    ]))
-                                : null,
-                            child: ListTile(
-                              title: Text(widget.courses[index].name,
-                                  style:
-                                      context.textStyles.textDrawerCourseItems),
-                              onTap: () {
-                                setState(() {
-                                  if (widget.homePresenter
-                                      .getCourseSelectedIndexes()
-                                      .contains(index)) {
-                                    widget.homePresenter
-                                        .removeCourseSelectIndex(index);
-                                    widget.homePresenter.removeCourse(
-                                        widget.courses[index].code);
-                                  } else {
-                                    widget.homePresenter
-                                        .addCourseSelectIndex(index);
-                                    widget.homePresenter.getStudentsByCourse(
-                                        widget.courses[index].code);
-                                  }
-                                });
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const Divider(
-                            color: Colors.white,
-                            thickness: 0.1,
-                          ),
-                        ],
-                      ),
-                    )
-                  : List.generate(
-                      widget.terms.length,
-                      (index) => Column(
-                        children: [
-                          Container(
-                            decoration: widget.homePresenter
-                                    .getTermSelectedIndexes()
-                                    .contains(index)
-                                ? BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    gradient: LinearGradient(colors: [
-                                      context.colors.senary,
-                                      context.colors.tertiary,
-                                    ]))
-                                : null,
-                            child: ListTile(
-                              title: Text(
-                                widget.terms[index],
-                                style: context.textStyles.textDrawerTermsItems,
+                              const Divider(
+                                color: Colors.white,
+                                thickness: 0.1,
                               ),
-                              onTap: () {
-                                if (widget.homePresenter
+                            ],
+                          ),
+                        )
+                      : List.generate(
+                          widget.terms.length,
+                          (index) => Column(
+                            children: [
+                              Container(
+                                decoration: widget.homePresenter
                                         .getTermSelectedIndexes()
-                                        .length >=
-                                    15) {
-                                  if (widget.homePresenter
-                                      .getTermSelectedIndexes()
-                                      .contains(index)) {
-                                    widget.homePresenter
-                                        .removeTermSelectIndex(index);
-                                    widget.homePresenter
-                                        .removeTerm(widget.terms[index]);
-                                  } else {
-                                    widget.homePresenter.showError(
-                                        'Você só pode selecionar até 4 períodos');
-                                  }
-                                } else {
-                                  setState(() {
+                                        .contains(index)
+                                    ? BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: LinearGradient(colors: [
+                                          context.colors.senary,
+                                          context.colors.tertiary,
+                                        ]))
+                                    : null,
+                                child: ListTile(
+                                  title: Text(
+                                    widget.terms[index],
+                                    style:
+                                        context.textStyles.textDrawerTermsItems,
+                                  ),
+                                  onTap: () {
                                     if (widget.homePresenter
-                                        .getTermSelectedIndexes()
-                                        .contains(index)) {
-                                      widget.homePresenter
-                                          .removeTermSelectIndex(index);
-                                      widget.homePresenter
-                                          .removeTerm(widget.terms[index]);
+                                            .getTermSelectedIndexes()
+                                            .length >=
+                                        15) {
+                                      if (widget.homePresenter
+                                          .getTermSelectedIndexes()
+                                          .contains(index)) {
+                                        widget.homePresenter
+                                            .removeTermSelectIndex(index);
+                                        widget.homePresenter
+                                            .removeTerm(widget.terms[index]);
+                                      } else {
+                                        widget.homePresenter.showError(
+                                            'Você só pode selecionar até 4 períodos');
+                                      }
                                     } else {
-                                      widget.homePresenter
-                                          .addTermSelectIndex(index);
-                                      widget.homePresenter
-                                          .attDataByTerm(widget.terms[index]);
+                                      setState(() {
+                                        if (widget.homePresenter
+                                            .getTermSelectedIndexes()
+                                            .contains(index)) {
+                                          widget.homePresenter
+                                              .removeTermSelectIndex(index);
+                                          widget.homePresenter
+                                              .removeTerm(widget.terms[index]);
+                                        } else {
+                                          widget.homePresenter
+                                              .addTermSelectIndex(index);
+                                          widget.homePresenter.attDataByTerm(
+                                              widget.terms[index]);
+                                        }
+                                      });
                                     }
-                                  });
-                                }
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
                               ),
-                            ),
+                              const Divider(
+                                color: Colors.white,
+                                thickness: 0.1,
+                              ),
+                            ],
                           ),
-                          const Divider(
-                            color: Colors.white,
-                            thickness: 0.1,
-                          ),
-                        ],
-                      ),
-                    )),
-            ],
+                        )),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+        if (widget.isRequestingStudentByCourse)
+          Positioned.fill(
+            child: Container(
+              color: Colors.black54,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Aguarde, estamos obtendo os dados...',
+                        style:
+                            context.textStyles.textDrawerCourseItems.copyWith(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

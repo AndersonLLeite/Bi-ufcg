@@ -1,9 +1,11 @@
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/bar_chart_secondary_school_type_distribuition.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/line_chart_secondary_school_distribuition.dart';
-import 'package:bi_ufcg/charts_column_sections/institucional_parameters_section/charts/pie_chart_secondary_school_type_distribuition.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SecondarySchoolSection extends StatefulWidget {
   const SecondarySchoolSection({super.key});
@@ -17,6 +19,8 @@ class _SecondarySchoolSectionState extends State<SecondarySchoolSection> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<Data>(context);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -90,10 +94,15 @@ class _SecondarySchoolSectionState extends State<SecondarySchoolSection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? const BarChartSecondarySchoolTypeDistribution()
+                    ? GenericBarChart(
+                        dataMap: data.secondarySchoolTypeDistribution)
                     : selectedChartIndex == 1
-                        ? const PieChartSecondarySchoolTypeDistribution()
-                        : const LineChartSecondarySchoolTypeDistribution(), // Substitua com seu novo widget
+                        ? GenericPieChart(
+                            dataMap: data.secondarySchoolTypeDistribution,
+                          )
+                        : GenericLineChart(
+                            dataMap: data
+                                .secondarySchoolTypeDistribution), // Substitua com seu novo widget
               ),
             ],
           ),

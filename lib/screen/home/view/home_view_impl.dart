@@ -1,11 +1,11 @@
 import 'package:bi_ufcg/core/ui/helpers/loader.dart';
 import 'package:bi_ufcg/core/ui/helpers/messages.dart';
+import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/models/student.dart';
 import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/course.dart';
-import '../../../models/studentv1.dart';
 import '../home_page.dart';
 import 'home_view.dart';
 
@@ -19,28 +19,41 @@ abstract class HomeViewImpl extends State<HomePage>
   List<String> selectedTerms = [];
   List<int> courseSelectedIndexes = [];
   List<int> termSelectedIndexes = [];
+  bool isRequestingStudentsByCourse = false;
 
   @override
   void initState() {
     widget.presenter.view = this;
     super.initState();
     widget.presenter.getCourses();
+    widget.presenter.getTerms(14102100);
   }
 
   @override
-  void onCoursesReceived(List<Course> courses) {
+  void setCourse(List<Course> courses) {
     setState(() {
       listCourses = courses;
     });
-    if (listCourses.isNotEmpty) {
-      widget.presenter.getTerms(courses[0].code);
-    }
   }
 
   @override
   void setTerms(List<String> terms) {
     setState(() {
       this.terms = terms;
+    });
+  }
+
+  @override
+  void setFalseisRequestingStudentsByCourse() {
+    setState(() {
+      isRequestingStudentsByCourse = false;
+    });
+  }
+
+  @override
+  void setTrueisRequestingStudentsByCourse() {
+    setState(() {
+      isRequestingStudentsByCourse = true;
     });
   }
 
@@ -90,20 +103,22 @@ abstract class HomeViewImpl extends State<HomePage>
   }
 
   @override
-  void onStudentsReceived(List<Studentv1> students, String courseCode) {
+  void onStudentsReceived(List<Student> students, int courseCode) {
     setState(() {
-      selecteCourses.add(
-          listCourses.firstWhere((element) => element.code == courseCode)
-            ..students = students);
+      selecteCourses.add(listCourses
+          .firstWhere((element) => element.codigoDoCurso == courseCode)
+        ..students = students);
     });
     widget.presenter.attDataBase(selecteCourses, selectedTerms);
+    setFalseisRequestingStudentsByCourse();
   }
 
   @override
-  void removeCode(String coursecode) {
+  void removeCode(int coursecode) {
     setState(() {
-      selecteCourses =
-          listCourses.where((element) => element.code != coursecode).toList();
+      selecteCourses = selecteCourses
+          .where((element) => element.codigoDoCurso != coursecode)
+          .toList();
     });
     widget.presenter.attDataBase(selecteCourses, selectedTerms);
   }
@@ -144,15 +159,16 @@ abstract class HomeViewImpl extends State<HomePage>
     hideLoader();
   }
 
-  @override
-  void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
-    context.read<Data>().setEnrollmentEvolution(enrollmentEvolution);
-  }
+  // @override
+  // void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution) {
+  //   context.read<Data>().setEnrollmentEvolution(enrollmentEvolution);
+  // }
 
   @override
   void updateGenderDistribution(
       Map<String, Map<String, int>> genderDistribution) {
     context.read<Data>().setGenderDistribution(genderDistribution);
+    print('genderDistribution:  $genderDistribution');
   }
 
   @override
