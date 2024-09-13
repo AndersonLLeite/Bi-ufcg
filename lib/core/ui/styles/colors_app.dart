@@ -49,7 +49,11 @@ class ColorsApp {
   Color get chartSubtitleColor => Colors.white70;
   Color get titleColor => quinary;
   Color get subtitleColor => Colors.white70;
-  Color get drawerItemColor => quinary;
+  Color get drawerItemColor => Colors.white;
+  Color get textButtonAppBarSelectedColor => Colors.white;
+  Color get textButtonAppBarUnselectedColor => Colors.white70;
+  Color get drawerBackgroundColor => primary;
+  Color get titleInfoColor => Colors.black;
 
   // Lista de cores para os elementos do gráfico
   static const List<Color> chartColors = [

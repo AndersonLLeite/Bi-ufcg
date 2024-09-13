@@ -34,14 +34,15 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'BI UFCG',
           theme: ThemeData(
-              scaffoldBackgroundColor: context.colors.secondary,
-              primarySwatch: Colors.blue,
-              canvasColor: context.colors.primary),
+            scaffoldBackgroundColor: context.colors.secondary,
+            primarySwatch: Colors.blue,
+            //  canvasColor: context.colors.quinary
+          ),
           routes: {
             // '/': (_) => const SplashRoute(),
             // '/login': (context) => const LoginRoute(),
             // '/home': (context) => const HomeRoute(),
-            '/': (_) => const HomeRoute(),
+            '/': (_) => const SplashRoute(),
             '/login': (context) => const LoginRoute(),
             '/home': (context) => const HomeRoute(),
           }),

@@ -36,6 +36,20 @@ abstract class HomeView {
   void updateSecondarySchoolTypeDistribution(
       Map<String, Map<String, int>> secondarySchoolTypeDistribution);
 
+  void updateOriginDistribution(
+      Map<String, Map<String, int>> originDistribution);
+
+  void updateColorDistribution(Map<String, Map<String, int>> colorDistribution);
+
+  void updateDisabilitiesDistribution(
+      Map<String, Map<String, int>> disabilitiesDistribution);
+
+  void updateInactivityPerPeriodoDeEvasaoDistribution(
+      Map<String, Map<String, int>> inactivityPerPeriodoDeEvasaoDistribution);
+
+  void updateAgeAtEnrollmentDistribution(
+      Map<String, Map<String, int>> ageAtEnrollmentDistribution);
+
   void setTerms(List<String> terms);
 
   void changeIndexMenu(int index);

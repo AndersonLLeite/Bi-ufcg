@@ -24,131 +24,53 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Container(
         color: context.colors.appBarColor,
         child: Row(children: [
-          if (ResponsiveLayout.isComputer(context))
-            ...List.generate(
-                _buttonNames.length,
-                (index) => TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _currentSelectedButton = index;
-                        widget.presenter.changeIndexMenu(index);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.P10 * 2),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              _buttonNames[index],
-                              style: TextStyle(
-                                color: _currentSelectedButton == index
-                                    ? Colors.white
-                                    : Colors.white70,
-                              ),
+          ...List.generate(
+              _buttonNames.length,
+              (index) => TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _currentSelectedButton = index;
+                      widget.presenter.changeIndexMenu(index);
+                      if (!ResponsiveLayout.isComputer(context)) {
+                        Scaffold.of(context).openDrawer();
+                      }
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppPadding.P10 * 2),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            _buttonNames[index],
+                            style: TextStyle(
+                              color: _currentSelectedButton == index
+                                  //tons de preto
+                                  ? context.colors.textButtonAppBarSelectedColor
+                                  : context
+                                      .colors.textButtonAppBarUnselectedColor,
                             ),
-                            Container(
-                              margin: const EdgeInsets.all(AppPadding.P10 / 2),
-                              width: 60,
-                              height: 2,
-                              decoration: BoxDecoration(
-                                gradient: _currentSelectedButton == index
-                                    ? LinearGradient(
-                                        colors: [
-                                          context.colors.tertiary,
-                                          context.colors.quaternary,
-                                        ],
-                                      )
-                                    : null,
-                              ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(AppPadding.P10 / 2),
+                            width: 60,
+                            height: 2,
+                            decoration: BoxDecoration(
+                              gradient: _currentSelectedButton == index
+                                  ? LinearGradient(
+                                      colors: [
+                                        context.colors.tertiary,
+                                        context.colors.quaternary,
+                                      ],
+                                    )
+                                  : null,
                             ),
-                          ]),
-                    )))
-          else
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(AppPadding.P10 * 2),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _currentSelectedButton = 0;
-                            widget.presenter.changeIndexMenu(0);
-                          });
-                        },
-                        child: Text(
-                          _buttonNames[0],
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: _currentSelectedButton == 0
-                                ? Colors.white
-                                : Colors.white70,
                           ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(AppPadding.P10 / 2),
-                      width: 60,
-                      height: 2,
-                      decoration: BoxDecoration(
-                        gradient: _currentSelectedButton == 0
-                            ? LinearGradient(
-                                colors: [
-                                  context.colors.red,
-                                  context.colors.orange,
-                                ],
-                              )
-                            : null,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(AppPadding.P10 * 2),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _currentSelectedButton = 1;
-                            widget.presenter.changeIndexMenu(1);
-                          });
-                        },
-                        child: Text(
-                          _buttonNames[1],
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: _currentSelectedButton == 1
-                                ? Colors.white
-                                : Colors.white70,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(AppPadding.P10 / 2),
-                      width: 60,
-                      height: 2,
-                      decoration: BoxDecoration(
-                        gradient: _currentSelectedButton == 1
-                            ? LinearGradient(
-                                colors: [
-                                  context.colors.primary,
-                                  context.colors.secondary,
-                                ],
-                              )
-                            : null,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          if (ResponsiveLayout.isComputer(context))
+                        ]),
+                  ))),
+          const SizedBox(width: AppPadding.P10),
+          if (!ResponsiveLayout.isPhoneLimit(context))
             Row(
               children: [
                 Container(
@@ -164,11 +86,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   ], shape: BoxShape.circle),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    radius: 50,
+                    radius: 40,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.asset(
-                        "assets/images/ufcgLogo.png",
+                        "assets/images/escudo-ufcg.png",
                       ),
                     ),
                   ),
@@ -187,7 +109,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   ], shape: BoxShape.circle),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    radius: 50,
+                    radius: 40,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.asset(
@@ -196,40 +118,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(AppPadding.P10),
-                  height: double.infinity,
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      offset: Offset(0, 0),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                    )
-                  ], shape: BoxShape.rectangle),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 50,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        "assets/images/logo2-eureca.png",
-                      ),
-                    ),
-                  ),
-                ),
               ],
-            )
-          else
-            IconButton(
-              color: Colors.white,
-              iconSize: 30,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(Icons.menu),
             ),
-          const SizedBox(width: AppPadding.P10),
         ]));
   }
 }

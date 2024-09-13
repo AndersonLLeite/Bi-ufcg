@@ -4,5 +4,4 @@ abstract class DataRepository {
   Future<List<Course>> getCourses();
 
   getStudentsByCourse(int courseId);
-  //getStudentsDropouts(String courseId);
 }

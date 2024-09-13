@@ -56,6 +56,18 @@ class TextStyles {
       fontFamily: primaryFont,
       color: ColorsApp.instance.drawerItemColor,
       fontSize: 16);
+
+  TextStyle get titleInfo => TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: primaryFont,
+      color: ColorsApp.instance.titleInfoColor,
+      fontSize: 16);
+
+  TextStyle get textInfoSubtitle => TextStyle(
+      fontWeight: FontWeight.normal,
+      fontFamily: secondaryFont,
+      color: ColorsApp.instance.titleInfoColor,
+      fontSize: 14);
 }
 
 extension TextStylesExtensions on BuildContext {

@@ -1,3 +1,4 @@
+import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 
 class WidgetNoData extends StatelessWidget {
@@ -11,7 +12,7 @@ class WidgetNoData extends StatelessWidget {
         key: const ValueKey('no_data'),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.colors.quinary,
           borderRadius: BorderRadius.circular(15),
           boxShadow: const [
             BoxShadow(
@@ -31,9 +32,10 @@ class WidgetNoData extends StatelessWidget {
               color: Colors.grey.shade300,
             ),
             Text(
+              overflow: TextOverflow.ellipsis,
               'Nenhum dado disponível',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey.shade700,
               ),
@@ -42,7 +44,7 @@ class WidgetNoData extends StatelessWidget {
               'Por favor, adicione pelo menos 1 curso e 1 período para visualizar os dados.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey.shade500,
               ),
             ),

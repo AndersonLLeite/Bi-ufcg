@@ -58,7 +58,7 @@ class _GenericLineChartState extends State<GenericLineChart> {
                         ),
                         elevation: 3,
                         child: AspectRatio(
-                          aspectRatio: 1,
+                          aspectRatio: 1.6,
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: Column(
@@ -228,26 +228,35 @@ class _GenericLineChartState extends State<GenericLineChart> {
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           tooltipBgColor: Colors.white,
-          tooltipPadding: const EdgeInsets.all(8),
+          tooltipPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           tooltipRoundedRadius: 8,
-          showOnTopOfTheChartBoxArea: true, // Exibe sobre a área do gráfico
-          fitInsideHorizontally: true, // Ajusta horizontalmente
+          showOnTopOfTheChartBoxArea: true,
+          fitInsideHorizontally: true,
           fitInsideVertically: true,
+          maxContentWidth: 270, // Define um limite máximo de largura
           getTooltipItems: (touchedBarSpots) {
             bool periodShown = false;
 
             return touchedBarSpots.map((spot) {
               final periodIndex = spot.x.toInt();
               final period = periods[periodIndex];
-              final category = widget.dataMap[period]!.entries
-                  .firstWhere(
-                    (entry) => entry.value.toDouble() == spot.y,
-                    orElse: () => const MapEntry('Unknown', 0),
-                  )
-                  .key;
+
+              // Encontra a categoria correspondente ao ponto tocado
+              final category = widget.dataMap[period]!.entries.firstWhere(
+                (entry) {
+                  final categoryIndex =
+                      _getCategoryIndex(entry.key, widget.dataMap);
+                  final spotColor = ColorsApp.getColorForIndex(categoryIndex);
+                  return entry.value.toDouble() == spot.y &&
+                      spotColor == spot.bar.color;
+                },
+                orElse: () => const MapEntry('Unknown', 0),
+              ).key;
 
               final color = ColorsApp.getColorForIndex(
-                  _getCategoryIndex(category, widget.dataMap));
+                _getCategoryIndex(category, widget.dataMap),
+              );
 
               List<TextSpan> children = [];
               if (!periodShown) {
@@ -257,6 +266,7 @@ class _GenericLineChartState extends State<GenericLineChart> {
                     style: const TextStyle(
                       color: Colors.grey,
                       fontWeight: FontWeight.bold,
+                      fontSize: 12,
                     ),
                   ),
                 );
@@ -265,21 +275,23 @@ class _GenericLineChartState extends State<GenericLineChart> {
 
               children.add(
                 TextSpan(
-                  text: '$category:\n ${spot.y.toInt()}',
+                  text: '$category:  ${spot.y.toInt()}',
                   style: TextStyle(
                     color: color,
                     fontWeight: FontWeight.bold,
+                    fontSize: 12,
                   ),
                 ),
               );
 
               return LineTooltipItem(
-                '', // Deixa o texto principal vazio
+                '', // Texto principal vazio
                 const TextStyle(),
                 children: children,
               );
             }).toList();
           },
+          tooltipMargin: 16, // Distância do tooltip para os pontos
         ),
       ),
     );

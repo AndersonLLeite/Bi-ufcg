@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class Student {
-  // Atributos obrigatórios
   int? codigoDoCurso;
   String? genero;
   String? idade;
@@ -17,8 +16,6 @@ class Student {
   List<String>? deficiencias;
   String? tipoDeEnsinoMedio;
   String? politicaAfirmativa;
-
-  // Atributos opcionais
   String? matriculaDoEstudante;
   String? nome;
   String? nomeDoCurso;

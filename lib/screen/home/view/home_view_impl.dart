@@ -24,9 +24,9 @@ abstract class HomeViewImpl extends State<HomePage>
   @override
   void initState() {
     widget.presenter.view = this;
-    super.initState();
     widget.presenter.getCourses();
     widget.presenter.getTerms(14102100);
+    super.initState();
   }
 
   @override
@@ -217,5 +217,44 @@ abstract class HomeViewImpl extends State<HomePage>
         .read<Data>()
         .setSecondarySchoolTypeDistribution(secondarySchoolTypeDistribution);
     print('secondarySchoolTypeDistribution:  $secondarySchoolTypeDistribution');
+  }
+
+  @override
+  void updateOriginDistribution(
+      Map<String, Map<String, int>> originDistribution) {
+    context.read<Data>().setOriginDistribution(originDistribution);
+    print('originDistribution:  $originDistribution');
+  }
+
+  @override
+  void updateColorDistribution(
+      Map<String, Map<String, int>> colorDistribution) {
+    context.read<Data>().setColorDistribution(colorDistribution);
+    print('colorDistribution:  $colorDistribution');
+  }
+
+  @override
+  void updateDisabilitiesDistribution(
+      Map<String, Map<String, int>> disabilitiesDistribution) {
+    context.read<Data>().setDisabilitiesDistribution(disabilitiesDistribution);
+    print('disabilitiesDistribution:  $disabilitiesDistribution');
+  }
+
+  @override
+  void updateInactivityPerPeriodoDeEvasaoDistribution(
+      Map<String, Map<String, int>> inactivityPerPeriodoDeEvasaoDistribution) {
+    context.read<Data>().setInactivityPerPeriodoDeEvasaoDistribution(
+        inactivityPerPeriodoDeEvasaoDistribution);
+    print(
+        'inactivityPerPeriodoDeEvasaoDistribution:  $inactivityPerPeriodoDeEvasaoDistribution');
+  }
+
+  @override
+  void updateAgeAtEnrollmentDistribution(
+      Map<String, Map<String, int>> ageAtEnrollmentDistribution) {
+    context
+        .read<Data>()
+        .setAgeAtEnrollmentDistribution(ageAtEnrollmentDistribution);
+    print('ageAtEnrollmentDistribution:  $ageAtEnrollmentDistribution');
   }
 }

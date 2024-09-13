@@ -36,7 +36,7 @@ class _GenericBarChartState extends State<GenericBarChart> {
         ),
         elevation: 3,
         child: AspectRatio(
-          aspectRatio: 0.95,
+          aspectRatio: 1.6,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

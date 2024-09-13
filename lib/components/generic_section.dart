@@ -1,25 +1,58 @@
-import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_bar_chart.dart';
 import 'package:bi_ufcg/components/charts/generic_bar_chart_grouped.dart';
 import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
+import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class GenderSection extends StatefulWidget {
-  const GenderSection({super.key});
+class GenericSection extends StatefulWidget {
+  final Map<String, Map<String, int>> dataMap;
+  final String title;
+  final bool isBarChartGrouped;
+  final String?
+      infoMessage; // Nova string opcional para a mensagem de informação
+
+  const GenericSection({
+    super.key,
+    required this.dataMap,
+    required this.title,
+    this.isBarChartGrouped = false,
+    this.infoMessage, // Inicializando a string opcional
+  });
 
   @override
-  State<GenderSection> createState() => _GenderSectionState();
+  State<GenericSection> createState() => _GenericSectionState();
 }
 
-class _GenderSectionState extends State<GenderSection> {
-  int selectedChartIndex = 0; // 0: BarChart, 1: PieChart, 2: LineChart
+class _GenericSectionState extends State<GenericSection> {
+  int selectedChartIndex = 0; // 0: LineChart, 1: BarChart, 2: OutroChart
+
+  void _showInfoDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text('Informações', style: context.textStyles.titleInfo),
+          content: Text(message, style: context.textStyles.textInfoSubtitle),
+          actions: [
+            TextButton(
+              child: Text('Fechar', style: TextStyle(color: Colors.blue)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<Data>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Card(
@@ -29,21 +62,37 @@ class _GenderSectionState extends State<GenderSection> {
         ),
         elevation: 3,
         child: AspectRatio(
-          aspectRatio: 0.8,
+          aspectRatio: 1.2,
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(2.0),
-                child:
-                    Text('Gênero', style: TextStyles.instance.textTitleChart),
+                padding: const EdgeInsets.only(top: 10, left: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(widget.title,
+                        style: context.textStyles.textTitleChart),
+                    const SizedBox(width: 5),
+                    if (widget.infoMessage != null)
+                      IconButton(
+                        icon: Icon(Icons.info_outline,
+                            color: context.colors.chartIconSelectedColor),
+                        onPressed: () {
+                          _showInfoDialog(widget.infoMessage!);
+                        },
+                      ),
+                  ],
+                ),
               ),
               ListTile(
                 title: Text(
                   selectedChartIndex == 0
-                      ? 'Distribuição Agrupada'
+                      ? widget.isBarChartGrouped
+                          ? 'Distribuição Agrupada'
+                          : 'Distribuição Total'
                       : selectedChartIndex == 1
-                          ? 'Distribuição por Gênero'
-                          : 'Evolução de Gênero',
+                          ? 'Distribuição'
+                          : 'Evolução',
                   style: TextStyles.instance.textSubtitleChart,
                 ),
                 trailing: Row(
@@ -58,7 +107,7 @@ class _GenderSectionState extends State<GenderSection> {
                       ),
                       onPressed: () {
                         setState(() {
-                          selectedChartIndex = 0; // Alterna para BarChart
+                          selectedChartIndex = 0;
                         });
                       },
                     ),
@@ -71,7 +120,7 @@ class _GenderSectionState extends State<GenderSection> {
                       ),
                       onPressed: () {
                         setState(() {
-                          selectedChartIndex = 1; // Alterna para PieChart
+                          selectedChartIndex = 1;
                         });
                       },
                     ),
@@ -93,10 +142,12 @@ class _GenderSectionState extends State<GenderSection> {
               ),
               Expanded(
                 child: selectedChartIndex == 0
-                    ? GenericBarChartGrouped(dataMap: data.genderDistribution)
+                    ? widget.isBarChartGrouped
+                        ? GenericBarChartGrouped(dataMap: widget.dataMap)
+                        : GenericBarChart(dataMap: widget.dataMap)
                     : selectedChartIndex == 1
-                        ? GenericPieChart(dataMap: data.genderDistribution)
-                        : GenericLineChart(dataMap: data.genderDistribution),
+                        ? GenericPieChart(dataMap: widget.dataMap)
+                        : GenericLineChart(dataMap: widget.dataMap),
               ),
             ],
           ),

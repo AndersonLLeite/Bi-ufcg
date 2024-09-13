@@ -30,6 +30,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Stack(
       children: [
         Drawer(
+          backgroundColor: context.colors.drawerBackgroundColor,
           elevation: 0,
           child: SingleChildScrollView(
             child: Padding(
@@ -79,9 +80,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   ),
                                 ),
                               ),
-                              const Divider(
-                                color: Colors.white,
-                                thickness: 0.1,
+                              Divider(
+                                color: context.colors.senary,
+                                thickness: 0.2,
                               ),
                             ],
                           ),
@@ -108,10 +109,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                         context.textStyles.textDrawerTermsItems,
                                   ),
                                   onTap: () {
-                                    if (widget.homePresenter
-                                            .getTermSelectedIndexes()
-                                            .length >=
-                                        15) {
+                                    setState(() {
                                       if (widget.homePresenter
                                           .getTermSelectedIndexes()
                                           .contains(index)) {
@@ -120,26 +118,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                         widget.homePresenter
                                             .removeTerm(widget.terms[index]);
                                       } else {
-                                        widget.homePresenter.showError(
-                                            'Você só pode selecionar até 4 períodos');
+                                        widget.homePresenter
+                                            .addTermSelectIndex(index);
+                                        widget.homePresenter
+                                            .attDataByTerm(widget.terms[index]);
                                       }
-                                    } else {
-                                      setState(() {
-                                        if (widget.homePresenter
-                                            .getTermSelectedIndexes()
-                                            .contains(index)) {
-                                          widget.homePresenter
-                                              .removeTermSelectIndex(index);
-                                          widget.homePresenter
-                                              .removeTerm(widget.terms[index]);
-                                        } else {
-                                          widget.homePresenter
-                                              .addTermSelectIndex(index);
-                                          widget.homePresenter.attDataByTerm(
-                                              widget.terms[index]);
-                                        }
-                                      });
-                                    }
+                                    });
                                   },
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -158,7 +142,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
           ),
         ),
-        if (widget.isRequestingStudentByCourse)
+        if (widget.isRequestingStudentByCourse ||
+            widget.courses.isEmpty ||
+            widget.terms.isEmpty)
           Positioned.fill(
             child: Container(
               color: Colors.black54,

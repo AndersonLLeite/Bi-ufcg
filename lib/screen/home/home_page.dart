@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../../components/custom_app_bar.dart';
 import '../../core/ui/styles/responsive_layout.dart';
 import '../../components/drawer_screen.dart';
-import '../../components/panel_center_screen.dart';
 import '../../components/panel_left_screen.dart';
 import '../../components/panel_right_screen.dart';
 import 'presenter/home_presenter.dart';
@@ -21,12 +20,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends HomeViewImpl {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   final List<Widget> _icons = const [
-    Icon(Icons.add, size: 30),
-    Icon(Icons.list, size: 30),
-    Icon(Icons.compare_arrows, size: 30),
+    Icon(Icons.school),
+    Icon(Icons.person),
   ];
 
   @override
@@ -44,20 +42,14 @@ class _HomePageState extends HomeViewImpl {
         tiny: Container(),
         phone: currentIndex == 0
             ? const PanelLeftScreen()
-            : currentIndex == 1
-                ? const PanelCenterScreen()
-                : const PanelRightScreen(),
-        tablet: const Row(
-          children: [
-            Expanded(child: PanelLeftScreen()),
-            Expanded(child: PanelCenterScreen()),
-          ],
-        ),
+            : const PanelRightScreen(),
+        tablet: currentIndex == 0
+            ? const PanelLeftScreen()
+            : const PanelRightScreen(),
         largeTablet: const Row(
           children: [
-            //  Expanded(child: PanelLeftScreen()),
-            Expanded(child: PanelCenterScreen()),
-            Expanded(child: PanelRightScreen())
+            Expanded(child: PanelLeftScreen()),
+            Expanded(child: PanelRightScreen()),
           ],
         ),
         computer: Row(
@@ -71,8 +63,7 @@ class _HomePageState extends HomeViewImpl {
                     isRequestingStudentByCourse: isRequestingStudentsByCourse,
                     terms: terms)),
             const Expanded(flex: 5, child: PanelLeftScreen()),
-            const Expanded(flex: 5, child: PanelCenterScreen()),
-            //  const Expanded(flex: 5, child: PanelRightScreen())
+            const Expanded(flex: 5, child: PanelRightScreen()),
           ],
         ),
       ),
@@ -82,7 +73,8 @@ class _HomePageState extends HomeViewImpl {
           indexSelected: menuIndexSelected,
           isRequestingStudentByCourse: isRequestingStudentsByCourse,
           terms: terms),
-      bottomNavigationBar: ResponsiveLayout.isPhoneLimit(context)
+      bottomNavigationBar: ResponsiveLayout.isPhoneLimit(context) ||
+              ResponsiveLayout.isTabletLimit(context)
           ? CurvedNavigationBar(
               backgroundColor: ColorsApp.instance.secondary,
               color: Colors.white24,

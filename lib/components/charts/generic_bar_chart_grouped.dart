@@ -44,7 +44,7 @@ class _GenericBarChartGroupedState extends State<GenericBarChartGrouped> {
         ),
         elevation: 3,
         child: AspectRatio(
-          aspectRatio: 0.95,
+          aspectRatio: 1.6,
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
@@ -139,13 +139,22 @@ class _GenericBarChartGroupedState extends State<GenericBarChartGrouped> {
                               BarChartRodData rod,
                               int rodIndex,
                             ) {
+                              // Exibe o tooltip apenas uma vez por grupo
                               if (rodIndex != 0) {
-                                return null; // Exibir o tooltip apenas uma vez por grupo
+                                return null;
                               }
 
                               final period = sortedPeriods[groupIndex];
                               final periodData = widget.dataMap[period]!;
-                              final tooltipItems = <TextSpan>[];
+                              final tooltipItems = <TextSpan>[
+                                TextSpan(
+                                  text: '$period\n',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ];
 
                               // Itera sobre as categorias e adiciona os valores ao tooltip
                               for (int i = 0; i < categories.length; i++) {

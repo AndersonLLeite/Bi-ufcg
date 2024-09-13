@@ -48,8 +48,6 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   void attDataBase(List<Course> courses, List<String> terms) {
-    // _view.updateEnrollmentEvolution(
-    //     dataService.getEnrollmentEvolution(courses, terms));
     _view.updateGenderDistribution(
         dataService.getGenderDistribution(courses, terms));
     _view.updateAgeDistribution(dataService.getAgeDistribution(courses, terms));
@@ -63,6 +61,16 @@ class HomePresenterImpl implements HomePresenter {
         dataService.getAdmissionTypeDistribution(courses, terms));
     _view.updateSecondarySchoolTypeDistribution(
         dataService.getSecondarySchoolTypeDistribution(courses, terms));
+    _view.updateOriginDistribution(
+        dataService.getOriginDistribution(courses, terms));
+    _view.updateColorDistribution(
+        dataService.getColorDistribution(courses, terms));
+    _view.updateDisabilitiesDistribution(
+        dataService.getDisabilitiesDistribution(courses, terms));
+    _view.updateInactivityPerPeriodoDeEvasaoDistribution(dataService
+        .getInactivityPerPeriodoDeEvasaoDistribution(courses, terms));
+    _view.updateAgeAtEnrollmentDistribution(
+        dataService.getAgeAtEnrollmentDistribution(courses, terms));
   }
 
   @override

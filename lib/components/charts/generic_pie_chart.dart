@@ -26,13 +26,20 @@ class _GenericPieChartState extends State<GenericPieChart> {
   @override
   Widget build(BuildContext context) {
     List<String> periods = [
-      'Todos os Períodos',
+      'Períodos Selecionados',
       ...widget.dataMap.keys,
     ];
 
+    // Verifica se o período selecionado ainda existe nos dados
+    if (!periods.contains(selectedPeriod)) {
+      setState(() {
+        selectedPeriod = 'Períodos Selecionados';
+      });
+    }
+
     // Dados filtrados ou combinados conforme o período selecionado
     final Map<String, int> filteredData = <String, int>{};
-    if (selectedPeriod == 'Todos os Períodos') {
+    if (selectedPeriod == 'Períodos Selecionados') {
       widget.dataMap.forEach((_, data) {
         data.forEach((key, value) {
           if (filteredData.containsKey(key)) {
@@ -42,7 +49,7 @@ class _GenericPieChartState extends State<GenericPieChart> {
           }
         });
       });
-    } else {
+    } else if (widget.dataMap.containsKey(selectedPeriod)) {
       filteredData.addAll(widget.dataMap[selectedPeriod]!);
     }
 
@@ -62,7 +69,7 @@ class _GenericPieChartState extends State<GenericPieChart> {
                 ),
                 elevation: 3,
                 child: AspectRatio(
-                  aspectRatio: 0.95,
+                  aspectRatio: 1.6,
                   child: Column(
                     children: [
                       // Dropdown para selecionar o período
@@ -72,6 +79,7 @@ class _GenericPieChartState extends State<GenericPieChart> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: DropdownButton<String>(
+                              dropdownColor: context.colors.primary,
                               value: selectedPeriod,
                               onChanged: (String? newValue) {
                                 setState(() {
