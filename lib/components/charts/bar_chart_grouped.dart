@@ -3,19 +3,19 @@ import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class GenericBarChart extends StatefulWidget {
+class BarChartGrouped extends StatefulWidget {
   final Map<String, Map<String, int>> dataMap; // Dados no formato genérico
 
-  const GenericBarChart({
+  const BarChartGrouped({
     Key? key,
     required this.dataMap,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _GenericBarChartState();
+  State<StatefulWidget> createState() => _BarChartGroupedState();
 }
 
-class _GenericBarChartState extends State<GenericBarChart> {
+class _BarChartGroupedState extends State<BarChartGrouped> {
   int touchedGroupIndex = -1;
 
   @override
@@ -23,6 +23,14 @@ class _GenericBarChartState extends State<GenericBarChart> {
     if (widget.dataMap.isEmpty) {
       return const WidgetNoData();
     }
+
+    // Ordenar os períodos para exibir de forma crescente
+    final sortedPeriods = widget.dataMap.keys.toList()
+      ..sort((a, b) => double.parse(a).compareTo(double.parse(b)));
+
+    // Obter todas as categorias possíveis para gerar as barras
+    final categories =
+        widget.dataMap.values.expand((map) => map.keys).toSet().toList();
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 700),
@@ -38,11 +46,10 @@ class _GenericBarChartState extends State<GenericBarChart> {
         child: AspectRatio(
           aspectRatio: 1.6,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const SizedBox(height: 8),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(24),
@@ -81,19 +88,17 @@ class _GenericBarChartState extends State<GenericBarChart> {
                               showTitles: true,
                               reservedSize: 36,
                               getTitlesWidget: (value, meta) {
-                                final categories = _getCategories();
                                 final index = value.toInt();
                                 return SideTitleWidget(
                                   axisSide: meta.axisSide,
                                   child: Text(
-                                    categories[index].length > 3
-                                        ? categories[index].substring(0, 3)
-                                        : categories[index], // Exibe 3 letras
+                                    sortedPeriods[index],
                                     style: TextStyle(
                                       color: touchedGroupIndex == index
                                           ? Colors.white
                                           : Colors.grey,
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 11,
                                     ),
                                   ),
                                 );
@@ -111,27 +116,68 @@ class _GenericBarChartState extends State<GenericBarChart> {
                             strokeWidth: 1,
                           ),
                         ),
-                        barGroups: _generateBarGroups(),
-                        maxY: _getMaxY() + 10,
+                        barGroups: List.generate(sortedPeriods.length, (index) {
+                          final period = sortedPeriods[index];
+                          final periodData = widget.dataMap[period]!;
+
+                          return generateBarGroup(
+                            index,
+                            periodData,
+                            categories,
+                          );
+                        }),
+                        maxY: _getMaxY(widget.dataMap, categories),
                         barTouchData: BarTouchData(
                           enabled: true,
+                          handleBuiltInTouches: false,
                           touchTooltipData: BarTouchTooltipData(
                             tooltipBgColor: Colors.white,
+                            tooltipRoundedRadius: 8,
                             getTooltipItem: (
-                              group,
-                              groupIndex,
-                              rod,
-                              rodIndex,
+                              BarChartGroupData group,
+                              int groupIndex,
+                              BarChartRodData rod,
+                              int rodIndex,
                             ) {
-                              final categories = _getCategories();
-                              final categoryName = categories[groupIndex];
-                              final value = rod.toY;
-                              return BarTooltipItem(
-                                '$categoryName\n$value',
-                                TextStyle(
-                                  color: rod.color,
-                                  fontWeight: FontWeight.bold,
+                              // Exibe o tooltip apenas uma vez por grupo
+                              if (rodIndex != 0) {
+                                return null;
+                              }
+
+                              final period = sortedPeriods[groupIndex];
+                              final periodData = widget.dataMap[period]!;
+                              final tooltipItems = <TextSpan>[
+                                TextSpan(
+                                  text: '$period\n',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
                                 ),
+                              ];
+
+                              // Itera sobre as categorias e adiciona os valores ao tooltip
+                              for (int i = 0; i < categories.length; i++) {
+                                final category = categories[i];
+                                final value =
+                                    periodData[category]?.toDouble() ?? 0.0;
+                                final color = ColorsApp.getColorForIndex(i);
+
+                                tooltipItems.add(
+                                  TextSpan(
+                                    text: '$category: $value\n',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: color,
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              return BarTooltipItem(
+                                '', // Tooltip principal vazio
+                                const TextStyle(),
+                                children: tooltipItems,
                               );
                             },
                           ),
@@ -163,54 +209,39 @@ class _GenericBarChartState extends State<GenericBarChart> {
     );
   }
 
-  // Gera os grupos de barras para o gráfico
-  List<BarChartGroupData> _generateBarGroups() {
-    final combinedData = _combineData();
+  BarChartGroupData generateBarGroup(
+    int x,
+    Map<String, int> periodData,
+    List<String> categories,
+  ) {
+    return BarChartGroupData(
+      x: x,
+      barRods: List.generate(categories.length, (i) {
+        final category = categories[i];
+        final value = periodData[category]?.toDouble() ?? 0.0;
 
-    final sortedCategories = combinedData.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-
-    return List.generate(sortedCategories.length, (index) {
-      final entry = sortedCategories[index];
-      return BarChartGroupData(
-        x: index,
-        barRods: [
-          BarChartRodData(
-            toY: entry.value.toDouble(),
-            color: ColorsApp.getColorForIndex(index), // Cor dinâmica
-            width: 10,
-          ),
-        ],
-        showingTooltipIndicators: touchedGroupIndex == index ? [0] : [],
-      );
-    });
+        return BarChartRodData(
+          toY: value,
+          color: ColorsApp.getColorForIndex(i),
+          width: 10,
+        );
+      }),
+      showingTooltipIndicators: touchedGroupIndex == x
+          ? [0]
+          : [], // Mostra o tooltip para o primeiro rod
+    );
   }
 
-  // Combina os dados de todos os períodos em um único mapa
-  Map<String, int> _combineData() {
-    final combinedData = <String, int>{};
-
-    widget.dataMap.forEach((_, dataMap) {
-      dataMap.forEach((category, count) {
-        combinedData[category] = (combinedData[category] ?? 0) + count;
-      });
-    });
-
-    return combinedData;
-  }
-
-  // Obter o valor máximo para o eixo Y
-  double _getMaxY() {
-    final combinedData = _combineData();
-    return combinedData.values.fold(0, (a, b) => a > b ? a : b).toDouble();
-  }
-
-  // Obter os nomes das categorias
-  List<String> _getCategories() {
-    final combinedData = _combineData();
-    final sortedCategories = combinedData.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-
-    return sortedCategories.map((entry) => entry.key).toList();
+  double _getMaxY(
+      Map<String, Map<String, int>> dataMap, List<String> categories) {
+    double maxY = 0;
+    for (var periodData in dataMap.values) {
+      for (var category in categories) {
+        maxY = maxY < (periodData[category]?.toDouble() ?? 0.0)
+            ? (periodData[category]?.toDouble() ?? 0.0)
+            : maxY;
+      }
+    }
+    return maxY + 10; // Adiciona uma margem ao máximo
   }
 }

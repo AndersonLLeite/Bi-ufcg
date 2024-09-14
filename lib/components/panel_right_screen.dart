@@ -1,11 +1,5 @@
 import 'package:bi_ufcg/components/generic_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/age_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/color_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/disabilities_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/gender_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/origin_section.dart';
-import 'package:bi_ufcg/charts_column_sections/social_parameters_section/policy_section.dart';
-import 'package:bi_ufcg/components/infoChartStrings.dart';
+import 'package:bi_ufcg/core/ui/helpers/infoChartStrings.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/service/data/data.dart';
@@ -53,38 +47,38 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
                     ),
                   )),
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.genderDistribution,
               title: 'Gênero',
               infoMessage: context.infoStrings.genderInfo,
               isBarChartGrouped: true,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.ageAtEnrollmentDistribution,
               title: 'Idade No Momento Da Matrícula',
               infoMessage: context.infoStrings.ageAtEnrollmentInfo,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.ageDistribution,
               title: 'Idade Atual',
               infoMessage: context.infoStrings.ageInfo,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.affirmativePolicyDistribution,
               title: 'Política de Ação Afirmativa',
               infoMessage: context.infoStrings.affirmativePolicyInfo,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.colorDistribution,
               title: 'Cor/Raça',
               infoMessage: context.infoStrings.colorInfo,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.originDistribution,
               title: 'Naturalidade',
               infoMessage: context.infoStrings.originInfo,
             ),
-            GenericSection(
+            ChartsSection(
               dataMap: data.disabilitiesDistribution,
               title: 'Deficiência',
               infoMessage: context.infoStrings.disabilityInfo,

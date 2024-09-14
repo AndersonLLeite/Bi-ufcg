@@ -1,20 +1,20 @@
-import 'package:bi_ufcg/components/charts/generic_bar_chart.dart';
+import 'package:bi_ufcg/components/charts/bar_chart_distribuition.dart';
 import 'package:bi_ufcg/components/charts/generic_bar_chart_grouped.dart';
-import 'package:bi_ufcg/components/charts/generic_line_chart.dart';
-import 'package:bi_ufcg/components/charts/generic_pie_chart.dart';
+import 'package:bi_ufcg/components/charts/line_chart_distribuition.dart';
+import 'package:bi_ufcg/components/charts/pie_chart_distribuition.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
 
-class GenericSection extends StatefulWidget {
+class ChartsSection extends StatefulWidget {
   final Map<String, Map<String, int>> dataMap;
   final String title;
   final bool isBarChartGrouped;
   final String?
       infoMessage; // Nova string opcional para a mensagem de informação
 
-  const GenericSection({
+  const ChartsSection({
     super.key,
     required this.dataMap,
     required this.title,
@@ -23,10 +23,10 @@ class GenericSection extends StatefulWidget {
   });
 
   @override
-  State<GenericSection> createState() => _GenericSectionState();
+  State<ChartsSection> createState() => _ChartsSectionState();
 }
 
-class _GenericSectionState extends State<GenericSection> {
+class _ChartsSectionState extends State<ChartsSection> {
   int selectedChartIndex = 0; // 0: LineChart, 1: BarChart, 2: OutroChart
 
   void _showInfoDialog(String message) {
@@ -143,11 +143,11 @@ class _GenericSectionState extends State<GenericSection> {
               Expanded(
                 child: selectedChartIndex == 0
                     ? widget.isBarChartGrouped
-                        ? GenericBarChartGrouped(dataMap: widget.dataMap)
-                        : GenericBarChart(dataMap: widget.dataMap)
+                        ? BarChartGrouped(dataMap: widget.dataMap)
+                        : BarChartDistribuition(dataMap: widget.dataMap)
                     : selectedChartIndex == 1
-                        ? GenericPieChart(dataMap: widget.dataMap)
-                        : GenericLineChart(dataMap: widget.dataMap),
+                        ? PieChartDistribuition(dataMap: widget.dataMap)
+                        : LineChartDistribuition(dataMap: widget.dataMap),
               ),
             ],
           ),

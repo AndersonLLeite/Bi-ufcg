@@ -6,19 +6,19 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/indicator.dart';
 
-class GenericPieChart extends StatefulWidget {
+class PieChartDistribuition extends StatefulWidget {
   final Map<String, Map<String, int>> dataMap; // Dados gerais
 
-  const GenericPieChart({
+  const PieChartDistribuition({
     Key? key,
     required this.dataMap,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _GenericPieChartState();
+  State<StatefulWidget> createState() => _PieChartDistribuitionState();
 }
 
-class _GenericPieChartState extends State<GenericPieChart> {
+class _PieChartDistribuitionState extends State<PieChartDistribuition> {
   int touchedIndex = -1;
   bool showPercentage = true;
   String selectedPeriod = 'Todos os Períodos';

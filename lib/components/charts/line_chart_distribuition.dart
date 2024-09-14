@@ -3,19 +3,19 @@ import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class GenericLineChart extends StatefulWidget {
+class LineChartDistribuition extends StatefulWidget {
   final Map<String, Map<String, int>> dataMap; // Dados no formato genérico
 
-  const GenericLineChart({
+  const LineChartDistribuition({
     Key? key,
     required this.dataMap,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _GenericLineChartState();
+  State<StatefulWidget> createState() => _LineChartDistribuitionState();
 }
 
-class _GenericLineChartState extends State<GenericLineChart> {
+class _LineChartDistribuitionState extends State<LineChartDistribuition> {
   bool isCurved = true;
   late Map<String, bool>
       selectedCategories; // Mapa para armazenar a seleção dos itens da legenda
