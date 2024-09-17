@@ -791,4 +791,135 @@ class DataServiceImpl implements DataService {
 
     return evasionByGender;
   }
+
+  @override
+  Map<String, Map<String, double>> getEvasionByAdmissionType(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionByAdmissionType = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar os motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Inicializa o período se ainda não estiver no mapa
+        if (!evasionByAdmissionType.containsKey(student.periodoDeEvasao)) {
+          evasionByAdmissionType[student.periodoDeEvasao] = {};
+        }
+
+        String formaDeIngresso = student.formaDeIngresso ?? 'Desconhecido';
+
+        // Incrementa o contador da forma de ingresso
+        if (!evasionByAdmissionType[student.periodoDeEvasao]!
+            .containsKey(formaDeIngresso)) {
+          evasionByAdmissionType[student.periodoDeEvasao]![formaDeIngresso] = 0;
+        }
+
+        evasionByAdmissionType[student.periodoDeEvasao]![formaDeIngresso] =
+            evasionByAdmissionType[student.periodoDeEvasao]![formaDeIngresso]! +
+                1;
+      }
+    }
+
+    return evasionByAdmissionType;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionBySecondarySchoolType(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionBySecondarySchoolType = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar os motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Inicializa o período se ainda não estiver no mapa
+        if (!evasionBySecondarySchoolType
+            .containsKey(student.periodoDeEvasao)) {
+          evasionBySecondarySchoolType[student.periodoDeEvasao] = {};
+        }
+
+        String tipoDeEnsinoMedio = student.tipoDeEnsinoMedio ?? 'Desconhecido';
+
+        // Incrementa o contador do tipo de ensino médio
+        if (!evasionBySecondarySchoolType[student.periodoDeEvasao]!
+            .containsKey(tipoDeEnsinoMedio)) {
+          evasionBySecondarySchoolType[student.periodoDeEvasao]![
+              tipoDeEnsinoMedio] = 0;
+        }
+
+        evasionBySecondarySchoolType[student.periodoDeEvasao]![
+            tipoDeEnsinoMedio] = evasionBySecondarySchoolType[
+                student.periodoDeEvasao]![tipoDeEnsinoMedio]! +
+            1;
+      }
+    }
+
+    return evasionBySecondarySchoolType;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionByDisabilities(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionByDisabilities = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar os motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Ignorar estudantes sem deficiências
+        if (student.deficiencias == null || student.deficiencias!.isEmpty) {
+          continue;
+        }
+
+        // Iterar sobre as deficiências do estudante
+        for (var deficiencia in student.deficiencias!) {
+          // Inicializa o período se ainda não estiver no mapa
+          if (!evasionByDisabilities.containsKey(student.periodoDeEvasao)) {
+            evasionByDisabilities[student.periodoDeEvasao] = {};
+          }
+
+          // Incrementa o contador da deficiência
+          if (!evasionByDisabilities[student.periodoDeEvasao]!
+              .containsKey(deficiencia)) {
+            evasionByDisabilities[student.periodoDeEvasao]![deficiencia] = 0;
+          }
+
+          evasionByDisabilities[student.periodoDeEvasao]![deficiencia] =
+              evasionByDisabilities[student.periodoDeEvasao]![deficiencia]! + 1;
+        }
+      }
+    }
+
+    return evasionByDisabilities;
+  }
 }

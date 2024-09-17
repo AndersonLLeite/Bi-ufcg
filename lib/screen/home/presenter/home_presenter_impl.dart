@@ -81,6 +81,12 @@ class HomePresenterImpl implements HomePresenter {
     _view.updateEvasionByColor(dataService.getEvasionByColor(courses, terms));
     _view.updateEvasionByAge(dataService.getEvasionByAge(courses, terms));
     _view.updateEvasionByGender(dataService.getEvasionByGender(courses, terms));
+    _view.updateEvasionByDisabilities(
+        dataService.getEvasionByDisabilities(courses, terms));
+    _view.updateEvasionBySecondarySchoolType(
+        dataService.getEvasionBySecondarySchoolType(courses, terms));
+    _view.updateEvasionByAdmissionType(
+        dataService.getEvasionByAdmissionType(courses, terms));
   }
 
   @override

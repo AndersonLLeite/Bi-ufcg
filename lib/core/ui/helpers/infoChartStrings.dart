@@ -45,6 +45,12 @@ class InfoChartStrings {
       'A evasão por idade analisa a evasão dos discentes de acordo com a faixa etária ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e a idade dos discentes, identificando possíveis disparidades no contexto da evasão.';
   String get evasionByGender =>
       'A evasão por gênero analisa a evasão dos discentes de acordo com o gênero ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e o gênero dos discentes, identificando possíveis disparidades no contexto da evasão.';
+  String get evasionByAdmissionType =>
+      'A evasão por forma de ingresso analisa a evasão dos discentes de acordo com a forma de ingresso ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e a forma de ingresso dos discentes, identificando possíveis disparidades no contexto da evasão.';
+  String get evasionBySecondarySchool =>
+      'A evasão por tipo de ensino médio analisa a evasão dos discentes de acordo com o tipo de ensino médio ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e o tipo de ensino médio dos discentes, identificando possíveis disparidades no contexto da evasão.';
+  String get evasionByDisabilities =>
+      'A evasão por deficiência analisa a evasão dos discentes de acordo com a presença de deficiências ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e a presença de deficiências dos discentes, identificando possíveis disparidades no contexto da evasão.';
 }
 
 extension InfoChartStringsExtensions on BuildContext {

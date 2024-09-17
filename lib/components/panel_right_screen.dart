@@ -38,7 +38,7 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
                   child: SizedBox(
                     width: double.infinity,
                     child: ListTile(
-                      title: Text("Perfil do Discente",
+                      title: Text("Perfil dos Discentes",
                           style: context.textStyles.title),
                       subtitle: Text(
                         "Parametros Sociais",
@@ -82,6 +82,16 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
               dataMap: data.disabilitiesDistribution,
               title: 'Deficiência',
               infoMessage: context.infoStrings.disabilityInfo,
+            ),
+            ChartsSection(
+              dataMap: data.admissionTypeDistribution,
+              title: 'Forma de Ingresso',
+              infoMessage: context.infoStrings.admissionInfo,
+            ),
+            ChartsSection(
+              dataMap: data.secondarySchoolTypeDistribution,
+              title: 'Ensino Médio',
+              infoMessage: context.infoStrings.secondarySchoolInfo,
             ),
           ],
         ),

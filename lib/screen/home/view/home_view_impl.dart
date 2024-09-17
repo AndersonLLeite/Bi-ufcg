@@ -303,4 +303,27 @@ abstract class HomeViewImpl extends State<HomePage>
     context.read<Data>().setEvasionByGender(evasionByGender);
     print('evasionByGender:  $evasionByGender');
   }
+
+  @override
+  void updateEvasionByAdmissionType(
+      Map<String, Map<String, double>> evasionByAdmissionType) {
+    context.read<Data>().setEvasionByAdmissionType(evasionByAdmissionType);
+    print('evasionByAdmissionType:  $evasionByAdmissionType');
+  }
+
+  @override
+  void updateEvasionBySecondarySchoolType(
+      Map<String, Map<String, double>> evasionBySecondarySchoolType) {
+    context
+        .read<Data>()
+        .setEvasionBySecondarySchoolType(evasionBySecondarySchoolType);
+    print('evasionBySecondarySchoolType:  $evasionBySecondarySchoolType');
+  }
+
+  @override
+  void updateEvasionByDisabilities(
+      Map<String, Map<String, double>> evasionByDisabilities) {
+    context.read<Data>().setEvasionByDisabilities(evasionByDisabilities);
+    print('evasionByDisabilities:  $evasionByDisabilities');
+  }
 }

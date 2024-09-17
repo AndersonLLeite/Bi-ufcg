@@ -83,16 +83,6 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                   infoMessage: context.infoStrings.inactivityPerPeriodoDeEvasao,
                 ),
                 ChartsSection(
-                  dataMap: data.admissionTypeDistribution,
-                  title: 'Forma de Ingresso',
-                  infoMessage: context.infoStrings.admissionInfo,
-                ),
-                ChartsSection(
-                  dataMap: data.secondarySchoolTypeDistribution,
-                  title: 'Ensino Médio',
-                  infoMessage: context.infoStrings.secondarySchoolInfo,
-                ),
-                ChartsSection(
                   dataMap: data.creditCompletedVsFailedDistribution,
                   title: 'Créditos Completados vs Falhados',
                   infoMessage: context.infoStrings.creditCompletedVsFailedInfo,
@@ -121,12 +111,24 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                 ),
                 ChartsSection(
                     dataMap: data.evasionByAge,
-                    title: 'Idade de Evasão',
+                    title: 'Evasão Por Idade',
                     infoMessage: context.infoStrings.evasionByAge),
                 ChartsSection(
                     dataMap: data.evasionByGender,
-                    title: 'Gênero de Evasão',
+                    title: 'Evasão Por Gênero',
                     infoMessage: context.infoStrings.evasionByGender),
+                ChartsSection(
+                    dataMap: data.evasionByAdmissionType,
+                    title: ' Evasão Por Forma de Ingresso',
+                    infoMessage: context.infoStrings.evasionByAdmissionType),
+                ChartsSection(
+                    dataMap: data.evasionBySecondarySchoolType,
+                    title: 'Evasão Por Tipo de Ensino Médio',
+                    infoMessage: context.infoStrings.evasionBySecondarySchool),
+                ChartsSection(
+                    dataMap: data.evasionByDisabilities,
+                    title: 'Evasão Por Deficiência',
+                    infoMessage: context.infoStrings.evasionByDisabilities),
               ],
             ),
           )

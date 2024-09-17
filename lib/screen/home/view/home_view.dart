@@ -67,6 +67,15 @@ abstract class HomeView {
 
   void updateEvasionByGender(Map<String, Map<String, double>> evasionByGender);
 
+  void updateEvasionByAdmissionType(
+      Map<String, Map<String, double>> evasionByAdmissionType);
+
+  void updateEvasionBySecondarySchoolType(
+      Map<String, Map<String, double>> evasionBySecondarySchoolType);
+
+  void updateEvasionByDisabilities(
+      Map<String, Map<String, double>> evasionByDisabilities);
+
   void setTerms(List<String> terms);
 
   void changeIndexMenu(int index);

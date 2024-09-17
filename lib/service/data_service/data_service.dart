@@ -41,4 +41,10 @@ abstract class DataService {
       List<Course> courses, List<String> terms);
   Map<String, Map<String, double>> getEvasionByGender(
       List<Course> courses, List<String> terms);
+  Map<String, Map<String, double>> getEvasionByDisabilities(
+      List<Course> courses, List<String> terms);
+  Map<String, Map<String, double>> getEvasionBySecondarySchoolType(
+      List<Course> courses, List<String> terms);
+  Map<String, Map<String, double>> getEvasionByAdmissionType(
+      List<Course> courses, List<String> terms);
 }

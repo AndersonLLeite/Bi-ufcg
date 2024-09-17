@@ -22,6 +22,9 @@ class Data with ChangeNotifier {
   Map<String, Map<String, double>> _evasionByColor = {};
   Map<String, Map<String, double>> _evasionByAge = {};
   Map<String, Map<String, double>> _evasionByGender = {};
+  Map<String, Map<String, double>> _evasionByAdmissionType = {};
+  Map<String, Map<String, double>> _evasionBySecondarySchoolType = {};
+  Map<String, Map<String, double>> _evasionByDisabilities = {};
 
   // Getters
   //Map<String, double> get enrollmentEvolution => _enrollmentEvolution;
@@ -58,6 +61,12 @@ class Data with ChangeNotifier {
   Map<String, Map<String, double>> get evasionByColor => _evasionByColor;
   Map<String, Map<String, double>> get evasionByAge => _evasionByAge;
   Map<String, Map<String, double>> get evasionByGender => _evasionByGender;
+  Map<String, Map<String, double>> get evasionByAdmissionType =>
+      _evasionByAdmissionType;
+  Map<String, Map<String, double>> get evasionBySecondarySchoolType =>
+      _evasionBySecondarySchoolType;
+  Map<String, Map<String, double>> get evasionByDisabilities =>
+      _evasionByDisabilities;
 
   // Setters com notificações
 
@@ -169,6 +178,24 @@ class Data with ChangeNotifier {
 
   void setEvasionByGender(Map<String, Map<String, double>> evasionByGender) {
     _evasionByGender = evasionByGender;
+    notifyListeners();
+  }
+
+  void setEvasionByAdmissionType(
+      Map<String, Map<String, double>> evasionByAdmissionType) {
+    _evasionByAdmissionType = evasionByAdmissionType;
+    notifyListeners();
+  }
+
+  void setEvasionBySecondarySchoolType(
+      Map<String, Map<String, double>> evasionBySecondarySchoolType) {
+    _evasionBySecondarySchoolType = evasionBySecondarySchoolType;
+    notifyListeners();
+  }
+
+  void setEvasionByDisabilities(
+      Map<String, Map<String, double>> evasionByDisabilities) {
+    _evasionByDisabilities = evasionByDisabilities;
     notifyListeners();
   }
 }
