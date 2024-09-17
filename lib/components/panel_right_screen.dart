@@ -1,8 +1,8 @@
-import 'package:bi_ufcg/components/generic_section.dart';
+import 'package:bi_ufcg/components/charts_section.dart';
 import 'package:bi_ufcg/core/ui/helpers/infoChartStrings.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,7 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
                       title: Text("Perfil do Discente",
                           style: context.textStyles.title),
                       subtitle: Text(
-                        "Parametros sociais",
+                        "Parametros Sociais",
                         style: context.textStyles.subtitle,
                       ),
                     ),
@@ -70,7 +70,7 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
             ),
             ChartsSection(
               dataMap: data.colorDistribution,
-              title: 'Cor/Raça',
+              title: 'Cor',
               infoMessage: context.infoStrings.colorInfo,
             ),
             ChartsSection(

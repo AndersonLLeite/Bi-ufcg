@@ -1,5 +1,5 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:bi_ufcg/repositories/auth/auth_repository.dart';
 import 'package:bi_ufcg/repositories/auth/auth_repository_impl.dart';
 import 'package:bi_ufcg/screen/auth/login/login_route.dart';
@@ -34,14 +34,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'BI UFCG',
           theme: ThemeData(
-            scaffoldBackgroundColor: context.colors.secondary,
-            primarySwatch: Colors.blue,
-            //  canvasColor: context.colors.quinary
-          ),
+              scaffoldBackgroundColor: context.colors.secondary,
+              primarySwatch: Colors.blue,
+              canvasColor: context.colors.primary),
           routes: {
-            // '/': (_) => const SplashRoute(),
-            // '/login': (context) => const LoginRoute(),
-            // '/home': (context) => const HomeRoute(),
             '/': (_) => const SplashRoute(),
             '/login': (context) => const LoginRoute(),
             '/home': (context) => const HomeRoute(),

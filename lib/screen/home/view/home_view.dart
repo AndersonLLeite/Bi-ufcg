@@ -17,38 +17,55 @@ abstract class HomeView {
   //void updateEnrollmentEvolution(Map<String, int> enrollmentEvolution);
 
   void updateGenderDistribution(
-      Map<String, Map<String, int>> genderDistribution);
+      Map<String, Map<String, double>> genderDistribution);
 
-  void updateAgeDistribution(Map<String, Map<String, int>> ageDistribution);
+  void updateAgeDistribution(Map<String, Map<String, double>> ageDistribution);
 
   void updateAffirmativePolicyDistribution(
-      Map<String, Map<String, int>> affirmativePolicyDistribution);
+      Map<String, Map<String, double>> affirmativePolicyDistribution);
 
   void updateStatusDistribution(
-      Map<String, Map<String, int>> statusDistribution);
+      Map<String, Map<String, double>> statusDistribution);
 
   void updateInactivityReasonDistribution(
-      Map<String, Map<String, int>> inactivityReasonDistribution);
+      Map<String, Map<String, double>> inactivityReasonDistribution);
 
   void updateAdmissionTypeDistribution(
-      Map<String, Map<String, int>> admissionTypeDistribution);
+      Map<String, Map<String, double>> admissionTypeDistribution);
 
   void updateSecondarySchoolTypeDistribution(
-      Map<String, Map<String, int>> secondarySchoolTypeDistribution);
+      Map<String, Map<String, double>> secondarySchoolTypeDistribution);
 
   void updateOriginDistribution(
-      Map<String, Map<String, int>> originDistribution);
+      Map<String, Map<String, double>> originDistribution);
 
-  void updateColorDistribution(Map<String, Map<String, int>> colorDistribution);
+  void updateColorDistribution(
+      Map<String, Map<String, double>> colorDistribution);
 
   void updateDisabilitiesDistribution(
-      Map<String, Map<String, int>> disabilitiesDistribution);
+      Map<String, Map<String, double>> disabilitiesDistribution);
 
   void updateInactivityPerPeriodoDeEvasaoDistribution(
-      Map<String, Map<String, int>> inactivityPerPeriodoDeEvasaoDistribution);
+      Map<String, Map<String, double>>
+          inactivityPerPeriodoDeEvasaoDistribution);
 
   void updateAgeAtEnrollmentDistribution(
-      Map<String, Map<String, int>> ageAtEnrollmentDistribution);
+      Map<String, Map<String, double>> ageAtEnrollmentDistribution);
+
+  void updateCreditCompletedVsFailedDistribution(
+      Map<String, Map<String, double>> creditCompletedVsFailedDistribution);
+
+  void updateEvasionStatisticsByEvasionPeriod(
+      Map<String, Map<String, double>> evasionStatisticsByPeriod);
+
+  void updateGraduationStatisticsByEvasionPeriod(
+      Map<String, Map<String, double>> graduationStatisticsByPeriod);
+
+  void updateEvasionByColor(Map<String, Map<String, double>> evasionByRace);
+
+  void updateEvasionByAge(Map<String, Map<String, double>> evasionByAge);
+
+  void updateEvasionByGender(Map<String, Map<String, double>> evasionByGender);
 
   void setTerms(List<String> terms);
 

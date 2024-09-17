@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class LineChartDistribuition extends StatefulWidget {
-  final Map<String, Map<String, int>> dataMap; // Dados no formato genérico
+  final Map<String, Map<String, double>> dataMap; // Dados no formato genérico
 
   const LineChartDistribuition({
     Key? key,
@@ -248,10 +248,9 @@ class _LineChartDistribuitionState extends State<LineChartDistribuition> {
                   final categoryIndex =
                       _getCategoryIndex(entry.key, widget.dataMap);
                   final spotColor = ColorsApp.getColorForIndex(categoryIndex);
-                  return entry.value.toDouble() == spot.y &&
-                      spotColor == spot.bar.color;
+                  return entry.value == spot.y && spotColor == spot.bar.color;
                 },
-                orElse: () => const MapEntry('Unknown', 0),
+                orElse: () => const MapEntry('Unknown', 0.0),
               ).key;
 
               final color = ColorsApp.getColorForIndex(
@@ -273,9 +272,17 @@ class _LineChartDistribuitionState extends State<LineChartDistribuition> {
                 periodShown = true;
               }
 
+              // Formatação do valor
+              String formattedValue = spot.y % 1 == 0
+                  ? spot.y
+                      .toInt()
+                      .toString() // Sem casas decimais se for inteiro
+                  : spot.y.toStringAsFixed(
+                      2); // Com uma casa decimal se for quebrado
+
               children.add(
                 TextSpan(
-                  text: '$category:  ${spot.y.toInt()}',
+                  text: '$category:  $formattedValue',
                   style: TextStyle(
                     color: color,
                     fontWeight: FontWeight.bold,
@@ -308,9 +315,9 @@ class _LineChartDistribuitionState extends State<LineChartDistribuition> {
       categoryMap.forEach((category, count) {
         if (selectedCategories[category] ?? true) {
           final existingSpots = categoryData.putIfAbsent(category, () => []);
-          if (!existingSpots.any(
-              (spot) => spot.x == i.toDouble() && spot.y == count.toDouble())) {
-            existingSpots.add(FlSpot(i.toDouble(), count.toDouble()));
+          if (!existingSpots
+              .any((spot) => spot.x == i.toDouble() && spot.y == count)) {
+            existingSpots.add(FlSpot(i.toDouble(), count));
           }
         }
       });
@@ -318,21 +325,25 @@ class _LineChartDistribuitionState extends State<LineChartDistribuition> {
 
     return categoryData.entries.map((entry) {
       final index = _getCategoryIndex(entry.key, widget.dataMap);
+      final color = ColorsApp.getColorForIndex(index);
       return LineChartBarData(
         spots: entry.value,
         isCurved: isCurved,
-        color: ColorsApp.getColorForIndex(index),
-        barWidth: 4,
-        isStrokeCapRound: true,
+        color: color,
         belowBarData: BarAreaData(show: false),
+        dotData: FlDotData(show: true),
+        aboveBarData: BarAreaData(show: false),
       );
     }).toList();
   }
 
   int _getCategoryIndex(
-      String category, Map<String, Map<String, int>> dataMap) {
-    final categories =
-        dataMap.values.expand((map) => map.keys).toSet().toList();
-    return categories.indexOf(category);
+      String category, Map<String, Map<String, double>> dataMap) {
+    // Determina o índice da categoria baseado nos dados disponíveis
+    return dataMap.values
+        .expand((map) => map.keys)
+        .toSet()
+        .toList()
+        .indexOf(category);
   }
 }

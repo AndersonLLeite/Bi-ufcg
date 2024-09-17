@@ -17,8 +17,6 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  // Lista de booleans para gerenciar o estado de seleção dos ícones
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +44,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                             _buttonNames[index],
                             style: TextStyle(
                               color: _currentSelectedButton == index
-                                  //tons de preto
                                   ? context.colors.textButtonAppBarSelectedColor
                                   : context
                                       .colors.textButtonAppBarUnselectedColor,

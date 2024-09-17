@@ -71,6 +71,16 @@ class HomePresenterImpl implements HomePresenter {
         .getInactivityPerPeriodoDeEvasaoDistribution(courses, terms));
     _view.updateAgeAtEnrollmentDistribution(
         dataService.getAgeAtEnrollmentDistribution(courses, terms));
+    _view.updateCreditCompletedVsFailedDistribution(
+        dataService.getCreditCompletedVsFailedDistribution(courses, terms));
+
+    _view.updateEvasionStatisticsByEvasionPeriod(
+        dataService.getEvasionStatisticsByEvasionPeriod(courses, terms));
+    _view.updateGraduationStatisticsByEvasionPeriod(
+        dataService.getGraduationStatisticsByEvasionPeriod(courses, terms));
+    _view.updateEvasionByColor(dataService.getEvasionByColor(courses, terms));
+    _view.updateEvasionByAge(dataService.getEvasionByAge(courses, terms));
+    _view.updateEvasionByGender(dataService.getEvasionByGender(courses, terms));
   }
 
   @override

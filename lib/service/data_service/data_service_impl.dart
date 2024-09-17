@@ -6,9 +6,9 @@ class DataServiceImpl implements DataService {
 
   // 1. Evolução do número de matrículas ao longo dos períodos.
   @override
-  Map<String, int> getEnrollmentEvolution(
+  Map<String, double> getEnrollmentEvolution(
       List<Course> courses, List<String> terms) {
-    Map<String, int> enrollmentEvolution = {};
+    Map<String, double> enrollmentEvolution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -27,9 +27,9 @@ class DataServiceImpl implements DataService {
 
   // 2. Distribuição de alunos por gênero no curso ao longo dos períodos.
   @override
-  Map<String, Map<String, int>> getGenderDistribution(
+  Map<String, Map<String, double>> getGenderDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> genderDistribution = {};
+    Map<String, Map<String, double>> genderDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -53,9 +53,9 @@ class DataServiceImpl implements DataService {
 
   // 3. Distribuição dos alunos por idade no curso ao longo dos períodos.
   @override
-  Map<String, Map<String, int>> getAgeDistribution(
+  Map<String, Map<String, double>> getAgeDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> ageDistribution = {};
+    Map<String, Map<String, double>> ageDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -79,9 +79,9 @@ class DataServiceImpl implements DataService {
 
   // 4. Distribuição por cotas de ação afirmativa ao longo dos períodos.
   @override
-  Map<String, Map<String, int>> getAffirmativePolicyDistribution(
+  Map<String, Map<String, double>> getAffirmativePolicyDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> affirmativePolicyDistribution = {};
+    Map<String, Map<String, double>> affirmativePolicyDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -107,9 +107,9 @@ class DataServiceImpl implements DataService {
   }
 
   @override
-  Map<String, Map<String, int>> getStatusDistribution(
+  Map<String, Map<String, double>> getStatusDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> statusDistribution = {};
+    Map<String, Map<String, double>> statusDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -132,9 +132,9 @@ class DataServiceImpl implements DataService {
   }
 
   @override
-  Map<String, Map<String, int>> getInactivityReasonDistribution(
+  Map<String, Map<String, double>> getInactivityReasonDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> inactivityReasonDistribution = {};
+    Map<String, Map<String, double>> inactivityReasonDistribution = {};
 
     for (var course in courses) {
       for (var student in course.students ?? []) {
@@ -174,9 +174,9 @@ class DataServiceImpl implements DataService {
   }
 
   @override
-  Map<String, Map<String, int>> getInactivityPerPeriodoDeEvasaoDistribution(
+  Map<String, Map<String, double>> getInactivityPerPeriodoDeEvasaoDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> inactivityDistribution = {};
+    Map<String, Map<String, double>> inactivityDistribution = {};
 
     for (var course in courses) {
       for (var student in course.students ?? []) {
@@ -214,9 +214,9 @@ class DataServiceImpl implements DataService {
 
   // 8. Distribuição por tipo de admissão ao longo dos períodos.
   @override
-  Map<String, Map<String, int>> getAdmissionTypeDistribution(
+  Map<String, Map<String, double>> getAdmissionTypeDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> admissionTypeDistribution = {};
+    Map<String, Map<String, double>> admissionTypeDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -242,9 +242,9 @@ class DataServiceImpl implements DataService {
 
   // 9. Distribuição por tipo de escola secundária ao longo dos períodos.
   @override
-  Map<String, Map<String, int>> getSecondarySchoolTypeDistribution(
+  Map<String, Map<String, double>> getSecondarySchoolTypeDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> secondarySchoolTypeDistribution = {};
+    Map<String, Map<String, double>> secondarySchoolTypeDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -271,9 +271,9 @@ class DataServiceImpl implements DataService {
 
   // 10. Distribuição por naturalidade ao longo dos períodos (associando nulos a "Desconhecido").
   @override
-  Map<String, Map<String, int>> getOriginDistribution(
+  Map<String, Map<String, double>> getOriginDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> originDistribution = {};
+    Map<String, Map<String, double>> originDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -300,9 +300,9 @@ class DataServiceImpl implements DataService {
 
 // 11. Distribuição por cor ao longo dos períodos (associando nulos a "Desconhecido").
   @override
-  Map<String, Map<String, int>> getColorDistribution(
+  Map<String, Map<String, double>> getColorDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> colorDistribution = {};
+    Map<String, Map<String, double>> colorDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -328,9 +328,9 @@ class DataServiceImpl implements DataService {
 
 // 12. Distribuição por deficiências ao longo dos períodos (ignorando null e listas vazias).
   @override
-  Map<String, Map<String, int>> getDisabilitiesDistribution(
+  Map<String, Map<String, double>> getDisabilitiesDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> disabilitiesDistribution = {};
+    Map<String, Map<String, double>> disabilitiesDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -361,9 +361,9 @@ class DataServiceImpl implements DataService {
   }
 
   @override
-  Map<String, Map<String, int>> getAgeAtEnrollmentDistribution(
+  Map<String, Map<String, double>> getAgeAtEnrollmentDistribution(
       List<Course> courses, List<String> terms) {
-    Map<String, Map<String, int>> ageDistribution = {};
+    Map<String, Map<String, double>> ageDistribution = {};
     for (var course in courses) {
       for (var student in course.students ?? []) {
         if (student.periodoDeIngresso == null ||
@@ -422,5 +422,373 @@ class DataServiceImpl implements DataService {
     } else {
       return '31+';
     }
+  }
+
+  @override
+  Map<String, Map<String, double>> getCreditCompletedVsFailedDistribution(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> creditDistribution = {};
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeIngresso == null ||
+            !terms.contains(student.periodoDeIngresso)) {
+          continue;
+        }
+
+        String period = student.periodoDeIngresso!;
+        int failed = student.creditosFalhados ?? 0;
+        int completed = student.creditosCompletados ?? 0;
+
+        if (!creditDistribution.containsKey(period)) {
+          creditDistribution[period] = {'Completados': 0, 'Falhados': 0};
+        }
+
+        creditDistribution[period]!['Falhados'] =
+            creditDistribution[period]!['Falhados']! + failed;
+        creditDistribution[period]!['Completados'] =
+            creditDistribution[period]!['Completados']! + completed;
+      }
+    }
+    return creditDistribution;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionStatisticsByEvasionPeriod(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionStatistics = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar o motivo de evasão GRADUADO ou REGULAR
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        if (!evasionStatistics.containsKey(student.periodoDeEvasao)) {
+          evasionStatistics[student.periodoDeEvasao] = {
+            'Soma Créditos Tentados': 0,
+            'Soma Créditos Falhados': 0,
+            'Soma Velocidade Média': 0,
+            'Soma Períodos Completados': 0,
+            'Soma CRA': 0,
+            'Total Evadidos': 0,
+          };
+        }
+
+        var currentStats = evasionStatistics[student.periodoDeEvasao]!;
+
+        // Acumular soma dos créditos tentados
+        if (student.creditosTentados != null) {
+          currentStats['Soma Créditos Tentados'] =
+              currentStats['Soma Créditos Tentados']! +
+                  student.creditosTentados!;
+        }
+
+        // Acumular soma dos créditos falhados
+        if (student.creditosFalhados != null) {
+          currentStats['Soma Créditos Falhados'] =
+              currentStats['Soma Créditos Falhados']! +
+                  student.creditosFalhados!;
+        }
+
+        // Acumular soma da velocidade média
+        if (student.velocidadeMedia != null) {
+          currentStats['Soma Velocidade Média'] =
+              currentStats['Soma Velocidade Média']! + student.velocidadeMedia!;
+        }
+
+        // Acumular soma dos períodos completados
+        if (student.periodosCompletados != null) {
+          currentStats['Soma Períodos Completados'] =
+              currentStats['Soma Períodos Completados']! +
+                  student.periodosCompletados!;
+        }
+
+        // Calcular e acumular o CRA
+        if (student.notasAcumuladas != null && student.creditosDoCra != null) {
+          if (student.creditosDoCra! > 0 && student.notasAcumuladas! > 0) {
+            double cra = student.notasAcumuladas! / student.creditosDoCra!;
+            currentStats['Soma CRA'] = currentStats['Soma CRA']! + cra;
+          }
+        }
+
+        // Incrementar o total de evadidos
+        currentStats['Total Evadidos'] = currentStats['Total Evadidos']! + 1;
+      }
+    }
+
+    // Calcular as médias ao final
+    evasionStatistics.forEach((period, stats) {
+      if (stats['Total Evadidos']! > 0) {
+        stats['Média Créditos Tentados'] =
+            stats['Soma Créditos Tentados']! / stats['Total Evadidos']!;
+        stats['Média Créditos Falhados'] =
+            stats['Soma Créditos Falhados']! / stats['Total Evadidos']!;
+        stats['Média Velocidade Média'] =
+            stats['Soma Velocidade Média']! / stats['Total Evadidos']!;
+        stats['Média Períodos Completados'] =
+            stats['Soma Períodos Completados']! / stats['Total Evadidos']!;
+        stats['Média CRA'] = stats['Soma CRA']! / stats['Total Evadidos']!;
+      }
+
+      // Remover as somas intermediárias após o cálculo das médias
+      stats.remove('Soma Créditos Tentados');
+      stats.remove('Soma Créditos Falhados');
+      stats.remove('Soma Velocidade Média');
+      stats.remove('Soma Períodos Completados');
+      stats.remove('Soma CRA');
+      stats.remove('Total Evadidos');
+    });
+
+    return evasionStatistics;
+  }
+
+  @override
+  Map<String, Map<String, double>> getGraduationStatisticsByEvasionPeriod(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> graduationStatistics = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Considerar apenas o motivo de evasão "GRADUADO"
+        if (student.motivoDeEvasao != 'GRADUADO') {
+          continue;
+        }
+
+        if (!graduationStatistics.containsKey(student.periodoDeEvasao)) {
+          graduationStatistics[student.periodoDeEvasao] = {
+            'Soma Créditos Tentados': 0,
+            'Soma Créditos Falhados': 0,
+            'Soma Velocidade Média': 0,
+            'Soma Períodos Completados': 0,
+            'Soma CRA': 0,
+            'Total Graduados': 0,
+          };
+        }
+
+        var currentStats = graduationStatistics[student.periodoDeEvasao]!;
+
+        // Acumular soma dos créditos tentados
+        if (student.creditosTentados != null) {
+          currentStats['Soma Créditos Tentados'] =
+              currentStats['Soma Créditos Tentados']! +
+                  student.creditosTentados!;
+        }
+
+        // Acumular soma dos créditos falhados
+        if (student.creditosFalhados != null) {
+          currentStats['Soma Créditos Falhados'] =
+              currentStats['Soma Créditos Falhados']! +
+                  student.creditosFalhados!;
+        }
+
+        // Acumular soma da velocidade média
+        if (student.velocidadeMedia != null) {
+          currentStats['Soma Velocidade Média'] =
+              currentStats['Soma Velocidade Média']! + student.velocidadeMedia!;
+        }
+
+        // Acumular soma dos períodos completados
+        if (student.periodosCompletados != null) {
+          currentStats['Soma Períodos Completados'] =
+              currentStats['Soma Períodos Completados']! +
+                  student.periodosCompletados!;
+        }
+
+        // Calcular e acumular o CRA
+        if (student.notasAcumuladas != null && student.creditosDoCra != null) {
+          if (student.creditosDoCra! > 0 && student.notasAcumuladas! > 0) {
+            double cra = student.notasAcumuladas! / student.creditosDoCra!;
+            currentStats['Soma CRA'] = currentStats['Soma CRA']! + cra;
+          }
+        }
+
+        // Incrementar o total de graduados
+        currentStats['Total Graduados'] = currentStats['Total Graduados']! + 1;
+      }
+    }
+
+    // Calcular as médias ao final
+    graduationStatistics.forEach((period, stats) {
+      if (stats['Total Graduados']! > 0) {
+        stats['Média Créditos Tentados'] =
+            stats['Soma Créditos Tentados']! / stats['Total Graduados']!;
+        stats['Média Créditos Falhados'] =
+            stats['Soma Créditos Falhados']! / stats['Total Graduados']!;
+        stats['Média Velocidade Média'] =
+            stats['Soma Velocidade Média']! / stats['Total Graduados']!;
+        stats['Média Períodos Completados'] =
+            stats['Soma Períodos Completados']! / stats['Total Graduados']!;
+        stats['Média CRA'] = stats['Soma CRA']! / stats['Total Graduados']!;
+      }
+
+      // Remover as somas intermediárias após o cálculo das médias
+      stats.remove('Soma Créditos Tentados');
+      stats.remove('Soma Créditos Falhados');
+      stats.remove('Soma Velocidade Média');
+      stats.remove('Soma Períodos Completados');
+      stats.remove('Soma CRA');
+      stats.remove('Total Graduados');
+    });
+
+    return graduationStatistics;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionByColor(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionByColor = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar os motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Inicializa o período se ainda não estiver no mapa
+        if (!evasionByColor.containsKey(student.periodoDeEvasao)) {
+          evasionByColor[student.periodoDeEvasao] = {};
+        }
+
+        String cor = student.cor ?? 'Desconhecido';
+
+        // Incrementa o contador da cor
+        if (!evasionByColor[student.periodoDeEvasao]!.containsKey(cor)) {
+          evasionByColor[student.periodoDeEvasao]![cor] = 0;
+        }
+
+        evasionByColor[student.periodoDeEvasao]![cor] =
+            evasionByColor[student.periodoDeEvasao]![cor]! + 1;
+      }
+    }
+
+    return evasionByColor;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionByAge(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionByAgeGroup = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Calcula a idade no momento da evasão
+        int idadeNoMomentoDaEvasao = _calcularIdadeNaEvasao(
+          int.parse(student.idade),
+          student.periodoDeIngresso,
+          student.periodoDeEvasao!,
+        );
+
+        // Obtém a faixa etária
+        String faixaEtaria = _getAgeRange(idadeNoMomentoDaEvasao.toString());
+
+        // Adiciona o período de evasão no mapa, se não existir
+        if (!evasionByAgeGroup.containsKey(student.periodoDeEvasao)) {
+          evasionByAgeGroup[student.periodoDeEvasao!] = {};
+        }
+
+        // Adiciona a faixa etária no mapa para o período de evasão, se não existir
+        if (!evasionByAgeGroup[student.periodoDeEvasao]!
+            .containsKey(faixaEtaria)) {
+          evasionByAgeGroup[student.periodoDeEvasao]![faixaEtaria] = 0;
+        }
+
+        // Incrementa o contador da faixa etária para o período de evasão
+        evasionByAgeGroup[student.periodoDeEvasao]![faixaEtaria] =
+            evasionByAgeGroup[student.periodoDeEvasao]![faixaEtaria]! + 1;
+      }
+    }
+
+    return evasionByAgeGroup;
+  }
+
+// Método para calcular a idade no momento da evasão
+  int _calcularIdadeNaEvasao(
+      int idadeAtual, String periodoIngresso, String periodoEvasao) {
+    List<String> partesPeriodoIngresso = periodoIngresso.split('.');
+    int anoIngresso = int.parse(partesPeriodoIngresso[0]);
+
+    List<String> partesPeriodoEvasao = periodoEvasao.split('.');
+    int anoEvasao = int.parse(partesPeriodoEvasao[0]);
+
+    // Calcula a diferença de anos entre o ingresso e a evasão
+    int diferencaAnos = anoEvasao - anoIngresso;
+
+    // Calcula a idade no momento da evasão
+    int idadeNaEvasao = idadeAtual - diferencaAnos;
+
+    return idadeNaEvasao;
+  }
+
+  @override
+  Map<String, Map<String, double>> getEvasionByGender(
+      List<Course> courses, List<String> terms) {
+    Map<String, Map<String, double>> evasionByGender = {};
+
+    for (var course in courses) {
+      for (var student in course.students ?? []) {
+        if (student.periodoDeEvasao == null ||
+            !terms.contains(student.periodoDeEvasao) ||
+            student.situacao == "ATIVO") {
+          continue;
+        }
+
+        // Ignorar os motivos de evasão REGULAR e GRADUADO
+        if (student.motivoDeEvasao == 'GRADUADO' ||
+            student.motivoDeEvasao == 'REGULAR') {
+          continue;
+        }
+
+        // Inicializa o período se ainda não estiver no mapa
+        if (!evasionByGender.containsKey(student.periodoDeEvasao)) {
+          evasionByGender[student.periodoDeEvasao] = {};
+        }
+
+        String genero = student.genero ?? 'Desconhecido';
+
+        // Incrementa o contador do gênero
+        if (!evasionByGender[student.periodoDeEvasao]!.containsKey(genero)) {
+          evasionByGender[student.periodoDeEvasao]![genero] = 0;
+        }
+
+        evasionByGender[student.periodoDeEvasao]![genero] =
+            evasionByGender[student.periodoDeEvasao]![genero]! + 1;
+      }
+    }
+
+    return evasionByGender;
   }
 }

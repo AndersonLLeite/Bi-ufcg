@@ -2,12 +2,11 @@ import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/indicator.dart';
 
 class PieChartDistribuition extends StatefulWidget {
-  final Map<String, Map<String, int>> dataMap; // Dados gerais
+  final Map<String, Map<String, num>> dataMap; // Dados gerais
 
   const PieChartDistribuition({
     Key? key,
@@ -38,7 +37,7 @@ class _PieChartDistribuitionState extends State<PieChartDistribuition> {
     }
 
     // Dados filtrados ou combinados conforme o período selecionado
-    final Map<String, int> filteredData = <String, int>{};
+    final Map<String, num> filteredData = <String, num>{};
     if (selectedPeriod == 'Períodos Selecionados') {
       widget.dataMap.forEach((_, data) {
         data.forEach((key, value) {
@@ -179,7 +178,7 @@ class _PieChartDistribuitionState extends State<PieChartDistribuition> {
   }
 
   // Cria as seções do gráfico de pizza
-  List<PieChartSectionData> showingSections(Map<String, int> filteredData) {
+  List<PieChartSectionData> showingSections(Map<String, num> filteredData) {
     final total = filteredData.values.reduce((a, b) => a + b).toDouble();
 
     return List.generate(filteredData.length, (i) {
@@ -189,14 +188,23 @@ class _PieChartDistribuitionState extends State<PieChartDistribuition> {
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
 
       final entry = filteredData.entries.elementAt(i);
-      final percentage = (entry.value / total) * 100;
+      final percentage = (entry.value.toDouble() / total) * 100;
+
+      // Formatação do título
+      String title = showPercentage
+          ? '${percentage.toStringAsFixed(1)}%'
+          : (entry.value.toDouble() % 1 == 0
+              ? entry.value
+                  .toInt()
+                  .toString() // Sem casas decimais se for inteiro
+              : entry.value
+                  .toDouble()
+                  .toStringAsFixed(2)); // Com uma casa decimal se for quebrado
 
       return PieChartSectionData(
         color: ColorsApp.getColorForIndex(i), // Cor dinâmica para cada política
         value: entry.value.toDouble(),
-        title: showPercentage
-            ? '${percentage.toStringAsFixed(1)}%'
-            : '${entry.value}',
+        title: title,
         radius: radius,
         titleStyle: TextStyle(
           fontSize: fontSize,
@@ -209,7 +217,7 @@ class _PieChartDistribuitionState extends State<PieChartDistribuition> {
   }
 
   // Constrói os indicadores dinamicamente
-  List<Widget> _buildIndicators(Map<String, int> filteredData) {
+  List<Widget> _buildIndicators(Map<String, num> filteredData) {
     return List.generate(filteredData.length, (index) {
       final key = filteredData.keys.elementAt(index);
       final color = ColorsApp.getColorForIndex(index);

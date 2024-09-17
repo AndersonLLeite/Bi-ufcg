@@ -1,25 +1,29 @@
 import 'package:bi_ufcg/components/charts/bar_chart_distribuition.dart';
-import 'package:bi_ufcg/components/charts/generic_bar_chart_grouped.dart';
+import 'package:bi_ufcg/components/charts/bar_chart_grouped.dart';
 import 'package:bi_ufcg/components/charts/line_chart_distribuition.dart';
 import 'package:bi_ufcg/components/charts/pie_chart_distribuition.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:bi_ufcg/service/data/data.dart';
 import 'package:flutter/material.dart';
 
 class ChartsSection extends StatefulWidget {
-  final Map<String, Map<String, int>> dataMap;
+  final Map<String, Map<String, double>> dataMap;
   final String title;
   final bool isBarChartGrouped;
-  final String?
-      infoMessage; // Nova string opcional para a mensagem de informação
+  final String? infoMessage;
+  final bool showBarChart;
+  final bool showPieChart;
+  final bool showLineChart;
 
   const ChartsSection({
     super.key,
     required this.dataMap,
     required this.title,
     this.isBarChartGrouped = false,
-    this.infoMessage, // Inicializando a string opcional
+    this.infoMessage,
+    this.showBarChart = true,
+    this.showPieChart = true,
+    this.showLineChart = true,
   });
 
   @override
@@ -27,7 +31,7 @@ class ChartsSection extends StatefulWidget {
 }
 
 class _ChartsSectionState extends State<ChartsSection> {
-  int selectedChartIndex = 0; // 0: LineChart, 1: BarChart, 2: OutroChart
+  int selectedChartIndex = 0; // 0: barchart, 1: piechart, 2: lineChart
 
   void _showInfoDialog(String message) {
     showDialog(
@@ -40,7 +44,7 @@ class _ChartsSectionState extends State<ChartsSection> {
           content: Text(message, style: context.textStyles.textInfoSubtitle),
           actions: [
             TextButton(
-              child: Text('Fechar', style: TextStyle(color: Colors.blue)),
+              child: const Text('Fechar', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -84,62 +88,68 @@ class _ChartsSectionState extends State<ChartsSection> {
                   ],
                 ),
               ),
-              ListTile(
-                title: Text(
-                  selectedChartIndex == 0
-                      ? widget.isBarChartGrouped
-                          ? 'Distribuição Agrupada'
-                          : 'Distribuição Total'
-                      : selectedChartIndex == 1
-                          ? 'Distribuição'
-                          : 'Evolução',
-                  style: TextStyles.instance.textSubtitleChart,
+              if (widget.showBarChart ||
+                  widget.showPieChart ||
+                  widget.showLineChart)
+                ListTile(
+                  title: Text(
+                    selectedChartIndex == 0
+                        ? widget.isBarChartGrouped
+                            ? 'Distribuição Agrupada'
+                            : 'Distribuição Total'
+                        : selectedChartIndex == 1
+                            ? 'Distribuição'
+                            : 'Evolução',
+                    style: TextStyles.instance.textSubtitleChart,
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.showBarChart)
+                        IconButton(
+                          icon: Icon(
+                            Icons.bar_chart,
+                            color: selectedChartIndex == 0
+                                ? context.colors.chartIconSelectedColor
+                                : context.colors.chartIconUnselectedColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              selectedChartIndex = 0;
+                            });
+                          },
+                        ),
+                      if (widget.showPieChart)
+                        IconButton(
+                          icon: Icon(
+                            Icons.pie_chart,
+                            color: selectedChartIndex == 1
+                                ? context.colors.chartIconSelectedColor
+                                : context.colors.chartIconUnselectedColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              selectedChartIndex = 1;
+                            });
+                          },
+                        ),
+                      if (widget.showLineChart)
+                        IconButton(
+                          icon: Icon(
+                            Icons.show_chart,
+                            color: selectedChartIndex == 2
+                                ? context.colors.chartIconSelectedColor
+                                : context.colors.chartIconUnselectedColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              selectedChartIndex = 2;
+                            });
+                          },
+                        ),
+                    ],
+                  ),
                 ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.bar_chart,
-                        color: selectedChartIndex == 0
-                            ? context.colors.chartIconSelectedColor
-                            : context.colors.chartIconUnselectedColor,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selectedChartIndex = 0;
-                        });
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.pie_chart,
-                        color: selectedChartIndex == 1
-                            ? context.colors.chartIconSelectedColor
-                            : context.colors.chartIconUnselectedColor,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selectedChartIndex = 1;
-                        });
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.show_chart,
-                        color: selectedChartIndex == 2
-                            ? context.colors.chartIconSelectedColor
-                            : context.colors.chartIconUnselectedColor,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selectedChartIndex = 2; // Alterna para LineChart
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
               Expanded(
                 child: selectedChartIndex == 0
                     ? widget.isBarChartGrouped

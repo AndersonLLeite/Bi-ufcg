@@ -2,7 +2,7 @@ import 'package:bi_ufcg/core/ui/helpers/loader.dart';
 import 'package:bi_ufcg/core/ui/helpers/messages.dart';
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/models/student.dart';
-import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -166,20 +166,20 @@ abstract class HomeViewImpl extends State<HomePage>
 
   @override
   void updateGenderDistribution(
-      Map<String, Map<String, int>> genderDistribution) {
+      Map<String, Map<String, double>> genderDistribution) {
     context.read<Data>().setGenderDistribution(genderDistribution);
-    print('genderDistribution:  $genderDistribution');
+    //   print('genderDistribution:  $genderDistribution');
   }
 
   @override
-  void updateAgeDistribution(Map<String, Map<String, int>> ageDistribution) {
+  void updateAgeDistribution(Map<String, Map<String, double>> ageDistribution) {
     context.read<Data>().setAgeDistribution(ageDistribution);
-    print('ageDistribution:  $ageDistribution');
+    //   print('ageDistribution:  $ageDistribution');
   }
 
   @override
   void updateAffirmativePolicyDistribution(
-      Map<String, Map<String, int>> affirmativePolicyDistribution) {
+      Map<String, Map<String, double>> affirmativePolicyDistribution) {
     context
         .read<Data>()
         .setAffirmativePolicyDistribution(affirmativePolicyDistribution);
@@ -187,14 +187,14 @@ abstract class HomeViewImpl extends State<HomePage>
 
   @override
   void updateStatusDistribution(
-      Map<String, Map<String, int>> statusDistribution) {
+      Map<String, Map<String, double>> statusDistribution) {
     context.read<Data>().setStatusDistribution(statusDistribution);
-    print('statusDistribuition:  $statusDistribution');
+    //   print('statusDistribuition:  $statusDistribution');
   }
 
   @override
   void updateInactivityReasonDistribution(
-      Map<String, Map<String, int>> inactivityReasonDistribution) {
+      Map<String, Map<String, double>> inactivityReasonDistribution) {
     context
         .read<Data>()
         .setInactivityReasonDistribution(inactivityReasonDistribution);
@@ -203,58 +203,104 @@ abstract class HomeViewImpl extends State<HomePage>
 
   @override
   void updateAdmissionTypeDistribution(
-      Map<String, Map<String, int>> admissionTypeDistribution) {
+      Map<String, Map<String, double>> admissionTypeDistribution) {
     context
         .read<Data>()
         .setAdmissionTypeDistribution(admissionTypeDistribution);
-    print('admissionTypeDistribution:  $admissionTypeDistribution');
+//    print('admissionTypeDistribution:  $admissionTypeDistribution');
   }
 
   @override
   void updateSecondarySchoolTypeDistribution(
-      Map<String, Map<String, int>> secondarySchoolTypeDistribution) {
+      Map<String, Map<String, double>> secondarySchoolTypeDistribution) {
     context
         .read<Data>()
         .setSecondarySchoolTypeDistribution(secondarySchoolTypeDistribution);
-    print('secondarySchoolTypeDistribution:  $secondarySchoolTypeDistribution');
+    //   print('secondarySchoolTypeDistribution:  $secondarySchoolTypeDistribution');
   }
 
   @override
   void updateOriginDistribution(
-      Map<String, Map<String, int>> originDistribution) {
+      Map<String, Map<String, double>> originDistribution) {
     context.read<Data>().setOriginDistribution(originDistribution);
-    print('originDistribution:  $originDistribution');
+    //   print('originDistribution:  $originDistribution');
   }
 
   @override
   void updateColorDistribution(
-      Map<String, Map<String, int>> colorDistribution) {
+      Map<String, Map<String, double>> colorDistribution) {
     context.read<Data>().setColorDistribution(colorDistribution);
-    print('colorDistribution:  $colorDistribution');
+    //  print('colorDistribution:  $colorDistribution');
   }
 
   @override
   void updateDisabilitiesDistribution(
-      Map<String, Map<String, int>> disabilitiesDistribution) {
+      Map<String, Map<String, double>> disabilitiesDistribution) {
     context.read<Data>().setDisabilitiesDistribution(disabilitiesDistribution);
-    print('disabilitiesDistribution:  $disabilitiesDistribution');
+    //  print('disabilitiesDistribution:  $disabilitiesDistribution');
   }
 
   @override
   void updateInactivityPerPeriodoDeEvasaoDistribution(
-      Map<String, Map<String, int>> inactivityPerPeriodoDeEvasaoDistribution) {
+      Map<String, Map<String, double>>
+          inactivityPerPeriodoDeEvasaoDistribution) {
     context.read<Data>().setInactivityPerPeriodoDeEvasaoDistribution(
         inactivityPerPeriodoDeEvasaoDistribution);
-    print(
-        'inactivityPerPeriodoDeEvasaoDistribution:  $inactivityPerPeriodoDeEvasaoDistribution');
+    //  print(
+//        'inactivityPerPeriodoDeEvasaoDistribution:  $inactivityPerPeriodoDeEvasaoDistribution');
   }
 
   @override
   void updateAgeAtEnrollmentDistribution(
-      Map<String, Map<String, int>> ageAtEnrollmentDistribution) {
+      Map<String, Map<String, double>> ageAtEnrollmentDistribution) {
     context
         .read<Data>()
         .setAgeAtEnrollmentDistribution(ageAtEnrollmentDistribution);
-    print('ageAtEnrollmentDistribution:  $ageAtEnrollmentDistribution');
+//    print('ageAtEnrollmentDistribution:  $ageAtEnrollmentDistribution');
+  }
+
+  @override
+  void updateCreditCompletedVsFailedDistribution(
+      Map<String, Map<String, double>> creditCompletedVsFailedDistribution) {
+    context.read<Data>().setCreditCompletedVsFailedDistribution(
+        creditCompletedVsFailedDistribution);
+    //  print(
+    //    'creditCompletedVsFailedDistribution:  $creditCompletedVsFailedDistribution');
+  }
+
+  @override
+  void updateEvasionStatisticsByEvasionPeriod(
+      Map<String, Map<String, double>> evasionStatisticsByPeriod) {
+    context
+        .read<Data>()
+        .setEvasionStatisticsByEvasionPeriod(evasionStatisticsByPeriod);
+    //  print('evasionStatisticsByPeriod:  $evasionStatisticsByPeriod');
+  }
+
+  @override
+  void updateGraduationStatisticsByEvasionPeriod(
+      Map<String, Map<String, double>> graduationStatisticsByPeriod) {
+    context
+        .read<Data>()
+        .setGraduationStatisticsByEvasionPeriod(graduationStatisticsByPeriod);
+    //  print('graduationStatisticsByPeriod:  $graduationStatisticsByPeriod');
+  }
+
+  @override
+  void updateEvasionByColor(Map<String, Map<String, double>> evasionByRace) {
+    context.read<Data>().setEvasionByColor(evasionByRace);
+    print('evasionByRace:  $evasionByRace');
+  }
+
+  @override
+  void updateEvasionByAge(Map<String, Map<String, double>> evasionByAge) {
+    context.read<Data>().setEvasionByAge(evasionByAge);
+    print('evasionByAge:  $evasionByAge');
+  }
+
+  @override
+  void updateEvasionByGender(Map<String, Map<String, double>> evasionByGender) {
+    context.read<Data>().setEvasionByGender(evasionByGender);
+    print('evasionByGender:  $evasionByGender');
   }
 }

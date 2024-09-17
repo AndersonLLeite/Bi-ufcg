@@ -1,9 +1,9 @@
-import 'package:bi_ufcg/components/generic_section.dart';
+import 'package:bi_ufcg/components/charts_section.dart';
 
 import 'package:bi_ufcg/core/ui/helpers/infoChartStrings.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
-import 'package:bi_ufcg/service/data/data.dart';
+import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +56,7 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                       width: double.infinity,
                       child: ListTile(
                         title: Text(
-                          "Perfil institucional",
+                          "Perfil Institucional",
                           style: context.textStyles.title,
                         ),
                         subtitle: Text(
@@ -74,12 +74,12 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                     infoMessage: context.infoStrings.statusInfo),
                 ChartsSection(
                   dataMap: data.inactivityReasonsDistribution,
-                  title: 'Motivo de evasão (PI = PE)',
+                  title: 'Motivos de Evasão (PI = PE)',
                   infoMessage: context.infoStrings.inactivityReasonsInfo,
                 ),
                 ChartsSection(
                   dataMap: data.inactivityPerPeriodoDeEvasaoDistribution,
-                  title: 'Motivos de evasão (Por periodo de evasão)',
+                  title: 'Motivos de Evasão por Período de Evasão)',
                   infoMessage: context.infoStrings.inactivityPerPeriodoDeEvasao,
                 ),
                 ChartsSection(
@@ -92,6 +92,41 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                   title: 'Ensino Médio',
                   infoMessage: context.infoStrings.secondarySchoolInfo,
                 ),
+                ChartsSection(
+                  dataMap: data.creditCompletedVsFailedDistribution,
+                  title: 'Créditos Completados vs Falhados',
+                  infoMessage: context.infoStrings.creditCompletedVsFailedInfo,
+                  isBarChartGrouped: true,
+                ),
+                ChartsSection(
+                  dataMap: data.evasionStatisticsByEvasionPeriod,
+                  title: 'Estátisticas de Evadidos por Período de Evasão',
+                  isBarChartGrouped: true,
+                  infoMessage:
+                      context.infoStrings.evasionStatisticsByEvasionPeriod,
+                  showPieChart: false,
+                ),
+                ChartsSection(
+                  dataMap: data.graduationStatisticsByEvasionPeriod,
+                  title: 'Estátisticas de Graduados por Período de Egressão ',
+                  isBarChartGrouped: true,
+                  infoMessage:
+                      context.infoStrings.graduationStatisticsByEvasionPeriod,
+                  showPieChart: false,
+                ),
+                ChartsSection(
+                  dataMap: data.evasionByColor,
+                  title: 'Evasão por Cor',
+                  infoMessage: context.infoStrings.evasionByColor,
+                ),
+                ChartsSection(
+                    dataMap: data.evasionByAge,
+                    title: 'Idade de Evasão',
+                    infoMessage: context.infoStrings.evasionByAge),
+                ChartsSection(
+                    dataMap: data.evasionByGender,
+                    title: 'Gênero de Evasão',
+                    infoMessage: context.infoStrings.evasionByGender),
               ],
             ),
           )
