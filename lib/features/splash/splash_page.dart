@@ -1,23 +1,18 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screen/splash/presenter/splash_presenter.dart';
-import 'package:bi_ufcg/screen/splash/view/splash_view_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/styles/text_styles.dart';
 
 class SplashPage extends StatefulWidget {
-  final SplashPresenter presenter;
-
   const SplashPage({
     Key? key,
-    required this.presenter,
   }) : super(key: key);
 
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends SplashViewImpl {
+class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

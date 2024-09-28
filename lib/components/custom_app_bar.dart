@@ -1,6 +1,6 @@
 import 'package:bi_ufcg/core/ui/styles/app_padding.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
+import 'package:bi_ufcg/screens/home/presenter/home_presenter.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

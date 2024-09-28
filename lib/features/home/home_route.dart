@@ -1,6 +1,6 @@
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
 import 'package:bi_ufcg/repositories/data/data_repository_impl.dart';
-import 'package:bi_ufcg/screen/home/presenter/home_presenter_impl.dart';
+import 'package:bi_ufcg/screens/home/presenter/home_presenter_impl.dart';
 import 'package:bi_ufcg/service/data_service/data_service.dart';
 import 'package:bi_ufcg/service/data_service/data_service_impl.dart';
 import 'package:flutter/material.dart';

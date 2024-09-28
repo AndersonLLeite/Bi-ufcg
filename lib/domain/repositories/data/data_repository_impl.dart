@@ -1,7 +1,6 @@
 import 'package:bi_ufcg/models/course.dart';
 import 'package:bi_ufcg/models/student.dart';
 import 'package:bi_ufcg/repositories/data/data_repository.dart';
-import 'package:dio/dio.dart';
 import '../../core/rest/dio_custom.dart';
 
 class DataRepositoryImpl implements DataRepository {

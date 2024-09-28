@@ -1,10 +1,8 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/screens/splash/splash_page.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
-import 'package:bi_ufcg/repositories/auth/auth_repository.dart';
-import 'package:bi_ufcg/repositories/auth/auth_repository_impl.dart';
-import 'package:bi_ufcg/screen/auth/login/login_route.dart';
-import 'package:bi_ufcg/screen/home/home_route.dart';
-import 'package:bi_ufcg/screen/splash/view/splash_route.dart';
+
+import 'package:bi_ufcg/screens/home/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +26,6 @@ class MyApp extends StatelessWidget {
     return FlutterGetItApplicationBinding(
       bindingsBuilder: () => [
         Bind.lazySingleton<CustomDio>((i) => CustomDio()),
-        Bind.lazySingleton<AuthRepository>((i) => AuthRepositoryImpl(dio: i())),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -38,8 +35,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               canvasColor: context.colors.primary),
           routes: {
-            '/': (_) => const SplashRoute(),
-            '/login': (context) => const LoginRoute(),
+            '/': (_) => const SplashPage(),
             '/home': (context) => const HomeRoute(),
           }),
     );

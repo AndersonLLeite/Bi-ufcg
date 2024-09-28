@@ -1,7 +1,7 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/models/course.dart';
-import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
+import 'package:bi_ufcg/screens/home/presenter/home_presenter.dart';
 import 'package:flutter/material.dart';
 import '../core/ui/styles/app_padding.dart';
 

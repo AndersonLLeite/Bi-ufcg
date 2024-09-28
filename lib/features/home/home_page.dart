@@ -1,5 +1,5 @@
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screen/home/view/home_view_impl.dart';
+import 'package:bi_ufcg/screens/home/view/home_view_impl.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
