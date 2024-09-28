@@ -79,7 +79,7 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                 ),
                 ChartsSection(
                   dataMap: data.inactivityPerPeriodoDeEvasaoDistribution,
-                  title: 'Motivos de Evasão por Período de Evasão)',
+                  title: 'Motivos de Evasão por Período de Evasão',
                   infoMessage: context.infoStrings.inactivityPerPeriodoDeEvasao,
                 ),
                 ChartsSection(

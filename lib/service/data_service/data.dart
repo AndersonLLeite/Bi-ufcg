@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:html';
+
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 
 class Data with ChangeNotifier {
@@ -197,5 +201,64 @@ class Data with ChangeNotifier {
       Map<String, Map<String, double>> evasionByDisabilities) {
     _evasionByDisabilities = evasionByDisabilities;
     notifyListeners();
+  }
+
+  //TODO essa função só serve para a versão web
+  void exportToCsv() {
+    List<List<dynamic>> rows = [];
+
+    rows.add(["Período", "Categoria", "Subcategoria", "Valor"]);
+
+    // Função para ordenar os períodos e adicionar os dados na sequência correta
+    void addDataToRows(String category, Map<String, Map<String, double>> data) {
+      var sortedPeriods = data.keys.toList()
+        ..sort((a, b) => a.compareTo(b)); // Ordena os períodos
+      for (var period in sortedPeriods) {
+        var values = data[period];
+        values?.forEach((subCategory, value) {
+          rows.add([period, category, subCategory, value]);
+        });
+      }
+    }
+
+    addDataToRows("Gênero", _genderDistribution);
+    addDataToRows("Idade", _ageDistribution);
+    addDataToRows("Política Afirmativa", _affirmativePolicyDistribution);
+    addDataToRows("Status", _statusDistribution);
+    addDataToRows("Razões de Inatividade", _inactivityReasonsDistribution);
+    addDataToRows("Tipo de Admissão", _admissionTypeDistribution);
+    addDataToRows(
+        "Tipo de Escola Secundária", _secondarySchoolTypeDistribution);
+    addDataToRows("Origem", _originDistribution);
+    addDataToRows("Cor", _colorDistribution);
+    addDataToRows("Deficiências", _disabilitiesDistribution);
+    addDataToRows("Inatividade por Período de Evasão",
+        _inactivityPerPeriodoDeEvasaoDistribution);
+    addDataToRows("Idade na Matrícula", _ageAtEnrollmentDistribution);
+    addDataToRows(
+        "Créditos Completos vs Falhados", _creditCompletedVsFailedDistribution);
+    addDataToRows("Estatísticas de Evasão por Período",
+        _evasionStatisticsByEvasionPeriod);
+    addDataToRows("Estatísticas de Graduação por Período",
+        _graduationStatisticsByEvasionPeriod);
+    addDataToRows("Evasão por Cor", _evasionByColor);
+    addDataToRows("Evasão por Idade", _evasionByAge);
+    addDataToRows("Evasão por Gênero", _evasionByGender);
+    addDataToRows("Evasão por Tipo de Admissão", _evasionByAdmissionType);
+    addDataToRows(
+        "Evasão por Tipo de Escola Secundária", _evasionBySecondarySchoolType);
+    addDataToRows("Evasão por Deficiências", _evasionByDisabilities);
+
+    // Converte para CSV
+    String csv = const ListToCsvConverter().convert(rows);
+
+    // Exportação para Web (Browser)
+    final bytes = utf8.encode(csv);
+    final blob = Blob([bytes]);
+    final url = Url.createObjectUrlFromBlob(blob);
+    AnchorElement(href: url)
+      ..setAttribute("download", "dados.csv")
+      ..click();
+    Url.revokeObjectUrl(url);
   }
 }

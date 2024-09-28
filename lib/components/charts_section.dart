@@ -154,7 +154,9 @@ class _ChartsSectionState extends State<ChartsSection> {
                 child: selectedChartIndex == 0
                     ? widget.isBarChartGrouped
                         ? BarChartGrouped(dataMap: widget.dataMap)
-                        : BarChartDistribuition(dataMap: widget.dataMap)
+                        : BarChartDistribuition(
+                            dataMap: widget.dataMap,
+                          )
                     : selectedChartIndex == 1
                         ? PieChartDistribuition(dataMap: widget.dataMap)
                         : LineChartDistribuition(dataMap: widget.dataMap),

@@ -1,7 +1,9 @@
 import 'package:bi_ufcg/core/ui/styles/app_padding.dart';
 import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
 import 'package:bi_ufcg/screen/home/presenter/home_presenter.dart';
+import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../core/ui/styles/responsive_layout.dart';
 
@@ -20,53 +22,61 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: context.colors.appBarColor,
-        child: Row(children: [
+      color: context.colors.appBarColor,
+      child: Row(
+        children: [
+          // Coloca os botões de navegação à esquerda
           ...List.generate(
-              _buttonNames.length,
-              (index) => TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _currentSelectedButton = index;
-                      widget.presenter.changeIndexMenu(index);
-                      if (!ResponsiveLayout.isComputer(context)) {
-                        Scaffold.of(context).openDrawer();
-                      }
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppPadding.P10 * 2),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            _buttonNames[index],
-                            style: TextStyle(
-                              color: _currentSelectedButton == index
-                                  ? context.colors.textButtonAppBarSelectedColor
-                                  : context
-                                      .colors.textButtonAppBarUnselectedColor,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(AppPadding.P10 / 2),
-                            width: 60,
-                            height: 2,
-                            decoration: BoxDecoration(
-                              gradient: _currentSelectedButton == index
-                                  ? LinearGradient(
-                                      colors: [
-                                        context.colors.tertiary,
-                                        context.colors.quaternary,
-                                      ],
-                                    )
-                                  : null,
-                            ),
-                          ),
-                        ]),
-                  ))),
+            _buttonNames.length,
+            (index) => TextButton(
+              onPressed: () {
+                setState(() {
+                  _currentSelectedButton = index;
+                  widget.presenter.changeIndexMenu(index);
+                  if (!ResponsiveLayout.isComputer(context)) {
+                    Scaffold.of(context).openDrawer();
+                  }
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(AppPadding.P10 * 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      _buttonNames[index],
+                      style: TextStyle(
+                        color: _currentSelectedButton == index
+                            ? context.colors.textButtonAppBarSelectedColor
+                            : context.colors.textButtonAppBarUnselectedColor,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(AppPadding.P10 / 2),
+                      width: 60,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        gradient: _currentSelectedButton == index
+                            ? LinearGradient(
+                                colors: [
+                                  context.colors.tertiary,
+                                  context.colors.quaternary,
+                                ],
+                              )
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Adiciona o espaço entre os botões e o download à direita
           const SizedBox(width: AppPadding.P10),
+
+          // Mostra as imagens (à esquerda, logo após os botões)
           if (!ResponsiveLayout.isPhoneLimit(context))
             Row(
               children: [
@@ -117,6 +127,32 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ),
               ],
             ),
-        ]));
+
+          const Spacer(),
+
+          Tooltip(
+            message: "Exportar dados no formato CSV",
+            child: IconButton(
+              icon: const Icon(
+                Icons.download,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                try {
+                  Provider.of<Data>(context, listen: false).exportToCsv();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("CSV gerado com sucesso!")),
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Erro ao gerar CSV!")),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

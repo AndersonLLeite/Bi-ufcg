@@ -1,0 +1,89 @@
+main.dart
+models/
+├── course.dart
+├── student.dart
+service/
+├── data_service/
+│   ├── data_service_impl.dart
+│   ├── data_service.dart
+│   ├── data.dart
+├── login/
+│   ├── login_service.dart
+│   ├── login_service_impl.dart
+repositories/
+├── data/
+│   ├── data_repository.dart
+│   ├── data_repository_impl.dart
+├── auth/
+│   ├── auth_repository.dart
+│   ├── auth_repository_impl.dart
+screen/
+├── splash/
+│   ├── view/
+│   │   ├── splash_view_impl.dart
+│   │   ├── splash_view.dart
+│   │   ├── splash_route.dart
+│   ├── presenter/
+│   │   ├── splash_presenter_impl.dart
+│   │   ├── splash_presenter.dart
+│   ├── splash_page.dart
+├── home/
+│   ├── view/
+│   │   ├── home_view.dart
+│   │   ├── home_view_impl.dart
+│   ├── home_route.dart
+│   ├── presenter/
+│   │   ├── home_presenter_impl.dart
+│   │   ├── home_presenter.dart
+│   ├── home_page.dart
+├── auth/
+│   ├── login/
+│   │   ├── view/
+│   │   │   ├── login_view_impl.dart
+│   │   │   ├── login_view.dart
+│   │   ├── login_page.dart
+│   │   ├── presenter/
+│   │   │   ├── login_presenter_impl.dart
+│   │   │   ├── login_presenter.dart
+│   │   ├── login_route.dart
+core/
+├── mvp/
+│   ├── biufcg_presenter.dart
+├── exceptions/
+│   ├── repository_exception.dart
+│   ├── unauthorized_exception.dart
+├── config/
+│   ├── env/
+│   │   ├── env.dart
+├── widgets/
+│   ├── widget_no_data.dart
+│   ├── indicator.dart
+├── ui/
+│   ├── helpers/
+│   │   ├── infoChartStrings.dart
+│   │   ├── messages.dart
+│   │   ├── loader.dart
+│   ├── global/
+│   │   ├── global_context_impl.dart
+│   │   ├── global_context.dart
+│   ├── styles/
+│   │   ├── colors_app.dart
+│   │   ├── app_padding.dart
+│   │   ├── text_styles.dart
+│   │   ├── responsive_layout.dart
+├── rest/
+│   ├── dio_custom.dart
+│   ├── interceptor/
+│   │   ├── auth_interceptor.dart
+estrutura.py
+components/
+├── custom_app_bar.dart
+├── charts/
+│   ├── pie_chart_distribuition.dart
+│   ├── line_chart_distribuition.dart
+│   ├── bar_chart_distribuition.dart
+│   ├── bar_chart_grouped.dart
+├── panel_right_screen.dart
+├── drawer_screen.dart
+├── panel_left_screen.dart
+├── charts_section.dart
