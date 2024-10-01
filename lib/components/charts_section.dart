@@ -2,8 +2,8 @@ import 'package:bi_ufcg/components/charts/bar_chart_distribuition.dart';
 import 'package:bi_ufcg/components/charts/bar_chart_grouped.dart';
 import 'package:bi_ufcg/components/charts/line_chart_distribuition.dart';
 import 'package:bi_ufcg/components/charts/pie_chart_distribuition.dart';
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/ui/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChartsSection extends StatefulWidget {

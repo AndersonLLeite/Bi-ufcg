@@ -45,6 +45,7 @@ dependencies:
   validatorless: ^1.2.3
   loading_animation_widget: ^1.2.1
   provider: ^6.1.2
+  csv: ^6.0.0
                 
 dev_dependencies:
   flutter_test:

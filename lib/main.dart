@@ -1,8 +1,8 @@
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screens/splash/splash_page.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/features/splash/splash_page.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 
-import 'package:bi_ufcg/screens/home/home_route.dart';
+import 'package:bi_ufcg/features/home/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:provider/provider.dart';

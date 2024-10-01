@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bi_ufcg/models/student.dart';
+import 'package:bi_ufcg/domain/models/student.dart';
 import 'package:flutter/foundation.dart';
 
 class Course {

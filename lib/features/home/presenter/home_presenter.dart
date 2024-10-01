@@ -1,5 +1,5 @@
 import 'package:bi_ufcg/core/mvp/biufcg_presenter.dart';
-import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
 
 import '../view/home_view.dart';
 

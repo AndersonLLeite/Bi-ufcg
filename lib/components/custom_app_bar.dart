@@ -1,11 +1,11 @@
-import 'package:bi_ufcg/core/ui/styles/app_padding.dart';
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screens/home/presenter/home_presenter.dart';
+import 'package:bi_ufcg/shared/ui/styles/app_padding.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/features/home/presenter/home_presenter.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/ui/styles/responsive_layout.dart';
+import '../shared/ui/styles/responsive_layout.dart';
 
 List<String> _buttonNames = ["Cursos", "Periodos"];
 int _currentSelectedButton = 0;

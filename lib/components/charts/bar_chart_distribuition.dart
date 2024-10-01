@@ -1,5 +1,5 @@
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/core/widgets/widget_no_data.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/widgets/widget_no_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

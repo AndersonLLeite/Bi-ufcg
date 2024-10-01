@@ -1,4 +1,4 @@
-import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
 
 abstract class DataService {
   Map<String, double> getEnrollmentEvolution(

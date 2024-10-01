@@ -1,4 +1,4 @@
-import 'package:bi_ufcg/models/course.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
 import 'data_service.dart';
 
 class DataServiceImpl implements DataService {

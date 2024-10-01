@@ -1,5 +1,5 @@
-import 'package:bi_ufcg/models/course.dart';
-import 'package:bi_ufcg/models/student.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/student.dart';
 
 abstract class HomeView {
   void setCourse(List<Course> courses);

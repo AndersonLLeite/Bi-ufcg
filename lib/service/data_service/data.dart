@@ -5,8 +5,6 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 
 class Data with ChangeNotifier {
-  // Dados armazenados
-  // Map<String, double> _enrollmentEvolution = {};
   Map<String, Map<String, double>> _genderDistribution = {};
   Map<String, Map<String, double>> _ageDistribution = {};
   Map<String, Map<String, double>> _affirmativePolicyDistribution = {};

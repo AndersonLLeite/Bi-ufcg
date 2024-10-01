@@ -1,14 +1,14 @@
 import 'package:bi_ufcg/components/charts_section.dart';
 
-import 'package:bi_ufcg/core/ui/helpers/infoChartStrings.dart';
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/shared/ui/helpers/infoChartStrings.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/ui/styles/app_padding.dart';
-import '../core/ui/styles/responsive_layout.dart';
+import '../shared/ui/styles/app_padding.dart';
+import '../shared/ui/styles/responsive_layout.dart';
 
 class PanelLeftScreen extends StatefulWidget {
   const PanelLeftScreen({super.key});
@@ -56,11 +56,11 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                       width: double.infinity,
                       child: ListTile(
                         title: Text(
-                          "Perfil Institucional",
+                          "Desempenho Institucional",
                           style: context.textStyles.title,
                         ),
                         subtitle: Text(
-                          "Estatísticas do Perfil Acadêmico e Institucional",
+                          "Estatísticas do Desempenho Institucional",
                           style: context.textStyles.subtitle,
                         ),
                       ),
@@ -69,7 +69,7 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                 ),
                 ChartsSection(
                     dataMap: data.statusDistribution,
-                    title: 'Status da Matrícula',
+                    title: 'Situação do Discente',
                     isBarChartGrouped: true,
                     infoMessage: context.infoStrings.statusInfo),
                 ChartsSection(

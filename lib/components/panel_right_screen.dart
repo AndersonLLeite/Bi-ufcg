@@ -1,12 +1,12 @@
 import 'package:bi_ufcg/components/charts_section.dart';
-import 'package:bi_ufcg/core/ui/helpers/infoChartStrings.dart';
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/core/ui/styles/text_styles.dart';
+import 'package:bi_ufcg/shared/ui/helpers/infoChartStrings.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/ui/styles/text_styles.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/ui/styles/app_padding.dart';
+import '../shared/ui/styles/app_padding.dart';
 
 class PanelRightScreen extends StatefulWidget {
   const PanelRightScreen({super.key});

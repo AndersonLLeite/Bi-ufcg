@@ -1,10 +1,10 @@
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
-import 'package:bi_ufcg/screens/home/view/home_view_impl.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/features/home/view/home_view_impl.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/custom_app_bar.dart';
-import '../../core/ui/styles/responsive_layout.dart';
+import '../../shared/ui/styles/responsive_layout.dart';
 import '../../components/drawer_screen.dart';
 import '../../components/panel_left_screen.dart';
 import '../../components/panel_right_screen.dart';

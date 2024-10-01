@@ -1,6 +1,6 @@
-import 'package:bi_ufcg/models/course.dart';
-import 'package:bi_ufcg/models/student.dart';
-import 'package:bi_ufcg/repositories/data/data_repository.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/student.dart';
+import 'package:bi_ufcg/domain/repositories/data/data_repository.dart';
 import 'package:bi_ufcg/service/data_service/data_service.dart';
 
 import '../view/home_view.dart';

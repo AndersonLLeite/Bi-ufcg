@@ -1,7 +1,7 @@
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/ui/styles/text_styles.dart';
+import '../../shared/ui/styles/text_styles.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({

@@ -1,7 +1,7 @@
-import 'package:bi_ufcg/models/course.dart';
-import 'package:bi_ufcg/models/student.dart';
-import 'package:bi_ufcg/repositories/data/data_repository.dart';
-import '../../core/rest/dio_custom.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/student.dart';
+import 'package:bi_ufcg/domain/repositories/data/data_repository.dart';
+import '../../../core/rest/dio_custom.dart';
 
 class DataRepositoryImpl implements DataRepository {
   final CustomDio dio;

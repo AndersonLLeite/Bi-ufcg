@@ -1,7 +1,7 @@
-import 'package:bi_ufcg/core/ui/helpers/loader.dart';
-import 'package:bi_ufcg/core/ui/helpers/messages.dart';
-import 'package:bi_ufcg/models/course.dart';
-import 'package:bi_ufcg/models/student.dart';
+import 'package:bi_ufcg/shared/ui/helpers/loader.dart';
+import 'package:bi_ufcg/shared/ui/helpers/messages.dart';
+import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/student.dart';
 import 'package:bi_ufcg/service/data_service/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -168,7 +168,7 @@ abstract class HomeViewImpl extends State<HomePage>
   void updateGenderDistribution(
       Map<String, Map<String, double>> genderDistribution) {
     context.read<Data>().setGenderDistribution(genderDistribution);
-    //   print('genderDistribution:  $genderDistribution');
+    print('genderDistribution:  $genderDistribution');
   }
 
   @override

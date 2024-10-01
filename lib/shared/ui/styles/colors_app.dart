@@ -57,17 +57,20 @@ class ColorsApp {
 
   // Lista de cores para os elementos do gráfico
   static const List<Color> chartColors = [
+    // Spring Green
+    Color(0xFFFF00FF),
+    Color(0xFFFFA500),
     Color.fromARGB(255, 255, 0, 170),
     Color(0xFF2196F3),
     Color(0xFF3BFF49),
-    Color(0xFFFFA500),
+
     Color(0xFF6E1BFF),
     Color.fromARGB(179, 5, 5, 5),
     Color(0xFF8B4513),
     Color(0xFFE80054),
     Color(0xFF50E4FF),
-    Color(0xFF00FF7F), // Spring Green
-    Color(0xFFFF00FF), // Magenta
+    Color(0xFF00FF7F),
+    // Magenta
     Color(0xFF0000FF), // Blue
   ];
 

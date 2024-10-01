@@ -1,4 +1,4 @@
-import 'package:bi_ufcg/core/ui/styles/colors_app.dart';
+import 'package:bi_ufcg/shared/ui/styles/colors_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
