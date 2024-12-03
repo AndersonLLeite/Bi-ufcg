@@ -49,7 +49,7 @@ class _PanelRightScreenState extends State<PanelRightScreen> {
             ),
             ChartsSection(
               dataMap: data.genderDistribution,
-              title: 'Gênero',
+              title: 'Sexo',
               infoMessage: context.infoStrings.genderInfo,
               isBarChartGrouped: true,
             ),

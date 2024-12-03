@@ -12,7 +12,7 @@ class InfoChartStrings {
   String get admissionInfo =>
       "Esse dado informa como os discentes ingressaram no curso, classificando-os de acordo com os diferentes tipos de admissão, como vestibular, ENEM ou transferência, ao longo dos períodos acadêmicos. Isso permite identificar quais formas de ingresso foram mais comuns em cada período, ajudando a entender o perfil de entrada dos discentes.";
   String get genderInfo =>
-      'Aqui é mostrada a distribuição de discentes por gênero ao longo dos períodos acadêmicos. Para cada período, são contabilizados os discentes conforme os gêneros informados, como  "Masculino", "Feminino" ou outras categorias especificadas. Esse dado fornece uma visão demográfica sobre o gênero dos discentes que ingressaram em cada período.';
+      'Aqui é mostrada a distribuição de discentes por sexo ao longo dos períodos acadêmicos. Para cada período, são contabilizados os discentes conforme os sexo informados, como  "Masculino", "Feminino" ou outras categorias especificadas. Esse dado fornece uma visão demográfica sobre o sexo dos discentes que ingressaram em cada período.';
   String get ageInfo =>
       "Esse dado classifica os discentes em faixas etárias (como 16-18, 19-21, etc.) e distribui esses grupos ao longo dos períodos acadêmicos. O objetivo é entender a faixa etária predominante em cada período de ingresso, mostrando a diversidade de idades entre os discentes de cada período. A faixa etária é gerada a partir da idade atual dos discentes";
   String get ageAtEnrollmentInfo =>
@@ -44,7 +44,7 @@ class InfoChartStrings {
   String get evasionByAge =>
       'A evasão por idade analisa a evasão dos discentes de acordo com a faixa etária ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e a idade dos discentes, identificando possíveis disparidades no contexto da evasão.';
   String get evasionByGender =>
-      'A evasão por gênero analisa a evasão dos discentes de acordo com o gênero ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e o gênero dos discentes, identificando possíveis disparidades no contexto da evasão.';
+      'A evasão por sexo analisa a evasão dos discentes de acordo com o sexo ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e o sexo dos discentes, identificando possíveis disparidades no contexto da evasão.';
   String get evasionByAdmissionType =>
       'A evasão por forma de ingresso analisa a evasão dos discentes de acordo com a forma de ingresso ao longo dos períodos acadêmicos. Esse dado ajuda a entender a relação entre a evasão e a forma de ingresso dos discentes, identificando possíveis disparidades no contexto da evasão.';
   String get evasionBySecondarySchool =>

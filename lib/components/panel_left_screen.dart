@@ -115,7 +115,7 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
                     infoMessage: context.infoStrings.evasionByAge),
                 ChartsSection(
                     dataMap: data.evasionByGender,
-                    title: 'Evasão Por Gênero',
+                    title: 'Evasão Por Sexo',
                     infoMessage: context.infoStrings.evasionByGender),
                 ChartsSection(
                     dataMap: data.evasionByAdmissionType,
