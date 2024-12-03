@@ -1,4 +1,5 @@
 import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/filter_data.dart';
 import 'package:bi_ufcg/domain/models/student.dart';
 
 abstract class HomeView {
@@ -96,4 +97,6 @@ abstract class HomeView {
   void removeCourseSelectIndex(int index);
   void addTermSelectIndex(int index);
   void removeTermSelectIndex(int index);
+
+  void setFilterData(FilterData filterData);
 }

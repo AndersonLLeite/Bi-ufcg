@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../shared/ui/styles/app_padding.dart';
 import '../shared/ui/styles/responsive_layout.dart';
+import 'custom_app_bar.dart';
 
 class PanelLeftScreen extends StatefulWidget {
   const PanelLeftScreen({super.key});
@@ -41,6 +42,41 @@ class _PanelLeftScreenState extends State<PanelLeftScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
+                FilterAppBar(
+                    // campuses: [
+                    //   'CCS',
+                    //   'CCT',
+                    //   'CDSA',
+                    //   'CEAR',
+                    //   'CDSA',
+                    //   'CT',
+                    //   'CCHLA'
+                    // ],
+                    // centros: [
+                    //   'CCS',
+                    //   'CCT',
+                    //   'CDSA',
+                    //   'CEAR',
+                    //   'CDSA',
+                    //   'CT',
+                    //   'CCHLA'
+                    // ],
+                    // cursos: [
+                    //   'CCS',
+                    //   'CCT',
+                    //   'CDSA',
+                    //   'CEAR',
+                    //   'CDSA',
+                    //   'CT',
+                    //   'CCHLA'
+                    // ],
+                    // periodos: [
+                    //   '2023.1',
+                    //   '2024.1'
+                    // ],
+                    onFiltersChanged: (filters) {
+                  print(filters);
+                }),
                 Padding(
                   padding: const EdgeInsets.only(
                       left: AppPadding.P10 / 2,

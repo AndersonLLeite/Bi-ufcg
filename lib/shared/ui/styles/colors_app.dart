@@ -26,7 +26,7 @@ class ColorsApp {
   //#4B4F54
   Color get senary => const Color(0XFF4B4F54);
 
-  Color get appBarColor => primary;
+  Color get appBarColor => Colors.white;
   Color get panelColor => primary;
   Color get titleSectioColor => secondary;
   Color get chartCardColor => secondary;

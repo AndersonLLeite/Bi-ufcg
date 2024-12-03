@@ -5,7 +5,7 @@ class CustomDio {
 
   CustomDio()
       : dio = Dio(BaseOptions(
-          baseUrl: 'https://eureca.sti.ufcg.edu.br/das/v2',
+          baseUrl: 'https://backend-bi-ufcg.onrender.com',
           connectTimeout: const Duration(milliseconds: 55000),
           receiveTimeout: const Duration(milliseconds: 60000),
         )) {

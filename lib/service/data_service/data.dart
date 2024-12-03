@@ -4,6 +4,11 @@ import 'dart:html';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/models/campus.dart';
+import '../../domain/models/centro.dart';
+import '../../domain/models/curso.dart';
+import '../../domain/models/filter_data.dart';
+
 class Data with ChangeNotifier {
   Map<String, Map<String, double>> _genderDistribution = {};
   Map<String, Map<String, double>> _ageDistribution = {};
@@ -27,6 +32,10 @@ class Data with ChangeNotifier {
   Map<String, Map<String, double>> _evasionByAdmissionType = {};
   Map<String, Map<String, double>> _evasionBySecondarySchoolType = {};
   Map<String, Map<String, double>> _evasionByDisabilities = {};
+
+  // Criando uma instância de Filter com os dados acima
+  FilterData filterData = FilterData();
+  //Filter filters = Filter();
 
   // Getters
   //Map<String, double> get enrollmentEvolution => _enrollmentEvolution;
@@ -69,6 +78,9 @@ class Data with ChangeNotifier {
       _evasionBySecondarySchoolType;
   Map<String, Map<String, double>> get evasionByDisabilities =>
       _evasionByDisabilities;
+
+  // filters
+  FilterData get filter => filterData;
 
   // Setters com notificações
 
@@ -198,6 +210,11 @@ class Data with ChangeNotifier {
   void setEvasionByDisabilities(
       Map<String, Map<String, double>> evasionByDisabilities) {
     _evasionByDisabilities = evasionByDisabilities;
+    notifyListeners();
+  }
+
+  void setFilterData(FilterData filter) {
+    filterData = filter;
     notifyListeners();
   }
 

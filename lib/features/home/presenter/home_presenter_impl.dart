@@ -22,6 +22,15 @@ class HomePresenterImpl implements HomePresenter {
   }
 
   @override
+  void getFilterData() {
+    dataRepository.getFilterData().then((filterData) {
+      _view.setFilterData(filterData);
+    }).catchError((e) {
+      _view.onError(e.toString());
+    });
+  }
+
+  @override
   void getCourses() {
     dataRepository.getCourses().then((courses) {
       courses.sort((a, b) => a.descricao.compareTo(b.descricao));

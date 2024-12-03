@@ -1,4 +1,5 @@
 import 'package:bi_ufcg/domain/models/course.dart';
+import 'package:bi_ufcg/domain/models/filter_data.dart';
 import 'package:bi_ufcg/domain/models/student.dart';
 import 'package:bi_ufcg/domain/repositories/data/data_repository.dart';
 import '../../../core/rest/dio_custom.dart';
@@ -7,6 +8,21 @@ class DataRepositoryImpl implements DataRepository {
   final CustomDio dio;
 
   DataRepositoryImpl({required this.dio});
+
+  @override
+  Future<FilterData> getFilterData() async {
+    try {
+      // Fazendo a requisição GET para a URL
+      final response = await dio.dio.get('/filter_data');
+
+      // Convertendo a resposta em um objeto FilterData
+      final filterData = FilterData.fromMap(response.data);
+      return filterData;
+    } catch (e) {
+      print(e);
+      throw Exception('Erro ao buscar dados de filtro');
+    }
+  }
 
   @override
   Future<List<Course>> getCourses() async {

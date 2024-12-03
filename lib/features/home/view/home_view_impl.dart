@@ -1,3 +1,4 @@
+import 'package:bi_ufcg/domain/models/filter_data.dart';
 import 'package:bi_ufcg/shared/ui/helpers/loader.dart';
 import 'package:bi_ufcg/shared/ui/helpers/messages.dart';
 import 'package:bi_ufcg/domain/models/course.dart';
@@ -24,9 +25,15 @@ abstract class HomeViewImpl extends State<HomePage>
   @override
   void initState() {
     widget.presenter.view = this;
-    widget.presenter.getCourses();
-    widget.presenter.getTerms(14102100);
+    //widget.presenter.getCourses();
+    //widget.presenter.getTerms(14102100);
+    widget.presenter.getFilterData();
     super.initState();
+  }
+
+  @override
+  void setFilterData(FilterData filterData) {
+    context.read<Data>().setFilterData(filterData);
   }
 
   @override

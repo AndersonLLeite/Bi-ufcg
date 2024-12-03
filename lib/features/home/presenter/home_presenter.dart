@@ -26,4 +26,6 @@ abstract class HomePresenter extends BiUfcgPresenter<HomeView> {
   void removeCourseSelectIndex(int index);
   void addTermSelectIndex(int index);
   void removeTermSelectIndex(int index);
+
+  void getFilterData();
 }

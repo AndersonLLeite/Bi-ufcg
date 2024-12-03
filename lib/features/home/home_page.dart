@@ -31,13 +31,12 @@ class _HomePageState extends HomeViewImpl {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 100),
-        child: (ResponsiveLayout.isTinyLimit(context) ||
-                ResponsiveLayout.isTinyHeightLimit(context))
-            ? Container()
-            : CustomAppBar(presenter: widget.presenter),
-      ),
+      // appBar: PreferredSize(
+      //     preferredSize: const Size(double.infinity, 100),
+      //     child: (ResponsiveLayout.isTinyLimit(context) ||
+      //             ResponsiveLayout.isTinyHeightLimit(context))
+      //         ? Container()
+      //         : Container()),
       body: ResponsiveLayout(
         tiny: Container(),
         phone: currentIndex == 0
@@ -54,16 +53,16 @@ class _HomePageState extends HomeViewImpl {
         ),
         computer: Row(
           children: [
-            Expanded(
-                flex: 2,
-                child: DrawerScreen(
-                    courses: listCourses,
-                    homePresenter: widget.presenter,
-                    indexSelected: menuIndexSelected,
-                    isRequestingStudentByCourse: isRequestingStudentsByCourse,
-                    terms: terms)),
-            const Expanded(flex: 5, child: PanelLeftScreen()),
-            const Expanded(flex: 5, child: PanelRightScreen()),
+            // Expanded(
+            //     flex: 1,
+            //     child: DrawerScreen(
+            //         courses: listCourses,
+            //         homePresenter: widget.presenter,
+            //         indexSelected: menuIndexSelected,
+            //         isRequestingStudentByCourse: isRequestingStudentsByCourse,
+            //         terms: terms)),
+            const Expanded(flex: 12, child: PanelLeftScreen()),
+            //const Expanded(flex: 5, child: PanelRightScreen()),
           ],
         ),
       ),
